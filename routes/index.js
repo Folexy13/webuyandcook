@@ -36,7 +36,14 @@ router.get('/', function (req, res, next) {
     var firstName = req.user.fname;
     var lastName = req.user.lname;
     var userImage = req.user.userImage
-  return res.render('index', { title: 'WEBUYNDCOOK', firstName: firstName, lastName: lastName,userImage:userImage, smenus: sMenuChunks,qmenus: qMenuChunks })
+   return res.render('index', {
+     title: 'WEBUYNDCOOK',
+     firstName: firstName,
+     lastName: lastName,
+     userImage: userImage,
+     smenus: sMenuChunks,
+     qmenus: qMenuChunks
+   })
   }
   return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks});
 
@@ -123,11 +130,11 @@ router.get('/shop/checkout',isLoggedin, function (req, res, next) {
 
 router.post('/subscribe', isLoggedin, function (req, res, next) {
   var email = req.body.email
-  var emailMessage = `Hi ${req.user.fname},\n\nThank you for subscribing to our mail, We will update you on our menu on Your email  ${email}.\n.`;
-  console.log(emailMessage);
 
   var transporter = nodemailer.createTransport({
     service: "Gmail",
+    port: 465,
+    secure:true,
     auth: {
         user:  process.env.EMAIL,
         pass: process.env.PASSWORD
@@ -141,7 +148,7 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
     subject: 'WebuyNdCook Cares',
-    text : '\n\nThank you for subscribing to our mail,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Slide in to our website @ www.webuyandcook.com to get even more',
+    text : '\n\nThank you for subscribing to our mail,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Slide in to our website @ www.webuyandcook.com to get even more\n\n Thanks\n WebuyNdCook Team',
   };
 
   transporter.sendMail(emailOptions, (err, info) => {
@@ -160,6 +167,8 @@ router.post('/enquiry', isLoggedin, function (req, res, next) {
 
   var transporter = nodemailer.createTransport({
     service: "Gmail",
+    port: 465,
+    secure:true,
     auth: {
         user:  process.env.EMAIL,
         pass: process.env.PASSWORD
