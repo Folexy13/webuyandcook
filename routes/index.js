@@ -20,7 +20,6 @@ router.get('/', function (req, res, next) {
    for (var i = 0; i < docs.length; i += chunkSize) {
      qMenuChunks.push(docs.slice(i, i + chunkSize))
    }
-    console.log(sMenuChunks)
   });
   Smenu.find(function (err, docs) {
     if (err) {
@@ -39,7 +38,7 @@ router.get('/', function (req, res, next) {
     var userImage = req.user.userImage
   return res.render('index', { title: 'WEBUYNDCOOK', firstName: firstName, lastName: lastName,userImage:userImage, smenus: sMenuChunks,qmenus: qMenuChunks })
   }
-  return res.redirect('/');
+  return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks});
 
   
   });

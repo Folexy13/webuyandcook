@@ -9,12 +9,7 @@ var User = require('../models/user');
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
-router.get('/', isLoggedin, function (req, res, next) {
-  var firstName =req.user.fname;
-  var lastName = req.user.lname;
-  
-  res.render('user/index', {title:'WeBuyNdCook'})
-});
+
 
 router.get('/profile', isLoggedin, function (req, res, next) {
   User.find(function (err, image) {
