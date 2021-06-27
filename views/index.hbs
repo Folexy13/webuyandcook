@@ -1,0 +1,1010 @@
+{{> header}}
+
+
+  <body data-spy="scroll" data-target="#mainNav" data-offset="54">
+<!-- +++++++++++++++++++++++++++++++About-us View+++++++++++++++++++++++++++++++++++ -->
+<section id="about">
+    <div id="about" class="about-main pad-top-100 pad-bottom-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+                        <h2 class="block-title"> About Us </h2>
+                        <h3>
+                            We are here to stay!
+                        </h3>
+                        <p style="font-size: 20px;">WeBuyNCook is division of menaonlinefood, it peforms exemplary
+                            service in delivering delicious, healthy and nourishing food
+                            to all our customers far or Near
+                            We also perform outdoor cooking for your celebations and others. To see the list of all our
+                            services, click <a href="#services">here</a>.
+                            We believe you have enjoyed and will enjoy our services. For this we say, THANK YOU. </p>
+                        <p style="font-size: 20px;"><span class="block-title"
+                                style="font-size: 1.2em;">BuyingNCooking</span>
+                            can be sometimes very tedious and time consuming we understand... so thats why we are
+                            here to take the burden off your shoulders and help you get what you want and satisfy your
+                            Hunger. <span class="block-title" style="font-size: 1.2em;">WeBuyNCook</span>
+                            the best for the best. </p>
+                        <a id="link1" style="float: right;" href="#contact">Wanna Know More?</a>
+                    </div>
+                </div>
+
+                <!-- end col -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+                        <div class="about-images">
+                            <img class="about-main" src="images/banga.jpeg" alt="About Main Image" width="500"
+                                height="500">
+                            <img class="about-inset" src="images/egusi.jpeg" alt="About Inset Image" width="200"
+                                height="200">
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+</section>
+<!-- +++++++++++++++++++++++++++++++End of About-Us View+++++++++++++++++++++++++++++++++++ -->
+
+
+<!-- +++++++++++++++++++++++++++++++Menu View+++++++++++++++++++++++++++++++++++ -->
+<section id="menu">
+    <div class="menu-main pad-top-100 pad-bottom-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+                        <h2 class="block-title text-center">
+                            Our Menu
+                        </h2>
+
+                        <p class="title-caption text-center">Whether you’re in the mood for a hearty meal or you just want to
+                            surprise your taste buds with a yummy appetizer or you need to get something from the market and the time
+                            seems not to be there, Our menu will entertain every
+                            palate and request. We are here just for that and we can offer you the meal just as mummy do make it.
+                            browse through our menu and make your order today</p>
+                    </div>
+                    <div class="tab-menu">
+                        <div class="slider slider-nav">
+                            <div class="tab-title-menu" id="2" onclick="menu(this.id)" style="width:190px">
+                                <h4>Quick</h4>
+
+                                <p><img src="images/soup" width="50" height="70"
+                                        style="margin-left: 70px; padding-top: 20px;"></p>
+                            </div>
+
+                            <div class="tab-title-menu" id="3" onclick="menu(this.id)" style="width:190px">
+                                <h4>Soup</h4>
+
+                                <p><img src="images/soupie" width="50" height="70"
+                                        style="margin-left: 70px; padding-top: 20px;"></p>
+                            </div>
+
+                            <div class="tab-title-menu" id="4" onclick="menu(this.id)" style="width:190px">
+                                <h4>Fruits</h4>
+
+                                <p><img src="images/fruit" width="50" height="70"
+                                        style="margin-left: 70px; padding-top: 20px;"></p>
+                            </div>
+
+                            <div class="tab-title-menu" id="5" onclick="menu(this.id)" style="width:190px">
+                                <h4>Foodstuffs</h4>
+
+                                <p><img src="images/food" width="50" height="70"
+                                        style="margin-left: 70px; padding-top: 20px;"></p>
+                            </div>
+
+                            <div class="tab-title-menu" id="10" onclick="menu(this.id)" style="width:190px">
+                                <h4>Snacks</h4>
+
+                                <p><img src="images/snack" width="50" height="70"
+                                        style="margin-left: 70px; padding-top: 20px;"></p>
+                            </div>
+
+                            <div class="tab-title-menu" id="11" onclick="menu(this.id)" style="width:190px">
+                                <h4>Others</h4>
+
+                                <p><img src="images/others" width="50" height="70"
+                                        style="margin-left: 70px; padding-top: 20px;"></p>
+                            </div>
+
+                        </div>
+                        <div class="slider slider-single">
+                    <div id="result2">
+                        {{#each qmenus}}
+                                <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    {{# each this}}
+                                    <div class="offer-item overlay-image">
+                                        <img src="{{this.imagePath}}" alt="" class="img-responsive"
+                                            style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>{{this.title}}</h3>
+                                            <p>
+                                               {{this.description}}
+                                            </p>
+                                            <a href="/addqmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                        </div>
+                                        <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                        {{/each}}
+                    </div>
+                    <div id="result3">
+                        {{#each smenus}}
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                {{# each this}}
+                                <div class="offer-item overlay-image">
+                                    <img src="{{this.imagePath}}" alt="" class="img-responsive" style="width:130px; height:150px ">
+                                    <div>
+                                        <h3>{{this.title}}</h3>
+                                        <p>
+                                            {{this.description}}
+                                        </p>
+                                        <a href="/addsmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                    </div>
+                                    <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
+                                </div>
+                                {{/each}}
+                            </div>
+                        {{/each}}
+                    </div>
+                            <div id="result4">
+
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597202988beef%20tenderloin.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Beef Tenderloin</h3>
+
+                                            <p>
+                                                7 oz Tenderloin fillet medallions on a fresh roll
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$18</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203144salmon%20blt.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Salmo BLTA</h3>
+
+                                            <p>
+                                                Grilled salmon filet, bacon,lettuce, tomato and avocado on multigrain
+                                                bread
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$16</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203263shaved%20prime%20rib.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Shaved Prime Rib</h3>
+
+                                            <p>
+                                                7oz Prime rib on a french roll with horseradish dressing - Add
+                                                mushrooms,green chile, white cheddar for 2 dollars
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$16</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203355g2%20club.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>G2 Club</h3>
+
+                                            <p>
+                                                Black forest ham, sliced turkey, cheddar, pepper jack and bacon on
+                                                sourdough
+                                                with mushrooms and mayo
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$13</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203494tuna.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Tuna Sandwich</h3>
+
+                                            <p>
+                                                6oz Grilled ahi tuna steak on a french roll with herb dressing
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$14</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203660bacon%20cheeseburger.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Bacon Cheeseburger</h3>
+
+                                            <p>
+                                                American cheese and bacon on a kaiser bun
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$13</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203740red%20white%20and%20blue.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Red, White &amp; Bleu Burger</h3>
+
+                                            <p>
+                                                Crumbled bleu cheese and sun dried tomatos on a kaiser bun
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$13</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597203888chipotle%20chicken%20salad.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Chipotle Chicken Salad</h3>
+
+                                            <p>
+                                                Chopped chicken, chipotle mayo, pecans, green apples, red onion and
+                                                celery
+                                                on ciabatta bread
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$11</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597204036walt%20burger.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Walt Burger</h3>
+
+                                            <p>
+                                                American cheese, green chile, red onion, served open face on sourdough
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$13</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597204128green%20chile%20chicken.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Green Chile Chicken</h3>
+
+                                            <p>
+                                                Grilled chicken breast topped with melted white cheddar and green chile
+                                                on a
+                                                wheat bun
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$12</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597204210backyard%20bbq.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Backyard BBQ Chicken</h3>
+
+                                            <p>
+                                                Grilled chicken breast brushed with BBQ sauce topped with melted cheddar
+                                                and
+                                                bacon on a wheat bun
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$12</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15972042813%20layered%20grilled%20cheese.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>3 Layered Grilled Cheese</h3>
+
+                                            <p>
+                                                Layered white cheddar, brie, and provolone on sourdough with pesto and
+                                                tomatoes
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$10</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597204361turkey%20and%20provolone.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Turkey &amp; Provolone</h3>
+
+                                            <p>
+                                                Sliced turkey and provolone on sourdough with dijon mustard
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$11</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597204493veggie.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Veggie Sandwich</h3>
+
+                                            <p>
+                                                Glazed tofu, egg plant, bean sprouts, red bell pepper, zucchini and
+                                                spicy
+                                                jalapeno humus spread on 9-grain bread
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$13</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="result5">
+
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205465ribeye.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Ribeye</h3>
+
+                                            <p>
+                                                16 oz Grilled
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$34</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205541surf%20and%20truf.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Surf &amp; Turf</h3>
+
+                                            <p>
+                                                6 oz Grilled tenderloin filet and choice of shrimp, salmon or crab cake
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$35</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205610tampiquena%20surf.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Tampiquena Surf &amp; Turf</h3>
+
+                                            <p>
+                                                Tampiquena surf and turf
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$30</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205683beef%20tenderloin.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Beef Tenderloin Entree</h3>
+
+                                            <p>
+                                                8oz Grilled
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$30</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205756glazed%20salmon.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Glazed Salmon</h3>
+
+                                            <p>
+                                                8oz Salmon filet grilled with tamari soy glazed
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$24</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205834seafood%20pasta.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Seafood Pasta</h3>
+
+                                            <p>
+                                                Shrimp and crab over penne pasta in a cream chipotle tomato sauce
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$22</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597205907crab%20cakes.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Crab Cakes</h3>
+
+                                            <p>
+                                                Two-lump crab cakes served on a bed of mixed greens with a chipotle
+                                                aioli
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$23</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597206002seafood%20enchiladas.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Seafood Enchiladas</h3>
+
+                                            <p>
+                                                Lobster, crab, and shrimp enchiladas with a poblano green chile sauce
+                                                topped
+                                                with sour cream and pico de gallo
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$22</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597206205grilled%20shrimp.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Grilled Shrimp Entree</h3>
+
+                                            <p>
+                                                Grilled and glazed jumbo shrimp served on a bed of green chile rice with
+                                                a
+                                                side of asparagus
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$26</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597206276fish%20tacos.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Fish Tacos</h3>
+
+                                            <p>
+                                                Fried fish with jamaica and serrano slaw, pico de gallo and sriracha
+                                                sour
+                                                cream
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$20</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597206347smothered%20chicken.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Smothered Chicken</h3>
+
+                                            <p>
+                                                Chicken breasts topped with white cheddar, onion, mushrooms, green
+                                                chile,
+                                                tomato, and avocado
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$19</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597206430veggetarian%20platter.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Vegetarian Platter</h3>
+
+                                            <p>
+                                                Grilled asparagus, zucchini and mushrooms served with rice and a house
+                                                salad
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$17</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="result10">
+
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597785256dark-choco-b1a.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>3 Layer Chocolate Cake a la mode</h3>
+
+                                            <p>
+                                                Chocolate and lots of it!
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$7</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597786512exps21724___SD143206C04_01_8b.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Apple Pie a la mode</h3>
+
+                                            <p>
+                                                America&#039;s favorite pie warmed with ice cream on top!
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$7</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/1597786963cheesecake-8.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Cheesecake</h3>
+
+                                            <p>
+                                                A classic dessert sure to please the palette.
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$6</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="result11">
+
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977887551597185293mac%20and%20cheese.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Mac N Cheese</h3>
+
+                                            <p>
+                                                Our secret recipe!!
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$7</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977888141597186265green%20chile%20rice.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Green Chile Rice</h3>
+
+                                            <p>
+                                                White rice mixed with pesto, green tabasco, green chile and cilantro.
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$6</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977888761597186473garlic%20mashed%20potatoes.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Garlic Mashed Potatoes</h3>
+
+                                            <p>
+                                                Potatoes mixed with fresh garlic and butter.
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$6</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977889761597186442grillled%20veggies.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Grilled Veggies</h3>
+
+                                            <p>
+                                                Perfectly Grilled Deliciousness!
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$6</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977890271597186407fries.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Margarita French Fries</h3>
+
+                                            <p>
+                                                Shoe-string french fried sprinkled with a citrus salt.
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$6</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977890731597186178pesto%20pasta.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Pesto Pasta</h3>
+
+                                            <p>
+                                                Penne pasta mixed with pesto, sun-dried tomatoes and parmesan cheese
+                                                topped
+                                                with balsamic vinaigrette.
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$5</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977891311597186232asparagus.jpg" alt=""
+                                            class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Asparagus</h3>
+
+                                            <p>
+                                                Seasoned to bring out extra flavor
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$5</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="offer-item overlay-image">
+                                        <img src="public/admin_asset/upload/15977893121597186529sweet%20waffled%20potatos.jpg"
+                                            alt="" class="img-responsive" style="width:130px; height:150px ">
+                                        <div>
+                                            <h3>Sweet Potato Waffle Fries</h3>
+
+                                            <p>
+                                                Crisp and Classic!
+                                            </p>
+                                            <button class=" btn-lg btn-success text-center">Add to Cart</button>
+                                        </div>
+                                        <span class="offer-price">$6</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end tab-menu -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+</section>
+<!-- +++++++++++++++++++++++++++++++ End of Menu View+++++++++++++++++++++++++++++++++++ -->
+
+
+<!-- +++++++++++++++++++++++++++++++Service View+++++++++++++++++++++++++++++++++++ -->
+<section id="services" data-stellar-background-ratio="0.5">
+<div class="container-fluid alert alert-danger">
+    <div class="container" style="padding: 100px;font-size: 5rem;">
+        <div class="col-md-12 col-sm-12">
+            
+                Service Section... under construction <br>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- </div> -->
+
+    </div>
+    </div>
+</section>
+<!-- +++++++++++++++++++++++++++++++End of Service View+++++++++++++++++++++++++++++++++++ -->
+
+
+
+<!-- +++++++++++++++++++++++++++++++Order View+++++++++++++++++++++++++++++++++++ -->
+<section id="order">
+    <div id="reservation" class="reservations-main pad-top-100 pad-bottom-100">
+        <div class="container">
+            <div class="row">
+                <div class="form-reservations-box">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+                            <h2 class="block-title text-center">
+                                Order Now
+                            </h2>
+                        </div>
+
+                        <h4 class="form-title">BOOKING FORM</h4>
+                        <p>PLEASE FILL OUT ALL FIELDS, All FIELDS ARE REQUIRED. THANKS!</p>
+                        <form method="POST" action="/checkout" id="myformfirst">
+                            <input type="hidden" name="_token" value="5mAHmKvnk5qrtsMnCQDqfoVEUx7lhpjVfqLbpeZG">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+                                    <select name="food_id" id="food_id">
+                                        <option selected disabled>preferred Menu</option>
+                                        <option name="food" value="5">Semo</option>
+                                        <option name="food" value="6">Beans</option>
+                                        <option name="food" value="7">Egusi Soup</option>
+                                        <option name="food" value="8">Nigerian Stew</option>
+                                        <option name="food" value="9">Okro Soup</option>
+                                        <option name="food" value="10">Basket of Fruit</option>
+                                        <option name="food" value="19">Pounded Yam</option>
+                                        <option name="food" value="20">Fried Rice and Salad</option>
+                                        <option name="food" value="21">Moserl and soup</option>
+                                        <option name="food" value="22">Crate of egg</option>
+                                        <option name="food" value="23">Carton of Indomie</option>
+                                        <option name="food" value="24">Jollof rice</option>
+                                        <option name="food" value="25">Garnished Jollof rice</option>
+                                        <option name="food" value="26">Fried Rice</option>
+                                        <option name="food" value="28">Garnished Fried Rice</option>
+                                        <option name="food" value="29">Ofada Rice</option>
+                                        <option name="food" value="30">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- end col -->
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+
+                                    <select name="no_of_persons" id="no_of_persons">
+                                        <option selected disabled>No. Of persons</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+                                    <select name="occasion" id="occasion">
+                                        <option selected disabled>Occasion</option>
+                                        <option value="Personal">Personal consumption</option>
+                                        <option value="Wedding">Wedding</option>
+                                        <option value="Birthday">Birthday</option>
+                                        <option value="Anniversary">Anniversary</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+                                    <input type="text" name="name" id="form_name" placeholder="Name"
+                                        required="required">
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+                                    <input type="email" name="email" placeholder="Email" required="required">
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+                                    <input type="text" name="phone" placeholder="contact no." required>
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+
+                            <!-- end col -->
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-box">
+                                    <input name="date_picker" id="date-picker" placeholder="date"
+                                        onfocus="(this.type='date')" onblur="(this.type='text')"">
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                                <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-box">
+                                        <input name="time_picker" id="time-picker" placeholder="Time for delivery"
+                                            onfocus="(this.type='time')" onblur="(this.type='text')">
+                                    </div>
+
+                                </div>
+                                <!-- end col -->
+
+                                <!-- end col -->
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="reserve-book-btn text-center">
+
+                                        <div class="blog-btn-v">
+                                            <input style="width: 100%;" type="submit" class="btn-lg btn-success center"
+                                                value="Submit Order">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                        </form>
+                        <!-- end form -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end reservations-box -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+</section>
+<!-- +++++++++++++++++++++++++++++++End of Order View+++++++++++++++++++++++++++++++++++ -->
+
+
+<!-- +++++++++++++++++++++++++++++++Testimony View+++++++++++++++++++++++++++++++++++ -->
+<section class="testimonies">
+    <div class="container-fluid">
+        <h1>Testimonies</h1>
+        <div class="col-sm-6 col-lg-4">
+            <div class="image-section">
+                <img src="images/FB_IMG_1611968285076.jpg" alt="" height="150px" width="150px">
+            </div>
+            <div class="text-section">
+                <blockquote>" Mena online food is unique among her peers. A great taste that makes you to come back for
+                    more. A trial will convince you. "</blockquote>
+                <h5>Adelaja Ebenezer</h5>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="image-section">
+                <img src="images/promise.jpg" alt="" height="150px" width="150px">
+            </div>
+            <div class="text-section">
+                <blockquote>"Have a taste of their service and you will come begging for more." <br></blockquote>
+                <h5>Adesemoye Promise</h5>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="image-section">
+                <img src="images/ope.jpg" alt="" height="150px" width="150px">
+            </div>
+            <div class="text-section">
+                <blockquote> It is cooking mixed with mastery and kitchen discipline..." <br></blockquote>
+                <h5>Aluko Opeyemi</h5>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- +++++++++++++++++++++++++++++++End of Testimony View+++++++++++++++++++++++++++++++++++ -->
+
+{{> footer}}
+
+</body>
