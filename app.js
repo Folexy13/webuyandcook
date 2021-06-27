@@ -10,14 +10,14 @@ var validator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo');
-var multer = require('multer');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
 var app = express();
+var connection__url = "mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority";
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/webuyandcook', {
+mongoose.connect(connection__url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -39,7 +39,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store:MongoStore.create({
-            mongoUrl: 'mongodb://localhost:27017/webuyandcook'
+            mongoUrl: connection__url
         }),
   cookie: {maxAge: 180*60*1000}
 }));

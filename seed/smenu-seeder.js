@@ -1,14 +1,14 @@
 var Smenu = require('../models/sMenu');
 
 var mongoose = require('mongoose');
+var connection__url = "mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority";
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/webuyandcook', {
+mongoose.connect(connection__url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
 })
-
 var smenus = [
     new Smenu({
         imagePath: "https://i.ytimg.com/vi/XeZJlxAsP18/maxresdefault.jpg",

@@ -2,7 +2,9 @@ var Qmenu = require('../models/qMenu');
 
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/webuyandcook', {
+var connection__url = "mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority";
+
+mongoose.connect(connection__url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
