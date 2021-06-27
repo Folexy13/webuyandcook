@@ -17,7 +17,7 @@ var userRouter = require('./routes/user');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/webuyandcook', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/webuyandcook', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
