@@ -39,7 +39,7 @@ router.get('/', function (req, res, next) {
     var userImage = req.user.userImage
   return res.render('index', { title: 'WEBUYNDCOOK', firstName: firstName, lastName: lastName,userImage:userImage, smenus: sMenuChunks,qmenus: qMenuChunks })
   }
-  return res.redirect('/user/signin');
+  return res.redirect('/');
 
   
   });
