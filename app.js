@@ -10,14 +10,14 @@ var validator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo');
+var multer = require('multer');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
 var app = express();
-var connection__url = "mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority";
 
-mongoose.connect(connection__url, {
+mongoose.connect('mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -39,7 +39,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store:MongoStore.create({
-            mongoUrl: connection__url
+            mongoUrl: 'mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority'
         }),
   cookie: {maxAge: 180*60*1000}
 }));
