@@ -5,18 +5,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
+var Cors = require('cors');
 var session = require('express-session');
 var validator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo');
-var multer = require('multer');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
 var app = express();
-
+var port = process.env.Port || 3000
 mongoose.connect('mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -29,7 +29,10 @@ require('./config/passport');
 app.engine('.hbs', expressHbs({defaultLayout:'layouts', extname: '.hbs'}));
 app.set('view engine', '.hbs');;
 
+
+
 app.use(logger('dev'));
+app.use(Cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(validator());
@@ -71,4 +74,6 @@ app.use(function(err, req, res, next) {
   res.render('error',{title:'Page Not Found'});
 });
 
+
+app.listen(port,()=>console.log(`Now listening on localhost: ${port}`))
 module.exports = app;
