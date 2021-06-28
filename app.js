@@ -16,7 +16,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
 var app = express();
-var port = process.env.PORT|| 4000
+var port = process.env.PORT|| 3000
 mongoose.connect('mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,

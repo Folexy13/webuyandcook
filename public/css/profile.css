@@ -59,6 +59,20 @@ body {
   color: white;
 }
 
+.navigation ul li.red a,
+    .navigation ul li.red a .fa{
+        color: red !important;
+    }
+
+    
+    .navigation ul li.blue a{
+        color: blue !important;
+        margin-top: 80%;
+    }
+    .navigation ul li.blue a .fa{
+        color: blue !important;
+    }
+
 .navigation ul li a .icon {
   position: relative;
   display: block;
