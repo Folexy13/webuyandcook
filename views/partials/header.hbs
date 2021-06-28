@@ -4,7 +4,7 @@
             <nav class="navbar custom-navbar navbar-default" role="navigation" id="mainNav">
                 <div class="navbar-header">
 
-                    <a href="/" class="logo ">
+                    <a href="/" class="logo .navbar-brand">
                         <img src="images/menalogo.png" alt="" height="60px" width="60px">
 
                         <h2 style="color: #fff;">WeBuyNCook</h2>
@@ -31,7 +31,7 @@
                         <li><a href="#contact">Contact</a></li>
                         {{# if login}}
                             <div class="dropdown navbar-right">
-                                <li class="dropdown-toggle" id="menu1" data-toggle="dropdown">
+                                <li class="dropdown-toggle" id="menu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src={{userImage}}>
                                 </li>
                                 <ul class="dropdown-menu" style="background:rgb(1,119,1)">
@@ -40,8 +40,8 @@
                                     <li><a href="/user/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
                                 </ul>
                             </div>
-                            <li style="margin-top: -21px;text-decoration:none !important">
-                                <a href="#" style=" color:tomato;font-weight: bolder;">{{firstName}} {{lastName}}</a>
+                            <li id="name" style="margin-top: -21px;text-decoration:none !important">
+                                <a href="#" style=" color:red;font-size: 1.5rem !important;">{{firstName}} {{lastName}}</a>
                             </li>
                         {{else}}
                             <div class="dropdown navbar-left">
@@ -53,7 +53,7 @@
                                     <li><a href="/user/signin"><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
                                 </ul>
                             </div>
-                            <li style="margin-top: -21px;"><a href="">Guest</a></li>
+                            <li id="name" style="margin-top: -21px;"><a href="">Guest</a></li>
                             
                         {{/if}}
                     </ul>
@@ -105,11 +105,17 @@
        .collapse li:hover{
            background: transparent !important;
        }
+       .dropdown {
+            position: relative;
+            display: block;
+}
        .dropdown-menu a:hover{
            background: transparent !important;
        }
        .dropdown-menu{
-           d
+            display: ;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
+            z-index: 9999999;
        }
        .dropdown-menu a{
            color: white !important;
@@ -121,6 +127,21 @@
            padding: 9px !important;
            margin: 0 !important;
        }
+
+       
+
+       #name{
+           margin-top: -25% !important;
+           display:flex ;
+           float: none !important;
+           width: 50% !important;
+           z-index: 1;
+       }
+       #menu1{
+           
+       }
+
+       
    </style>
 
 </section> 
