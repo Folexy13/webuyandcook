@@ -10,7 +10,7 @@ var Smenu = require('../models/sMenu');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  var sMenuChunks = [];
+ var sMenuChunks = [];
   var qMenuChunks = [];
   Qmenu.find(function (err, docs) {
     if (err) {

@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require('express');
 var router = express.Router();
 var csrf = require('csurf');
@@ -5,7 +6,8 @@ var passport = require('passport');
 var Order = require('../models/order');
 var Cart = require('../models/cart');
 var User = require('../models/user');
-var nodemailer = require('nodemailer')
+var nodemailer = require('nodemailer');
+var xoauth2 = require('xoauth2')
 
 var csrfProtection = csrf();
 router.use(csrfProtection);
@@ -71,23 +73,27 @@ router.post('/signup', passport.authenticate('local.signup', {
   } else {
     var email = req.body.email
     var transporter = nodemailer.createTransport({
-    service: "Gmail",
-    port: 465,
-    secure:true,
+      service: "gmail",
+      host:'smtp.gmail.com',
     auth: {
+      xoauth2: xoauth2.createXOAuth2Generator({
+        type: 'OAuth2',
         user: process.env.EMAIL,
-        pass: process.env.PASSWORD
+        clientID:'530337633431-q7gqku5hra6djqsgpnuv7c7b97689do9.apps.googleusercontent.com',
+        clientSecret: 'LPMKXjG3wp17Z-KjKGv86eSN',
+        refreshToken: '1//044mNpcwtc4n1CgYIARAAGAQSNwF-L9Iru9BJK5fAAOpz6boeZkhA21JHIrE292CpgFCd0lmt2d5cBS1JY0wflZRDan_9Xi_iuPE',
+      })
     }, tls: {
         rejectUnauthorized: false
     }
   });
 
   var emailOptions = {
-    from: 'WebuyNdCook@gmail.com',
+    from: 'opeyemifolajimi13@gmail.com',
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
     subject: 'WebuyNdCook Cares',
-    text : `Hello ${req.body.fname} \n\nThank you for joining our customer chain,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Proceed  to our website an subscribe @ www.webuyandcook.com to get even updates from us\n\n Thanks\n WebuyNdCook Team`,
+    text: `Hello ${req.body.fname} \n\nThank you for joining our customer chain,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Proceed  to our website an subscribe @ www.webuyandcook.com to get even updates from us\n\n Thanks\n WebuyNdCook Team`,
   };
 
   transporter.sendMail(emailOptions, (err, info) => {
