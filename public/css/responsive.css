@@ -60,6 +60,34 @@
     }
 }
 
+@media (max-width:992px){
+     .dropdown-toggle img{
+           width: 30px;
+           height: 30px;
+           position:absolute !important;
+           
+
+       }
+       .dropdown .dropdown-menu a{
+           position: relative !important;
+           color: white !important;
+       }
+       .dropdown .dropdown-menu a{
+           padding: 9px !important;
+           margin: 0 !important;
+       }
+
+       
+
+       #name{
+           margin-top: -12%;
+           display:relative !important;
+           float: none !important;
+           width: 50% !important;
+           z-index: 1 !important;
+       }
+}
+
 @media (max-width: 1120px) {
     .main-menu nav li a {
         margin: 0px 10px;

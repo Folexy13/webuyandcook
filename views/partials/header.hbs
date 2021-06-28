@@ -30,14 +30,14 @@
                         <li><a href="/profile/cart">Cart<span class="badge">{{session.cart.totalQty}}</span></a></li>
                         <li><a href="#contact">Contact</a></li>
                         {{# if login}}
-                            <div class="dropdown navbar-right">
-                                <li class="dropdown-toggle" id="menu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="dropdown navbar-left">
+                                <span class="dropdown-toggle" id="menu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src={{userImage}}>
-                                </li>
+                                </span>
                                 <ul class="dropdown-menu" style="background:rgb(1,119,1)">
-                                    <li><a href="/user/profile"><i class="fa fa-user" aria-hidden="true"></i> Manage Account</a></li>
+                                    <li style="margin-left: 2%;"><a href="/user/profile"><i  class="fa fa-user" aria-hidden="true"></i> Manage Account</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="/user/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+                                    <li style="margin-left: 2%;"><a href="/user/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
                                 </ul>
                             </div>
                             <li id="name" style="margin-top: -21px;text-decoration:none !important">
@@ -49,8 +49,8 @@
                                     <img src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png">
                                 </span>
                                 <ul class="dropdown-menu" style="background:rgb(1,119,1)">
-                                    <li><a href="/user/signup"><i class="fa fa-user" aria-hidden="true"></i>Register</a></li>
-                                    <li><a href="/user/signin"><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
+                                    <li style="margin-left: 2%;"><a href="/user/signup"><i class="fa fa-user" aria-hidden="true"></i>Register</a></li>
+                                    <li style="margin-left: 2%;"><a href="/user/signin"><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
                                 </ul>
                             </div>
                             <li id="name" style="margin-top: -21px;"><a href="">Guest</a></li>
@@ -112,37 +112,32 @@
        .dropdown-menu a:hover{
            background: transparent !important;
        }
-       .dropdown-menu{
-            display: ;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
-            z-index: 9999999;
-       }
-       .dropdown-menu a{
-           color: white !important;
-       }
-       .dropdown .dropdown-menu{
-           margin-top: 20% !important;
-       }
-       .dropdown .dropdown-menu a{
-           padding: 9px !important;
-           margin: 0 !important;
-       }
-
+    
        
+   </style>
 
-       #name{
-           margin-top: 29 !important;
-           display:flex ;
-           float: none !important;
-           width: 50% !important;
-           z-index: 1;
-           list-style: none;
-       }
-       #menu1{
+   <script>
+       function responsive(x){
+           var name = document.getElementById('name')
+           var img = document.getElementById('img')
+           if(x.matches){
+               if (name.style.visibility === "hidden") {
+               name.style.visibility= "visible";
+           } else {
+               name.style.visibility= "hidden";
+               img.style.left ="0 !important"
+
+           }
+        }else{
+             name.style.visibility = "visible"
+        }
            
        }
 
+       var x = window.matchMedia("(max-width: 992px)")
+        responsive(x) // Call listener function at run time
+        x.addListener(hideme) // Attach listener function on state changes
        
-   </style>
+   </script>
 
 </section> 
