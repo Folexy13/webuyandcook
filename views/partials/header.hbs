@@ -119,13 +119,11 @@
    <script>
        function responsive(x){
            var name = document.getElementById('name')
-           var img = document.getElementById('img')
            if(x.matches){
                if (name.style.visibility === "hidden") {
                name.style.visibility= "visible";
            } else {
                name.style.visibility= "hidden";
-               img.style.left ="0 !important"
 
            }
         }else{
