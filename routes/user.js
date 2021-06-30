@@ -35,7 +35,7 @@ router.get('/profile/settings', isLoggedin, function (req, res, next) {
     var userImage = req.user.userImage;
     var firstName = req.user.fname;
     var lastName = req.user.lname;
-      res.render('user/settings', {title:'My Account settings',userImage:userImage,firstName:firstName,lastName:lastName, layout:false});
+      res.render('user/settings', {title:'My Account settings',csrfToken: req.csrfToken(),userImage:userImage,firstName:firstName,lastName:lastName, layout:false});
     })
   
 });

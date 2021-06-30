@@ -40,7 +40,9 @@ body {
   width: 100%;
   list-style: none;
 }
-
+.navigation ul li.active{
+   background: #03a9f4 !important
+}
 .navigation ul li:hover {
   background-color: #03a9f4;
 }

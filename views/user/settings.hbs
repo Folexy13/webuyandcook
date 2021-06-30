@@ -36,14 +36,7 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="#">
-                            <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                            <span class="title">Help </span>
-                        </a>
-                    </li>
-
-                    <li>
+                    <li class="active">
                         <a href="/user/profile/settings">
                             <span class="icon"><i class="fa fa-cogs" aria-hidden="true"></i></span>
                             <span class="title">Settings </span>
@@ -57,7 +50,15 @@
                         </a>
                     </li>
 
-                    <li>
+                    <li class="blue">
+                        <a href="#">
+                            <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                            <span class="title">Help </span>
+                        </a>
+                    </li>
+
+
+                    <li class="red">
                         <a href="/user/logout">
                             <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
                             <span class="title">Log-out </span>
@@ -159,7 +160,8 @@
                                 <form method="POST" action="" >
                                     <input type="file" onchange="changePic()" src={{userImage}} name="uploadfile" id="img" style="display:none;"/>
                                     <label for="img" style="cursor: pointer;">Change picture </label>
-                                    <button style="cursor: pointer; type="submit" class="btn btn-primary btn-sm ">Save</button>
+                                    <input type="hidden" name="_csrf" value={{csrfToken}}>
+                                    <button style="cursor: pointer;" type="submit" class="btn btn-primary btn-sm">Save</button>
                                 </form>
                                 </div>
                             </div>
@@ -167,8 +169,11 @@
                     </div>
                     
                 </div>
-                
+                <div class="topbar" style="bottom: 0 !important;position:fixed;background-color:#010;margin-left:1.9px;">
+                    <div style="color: white;">&copy;2021 WebuyNCook.All Rights reserved</div>
+                </div>
             </div> 
+            
         </div>        
 
             <script>
