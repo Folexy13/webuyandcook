@@ -11,6 +11,7 @@ var Smenu = require('../models/sMenu');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  var successMsg = req.flash('success');
  var sMenuChunks = [];
   var qMenuChunks = [];
   Qmenu.find(function (err, docs) {
@@ -43,7 +44,9 @@ router.get('/', function (req, res, next) {
      lastName: lastName,
      userImage: userImage,
      smenus: sMenuChunks,
-     qmenus: qMenuChunks
+     qmenus: qMenuChunks,
+     successMsg: successMsg,
+     success: successMsg.length > 0
    })
   }
   return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks});

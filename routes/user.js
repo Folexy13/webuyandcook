@@ -10,11 +10,9 @@ var async = require('async');
 var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var crypto = require('crypto');
-const user = require('../models/user');
 
 var csrfProtection = csrf();
 router.use(csrfProtection);
-
 
 
 router.get('/profile', isLoggedin, function (req, res, next) {
@@ -111,7 +109,6 @@ router.get('/signin', function (req, res, next) {
 router.post('/signin', passport.authenticate('local.signin', {
   failureRedirect: '/user/signin',
   failureFlash: true,
-  successFlash: "welcome to webuyaandcook"
 }), function (req, res, next) {
   if (url) {
     var url = req.session.oldUrl;
@@ -123,9 +120,8 @@ router.post('/signin', passport.authenticate('local.signin', {
 });
 
 router.get('/forgot', function (req, res, next) {
-  var successMsg = req.flash('success')[0];
   var errorMsg = req.flash('error');
-  res.render('user/forgot-password', {title:'Forgot password',csrfToken: req.csrfToken(),successMsg:successMsg, noMessage: !successMsg,errorMsg:errorMsg,hasErrors:errorMsg.length>0 });
+  res.render('user/forgot-password', {title:'Forgot password',csrfToken: req.csrfToken(),errorMsg:errorMsg,hasErrors:errorMsg.length>0 });
 });
 
 router.post('/forgot', function (req, res, next) {
@@ -183,22 +179,23 @@ router.post('/forgot', function (req, res, next) {
 });
 
 router.get('/reset/:token', function (req, res) {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }), function (err, user) {
+  var errMsg = req.flash('error');
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
     if (!user) {
       req.flash('error', 'Password reset is invalid or token expired.');
-      return res.redirect('back')
+      return res.redirect('/user/reset/:token')
     }
-    res.render('user/reset-password', { title:'Reset Password', token:req.params.token})
-  }
+    res.render('user/reset-password', { title:'Reset Password', token:req.params.token,csrfToken: req.csrfToken(),errMsg:errMsg,hasErrors:errMsg.length>0 })
+  });
 });
 
 router.post('/reset/:token', function (req, res) {
   async.waterfall([
     function (done) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+      User.findOneAndReplace({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
           if (!user) {
             req.flash('error', 'Password reset is invalid or token expired.');
-            return res.redirect('/user/forgot')
+            return res.redirect('back')
           }
           if (req.body.password === req.body.confirm) {
             user.setPassword(req.body.password, function (err) {
@@ -230,7 +227,7 @@ router.post('/reset/:token', function (req, res) {
       var mailOptions = {
         to: user.email,
         from: 'Webuyandcook',
-        subject: 'Password Reset',
+        subject: 'Password Changed',
         text: ' Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
       };
@@ -244,7 +241,10 @@ router.post('/reset/:token', function (req, res) {
         done(err);
       });
     }
-  ],);
+  ], function (err) {
+    res.redirect('/');
+  }
+  );
 });
 
 function isLoggedin(req, res, next) {
