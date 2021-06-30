@@ -4,6 +4,7 @@ var router = express.Router();
 const nodemailer = require('nodemailer');
 var Cart = require('../models/cart');
 var Order = require('../models/order');
+var async = require('async')
 
 
 var Qmenu = require('../models/qMenu'); 
@@ -11,34 +12,43 @@ var Smenu = require('../models/sMenu');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  var successMsg = req.flash('success');
+ var successMsg = req.flash('success');
  var sMenuChunks = [];
-  var qMenuChunks = [];
-  Qmenu.find(function (err, docs) {
-    if (err) {
-     console.log(err)
-   }
-    var chunkSize = 3
-   for (var i = 0; i < docs.length; i += chunkSize) {
-     qMenuChunks.push(docs.slice(i, i + chunkSize))
-   }
-  });
-  Smenu.find(function (err, docs) {
-    if (err) {
-     console.log(err)
-   }
+ var qMenuChunks = [];
+  
+  async.waterfall([
+    function (done) {
+      Qmenu.find(function (err, docs) {
+      if (err) {
+      return done (null,err,false);
+     }
+        var chunkSize = 3
+    for (var i = 0; i < docs.length; i += chunkSize) {
+      qMenuChunks.push(docs.slice(i, i + chunkSize))
+    }
+      done()
+      });
+      
+  },
+    function (done) {
+    Smenu.find(function (err, docs) {
+      if (err) {
+      return done (null,err,false);
+     }
     var chunkSize = 3
     for (var i = 0; i < docs.length; i += chunkSize) {
-     sMenuChunks.push(docs.slice(i, i + chunkSize))
-   }
-  
+      sMenuChunks.push(docs.slice(i, i + chunkSize))
+      }
+      done()
     });
-  
- if (req.isAuthenticated()) {
+    }
+  ], function (err) {
+    if (err) return next(err)
+    if (req.isAuthenticated()) {
     var firstName = req.user.fname;
     var lastName = req.user.lname;
     var userImage = req.user.userImage
-   return res.render('index', {
+     return res.render('index', {
      title: 'WEBUYNDCOOK',
      firstName: firstName,
      lastName: lastName,
@@ -48,9 +58,10 @@ router.get('/', function (req, res, next) {
      successMsg: successMsg,
      success: successMsg.length > 0
    })
-  }
+     
+    }
   return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks});
-
+  });
   
   });
 
