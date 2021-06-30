@@ -140,7 +140,7 @@ router.get('/shop/checkout',isLoggedin, function (req, res, next) {
   };
   var cart = new Cart(req.session.cart);
   var errMsg = req.flash('error')[0];
-  res.render('shop/checkout', {total: cart.totalPrice, errMsg: errMsg, noErrors: !errMsg})
+  res.render('shop/checkout', {title:'Procced to payement',total: cart.totalPrice, errMsg: errMsg, noErrors: !errMsg})
 });
 
 router.post('/subscribe', isLoggedin, function (req, res, next) {
