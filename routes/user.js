@@ -65,35 +65,34 @@ router.post('/signup', passport.authenticate('local.signup', {
     res.redirect(url);
   } else {
     var email = req.body.email
-    var transporter = nodemailer.createTransport({
-      service: "gmail",
-      host:'smtp.gmail.com',
+
+  var transporter = nodemailer.createTransport({
+    service: "GMAIL",
+    port: 465,
+    secure:true,
     auth: {
-      xoauth2: xoauth2.createXOAuth2Generator({
-        type: 'OAuth2',
-        user: process.env.EMAIL,
-        clientID:'530337633431-q7gqku5hra6djqsgpnuv7c7b97689do9.apps.googleusercontent.com',
-        clientSecret: 'LPMKXjG3wp17Z-KjKGv86eSN',
-        refreshToken: '1//044mNpcwtc4n1CgYIARAAGAQSNwF-L9Iru9BJK5fAAOpz6boeZkhA21JHIrE292CpgFCd0lmt2d5cBS1JY0wflZRDan_9Xi_iuPE',
-      })
+        user:  process.env.EMAIL,
+        pass: process.env.PASSWORD
     }, tls: {
         rejectUnauthorized: false
     }
   });
-
+  let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
   var emailOptions = {
-    from: 'opeyemifolajimi13@gmail.com',
+    from: from,
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
     subject: 'WebuyNdCook Cares',
-    text: `Hello ${req.body.fname} \n\nThank you for joining our customer chain,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Proceed  to our website an subscribe @ www.webuyandcook.com to get even updates from us\n\n Thanks\n WebuyNdCook Team`,
+    text : '\n\nThank you for joining our team,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Slide in to our website @ www.webuyandcook.com to get even more\n\n Thanks\n WebuyNdCook Team',
   };
 
   transporter.sendMail(emailOptions, (err, info) => {
     if (err) {
       console.log(err);
       res.redirect('/');
-    } 
+    } else {
+      res.redirect('/');
+    }
   });
     return  res.redirect('/');
   }
@@ -144,19 +143,20 @@ router.post('/forgot', function (req, res, next) {
     },
     function (token, user, done) {
       var smtpTransport = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
+        service:'GMAIL',
         port: 465,
         secure: true,
         auth: {
           user: 'folajimiopeyemisax13@gmail.com',
-          pass: process.env.PASSWORD
+          pass: process.env.PASSWORD,
         } ,tls: {
         rejectUnauthorized: false
     }
       });
+      let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
       var mailOptions = {
         to: user.email,
-        from: 'Webuyandcook',
+        from: from,
         subject: 'Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -192,21 +192,28 @@ router.get('/reset/:token', function (req, res) {
 router.post('/reset/:token', function (req, res) {
   async.waterfall([
     function (done) {
-      User.findOneAndReplace({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
           if (!user) {
             req.flash('error', 'Password reset is invalid or token expired.');
             return res.redirect('back')
           }
-          if (req.body.password === req.body.confirm) {
-            user.setPassword(req.body.password, function (err) {
+        if (req.body.password === req.body.confirm) {
+          var password = user.password
+          var hashedPwd = user.encryptPassword(req.body.password)
+            user.setPassword(hashedPwd, function (err) {
               user.resetPasswordToken = undefined;
               user.resetPasswordExpires = undefined;
-
               user.save(function (err) {
                 req.login(user, function (err) {
                   done(err, user)
                 });
               });
+              user.updateOne(
+                { _id: user._id },
+          {$unset:{password: " "}},
+          { $set: { password:hashedPwd} },
+          { upsert: true },
+          { new: true })
             })
           } else {
             req.flash("error", "Password do not match")
@@ -224,9 +231,10 @@ router.post('/reset/:token', function (req, res) {
         rejectUnauthorized: false
     }
       });
+      let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
       var mailOptions = {
         to: user.email,
-        from: 'Webuyandcook',
+        from: from,
         subject: 'Password Changed',
         text: ' Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -242,7 +250,10 @@ router.post('/reset/:token', function (req, res) {
       });
     }
   ], function (err) {
-    res.redirect('/');
+    if (err) {
+      throw err
+    }
+    res.redirect('/')
   }
   );
 });

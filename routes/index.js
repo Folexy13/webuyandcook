@@ -58,7 +58,6 @@ router.get('/', function (req, res, next) {
      successMsg: successMsg,
      success: successMsg.length > 0
    })
-     
     }
   return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks});
   });
@@ -147,7 +146,7 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
   var email = req.body.email
 
   var transporter = nodemailer.createTransport({
-    service: "Gmail",
+    service: "GMAIL",
     port: 465,
     secure:true,
     auth: {
@@ -157,9 +156,9 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
         rejectUnauthorized: false
     }
   });
-
+  let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
   var emailOptions = {
-    from: 'WebuyNdCook@gmail.com',
+    from: from,
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
     subject: 'WebuyNdCook Cares',
@@ -181,7 +180,7 @@ router.post('/enquiry', isLoggedin, function (req, res, next) {
   var enquiry = req.body.enquiry
 
   var transporter = nodemailer.createTransport({
-    service: "Gmail",
+    service: "GMAIL",
     port: 465,
     secure:true,
     auth: {
@@ -191,10 +190,9 @@ router.post('/enquiry', isLoggedin, function (req, res, next) {
         rejectUnauthorized: false
     }
   });
-  
-
+  let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
   var emailOptions = {
-    from: 'WebuyNdCook@gmail.com',
+    from: from,
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
     subject: 'WebuyNdCook Cares',
