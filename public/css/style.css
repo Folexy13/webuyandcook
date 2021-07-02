@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Paprika');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
-
+/* fixed-menu */
 
 @import url(owl.theme.css);
 @import url(owl.carousel.css);
@@ -1456,6 +1456,7 @@ header-block-top {
     border-radius: 0px;
     border: none;
     margin: 0px;
+    padding-bottom: 30px;
 }
 
 .main-menu nav .navbar-header .navbar-brand {
