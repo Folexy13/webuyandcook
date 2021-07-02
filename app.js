@@ -44,7 +44,9 @@ app.use(session({
   store:MongoStore.create({
             mongoUrl: 'mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority'
         }),
-  cookie: {maxAge: 180*60*1000}
+  cookie: {
+    maxAge: 180 * 60 * 1000
+  }
 }));
 app.use(flash());
 app.use(passport.initialize());

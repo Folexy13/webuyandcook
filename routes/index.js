@@ -178,7 +178,7 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
 router.post('/enquiry', isLoggedin, function (req, res, next) {
   var email = req.body.email
   var enquiry = req.body.enquiry
-
+  var firstname = req.user.fname
   var transporter = nodemailer.createTransport({
     service: "GMAIL",
     port: 465,
@@ -196,7 +196,7 @@ router.post('/enquiry', isLoggedin, function (req, res, next) {
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
     subject: 'WebuyNdCook Cares',
-    text : `Hi ${req.user.fname},\n\n WebuyNdcook Team apologize for any inconveniences you might have been through,\n The enquiry we got from you was  ${enquiry} and We will respond to  you via your email ( ${email}).\n.`,
+    text : `Hi ${firstname},\n\n WebuyNdcook Team apologize for any inconveniences you might have been through.\n\n The enquiry/complain we got from you was " ${enquiry}" and We will respond to  you via your email ( ${email}).\n.`,
   };
 
   transporter.sendMail(emailOptions, (err, info) => {

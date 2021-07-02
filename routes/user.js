@@ -1,3 +1,4 @@
+// Importing modules
 require('dotenv').config()
 var express = require('express');
 var router = express.Router();
@@ -8,10 +9,13 @@ var async = require('async');
 var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var crypto = require('crypto');
+var ObjectID = require('mongodb').ObjectID;
 
+// CSRF protection for our routing
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
+//Users Routing
 
 router.get('/profile', isLoggedin, function (req, res, next) {
   User.find(function(err, image) {
@@ -40,7 +44,6 @@ router.get('/profile/settings', isLoggedin, function (req, res, next) {
   
 });
 
-
 router.get('/logout', isLoggedin, function (req, res, next) {
     req.logout();
     res.redirect('/');
@@ -65,8 +68,8 @@ router.post('/signup', passport.authenticate('local.signup', {
     res.redirect(url);
   } else {
     var email = req.body.email
-
-  var transporter = nodemailer.createTransport({
+    var firstname = req.body.fname;
+    var transporter = nodemailer.createTransport({
     service: "GMAIL",
     port: 465,
     secure:true,
@@ -82,8 +85,8 @@ router.post('/signup', passport.authenticate('local.signup', {
     from: from,
     to: email,
     cc: 'opeyemifolajimi13@gmail.com',
-    subject: 'WebuyNdCook Cares',
-    text : '\n\nThank you for joining our team,  here we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Slide in to our website @ www.webuyandcook.com to get even more\n\n Thanks\n WebuyNdCook Team',
+    subject: 'WebuyNdCook Welcomes you',
+    text : `Hello ${firstname}\n\nThank you for joining our team,Accept or hearty welcome.\n  Here, we are interested to give you the best meal offer at a very cheap price and if you stay long with us by patronising us often, you can stand the chance to eat free or even at discounted price. Slide in to our website @ www.webuyandcook.com to get even more\n\n Thanks\n WebuyNdCook Team`,
   };
 
   transporter.sendMail(emailOptions, (err, info) => {
@@ -192,29 +195,26 @@ router.get('/reset/:token', function (req, res) {
 router.post('/reset/:token', function (req, res) {
   async.waterfall([
     function (done) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-          if (!user) {
-            req.flash('error', 'Password reset is invalid or token expired.');
-            return res.redirect('back')
-          }
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
+        if (!user) {
+          req.flash('error', 'Password reset is invalid or token expired.');
+          return res.redirect('back')
+        }
         if (req.body.password === req.body.confirm) {
-          var password = user.password
+          var userId = user._id;
           var hashedPwd = user.encryptPassword(req.body.password)
-            user.setPassword(hashedPwd, function (err) {
-              user.resetPasswordToken = undefined;
-              user.resetPasswordExpires = undefined;
-              user.save(function (err) {
+          User.findByIdAndUpdate({ _id: userId }, { password: hashedPwd }, { new: true }, function (err, docs) {
+            if (err) console.log(err)
+             user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+            user.hash = undefined;
+            user.salt = undefined
+            user.save(function (err) {
                 req.login(user, function (err) {
                   done(err, user)
                 });
               });
-              user.updateOne(
-                { _id: user._id },
-          {$unset:{password: " "}},
-          { $set: { password:hashedPwd} },
-          { upsert: true },
-          { new: true })
-            })
+          });
           } else {
             req.flash("error", "Password do not match")
             return res.redirect("back")
