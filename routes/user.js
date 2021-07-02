@@ -7,9 +7,8 @@ var passport = require('passport');
 var User = require('../models/user');
 var async = require('async');
 var nodemailer = require('nodemailer');
-var xoauth2 = require('xoauth2');
 var crypto = require('crypto');
-var ObjectID = require('mongodb').ObjectID;
+
 
 // CSRF protection for our routing
 var csrfProtection = csrf();
@@ -31,6 +30,7 @@ router.get('/profile', isLoggedin, function (req, res, next) {
   })
   
 });
+
 router.get('/profile/settings', isLoggedin, function (req, res, next) {
   User.find(function (err, image) {
       if (err) {
@@ -43,6 +43,7 @@ router.get('/profile/settings', isLoggedin, function (req, res, next) {
     })
   
 });
+
 
 router.get('/logout', isLoggedin, function (req, res, next) {
     req.logout();

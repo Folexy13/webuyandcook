@@ -4,9 +4,35 @@ var router = express.Router();
 const nodemailer = require('nodemailer');
 var Cart = require('../models/cart');
 var Order = require('../models/order');
-var async = require('async')
+var async = require('async');
+var multer = require('multer');
 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null,new Date().toISOString() + file.originalname)
+  }
+});
 
+var upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter:fileFilter
+})
+var fileFilter = function (req, file, cb) {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    // accept a file
+    cb(null, true)
+  } else {
+    //  reject a file
+    cb(null, false)
+  }
+  
+ }
 var Qmenu = require('../models/qMenu'); 
 var Smenu = require('../models/sMenu'); 
 
@@ -175,6 +201,10 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
   });
 });
 
+router.post('/change-picture', upload.single('userImage'), function (req, res, next) {
+  console.log(req.file)
+  res.redirect('/user/profile/settings')
+});
 router.post('/enquiry', isLoggedin, function (req, res, next) {
   var email = req.body.email
   var enquiry = req.body.enquiry
