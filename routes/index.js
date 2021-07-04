@@ -6,20 +6,24 @@ var Cart = require('../models/cart');
 var Order = require('../models/order');
 var async = require('async');
 var multer = require('multer');
+var User = require('../models/user');
+var Qmenu = require('../models/qMenu'); 
+var Smenu = require('../models/sMenu'); 
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, './uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null,new Date().toISOString() + file.originalname)
+    cb(null,new Date().toISOString().replace(/:/g, '-')+ file.originalname)
   }
 });
 
 var upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 1024 * 1024 * 1
   },
   fileFilter:fileFilter
 })
@@ -33,8 +37,6 @@ var fileFilter = function (req, file, cb) {
   }
   
  }
-var Qmenu = require('../models/qMenu'); 
-var Smenu = require('../models/sMenu'); 
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -201,9 +203,16 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
   });
 });
 
-router.post('/change-picture', upload.single('userImage'), function (req, res, next) {
-  console.log(req.file)
-  res.redirect('/user/profile/settings')
+router.post('/change-picture', isLoggedin, upload.single('userImage'), function (req, res, next) {
+  User.findOne({_id:req.user._id}, function (err, user) {
+    User.findByIdAndUpdate({ _id: user._id }, { userImage: req.file.path }, { new: true }, function (err, user) {
+      if (err) console.log('failed')
+      user.save(function (err) {
+        if (err) console.log(err)
+        res.redirect('/user/profile')
+      })
+    })
+  })
 });
 router.post('/enquiry', isLoggedin, function (req, res, next) {
   var email = req.body.email

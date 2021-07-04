@@ -76,7 +76,7 @@
                         </label>
                     </div>
                     <div class="user">
-                        <img  src={{userImage}} alt="">
+                        <img  src=/{{userImage}} alt="">
                     </div>
                 </div>
                
@@ -160,9 +160,10 @@
                         </div>
                         <table >
                             <tr style="margin-bottom: 10% !important;">
-                                <td width="60px" class="imgBx"><img src={{userImage}} alt=""></td>
+                                <td width="60px" class="imgBx"><img src=/{{userImage}} alt=""></td>
                                 <td>
-                                    <input type="text" value="{{firstName}} {{lastName}}" readonly> <span class="pull-right"><button><a href="#" style="text-decoration: none;">Change</a></button></span>
+                                    <input type="text" value="{{firstName}} {{lastName}}" readonly> <span class="pull-right">
+                                    <button><a href="#" style="text-decoration: none;">Change</a></button></span>
                                 </td>
                             </tr style="margin-bottom: 10% !important;">
                             <tr>
@@ -174,14 +175,14 @@
                             <tr style="margin-bottom: 10% !important;">
                                 <td width="60px" class="imgBx"><i class="fa fa-envelope" aria-hidden="true"></i></td>
                                 <td>
-                                   <input type="email" value="{{email}}" style="width: 60%;"  readonly><span class="pull-right"><button><a
+                                   <input type="email" value="{{email}}" style="width: 80%;" style="word-wrap: break-word;" readonly><span class="pull-right"><button><a
                                             style="text-decoration: none;"href="#">Change</a></button></span>
                                 </td>
                             </tr>
                             <tr style="margin-bottom: 10% !important;">
                                 <td width="60px" class="imgBx"><i class="fa fa-star" aria-hidden="true"></td>
                                 <td>
-                                    starter</h4>
+                                    <h4>starter</h4>
                                 </td>
                             </tr>
                         </table>
@@ -242,7 +243,15 @@
     input{
         border: none;
     }
-
+    .recentCustomers table{
+        justify-content: space-between;
+    }
+    .recentCustomers table td input,
+    .recentCustomers table td h4{
+        text-align: center;
+        outline: none;
+        font-size: 20px;
+    }
     
 </style>
 

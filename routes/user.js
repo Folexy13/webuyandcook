@@ -16,8 +16,8 @@ router.use(csrfProtection);
 
 //Users Routing
 
-router.get('/profile', isLoggedin, function (req, res, next) {
-  User.find(function(err, image) {
+router.get('/profile', isLoggedin,async function (req, res, next) {
+ await User.find(function(err, image) {
     if (err) {
       throw err
     }
@@ -31,8 +31,8 @@ router.get('/profile', isLoggedin, function (req, res, next) {
   
 });
 
-router.get('/profile/settings', isLoggedin, function (req, res, next) {
-  User.find(function (err, image) {
+router.get('/profile/settings', isLoggedin, async function (req, res, next) {
+await  User.find(function (err, image) {
       if (err) {
         throw err
       }

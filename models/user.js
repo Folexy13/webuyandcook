@@ -12,7 +12,7 @@ var userSchema = new Schema({
     phone: {type: String, required: true},
     lname: { type: String, required: true },
     address: { type: String, required: true },
-    userImage: { type: String, required: true, data: Buffer },
+    userImage: { type: String, data: Buffer },
     resetPasswordToken: {type: String},
     resetPasswordExpires: {type: Date},
 })
