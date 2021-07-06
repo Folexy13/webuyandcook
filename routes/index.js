@@ -204,6 +204,7 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
 });
 
 router.post('/change-picture', isLoggedin, upload.single('userImage'), function (req, res, next) {
+
   User.findOne({_id:req.user._id}, function (err, user) {
     User.findByIdAndUpdate({ _id: user._id }, { userImage: req.file.path }, { new: true }, function (err, user) {
       if (err) console.log('failed')

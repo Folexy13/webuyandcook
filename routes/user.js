@@ -32,7 +32,7 @@ router.get('/profile', isLoggedin,async function (req, res, next) {
 });
 
 router.get('/profile/settings', isLoggedin, async function (req, res, next) {
-await  User.find(function (err, image) {
+await User.find(function (err, image) {
       if (err) {
         throw err
       }
