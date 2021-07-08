@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
         <link rel="shortcut icon" href="/images/menalogo.png" type="image/x-icon" />
+        
 
     </head>
 
@@ -77,7 +78,7 @@
                         </label>
                     </div>
                     <div class="user">
-                        <img src="/{{userImage}}" alt="">
+                        <img src="{{userImage}}" alt="">
                     </div>
                 </div>
                 <div class="details">
@@ -150,7 +151,7 @@
                     <div class="recentCustomers" style="margin-top: 5%;">
                             <div class="myProfile">
                                 <div>
-                                    <img  class="imgBx" src=/{{userImage}} width="100" alt=""> 
+                                    <img  class="imgBx" src={{userImage}} width="100" alt=""> 
                                 </div>
                                 <div class="me">
                                     <h2 style="margin-left: -75px;">{{firstName}} {{lastName}}</h2>
@@ -158,14 +159,39 @@
                                 </div>
                                 <div class="meDetailed" style="margin-top: 20%; margin-left:-40%">
                                 <form method="POST" action="/change-picture" enctype="multipart/form-data">
-                                    <input type="file" name="userImage" id="img" style="display:none;"/>
-                                    <label for="img" style="cursor: pointer;">Change picture </label>
-                                    <button style="cursor: pointer;" type="submit" class="btn btn-primary btn-sm">Save</button>
+                                    <input type="file" id="img" accept="image/*" style="width: 100%;margin-bottom:10px;">
+                                    <input type="hidden" name="userImage" id="userImage">
+                                    <p id="text"></p>
+                                    <button style="cursor: pointer;" type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
+                                    <button style="cursor: pointer;" type="submit" class="btn btn-primary btn-sm">save</button>
+                                    
                                 </form>
                                 </div>
                             </div>
                             
                     </div>
+
+                    <!-- The core Firebase JS SDK is always required and must be listed first -->
+                    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+                    
+                    
+                    <!-- TODO: Add SDKs for Firebase products that you want to use
+                         https://firebase.google.com/docs/web/setup#available-libraries -->
+                        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
+                    
+                    <script>
+                        // Your web app's Firebase configuration
+                        var firebaseConfig = {
+                            apiKey: "AIzaSyBRoSVRBFTRhu_agOV0Zdrd8lP-ROYGeWk",
+                            authDomain: "webuyandcook.firebaseapp.com",
+                            projectId: "webuyandcook",
+                            storageBucket: "webuyandcook.appspot.com",
+                            messagingSenderId: "530337633431",
+                            appId: "1:530337633431:web:efd66af167e04f5baa05d2"
+                        };
+                        // Initialize Firebase
+                        firebase.initializeApp(firebaseConfig);
+                    </script>
                     
                 </div>
                 
@@ -189,8 +215,10 @@
                 }
                 
             </script>
+            <script src="../../javascripts/storage.js"></script>
             <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
             <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+            
         
     </body>
 

@@ -5,39 +5,9 @@ const nodemailer = require('nodemailer');
 var Cart = require('../models/cart');
 var Order = require('../models/order');
 var async = require('async');
-var multer = require('multer');
 var User = require('../models/user');
 var Qmenu = require('../models/qMenu'); 
-var Smenu = require('../models/sMenu'); 
-
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null,new Date().toISOString().replace(/:/g, '-')+ file.originalname)
-  }
-});
-
-var upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 1
-  },
-  fileFilter:fileFilter
-})
-var fileFilter = function (req, file, cb) {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    // accept a file
-    cb(null, true)
-  } else {
-    //  reject a file
-    cb(null, false)
-  }
-  
- }
-
+var Smenu = require('../models/sMenu');
 /* GET home page. */
 router.get('/', function (req, res, next) {
  var successMsg = req.flash('success');
@@ -203,14 +173,15 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
   });
 });
 
-router.post('/change-picture', isLoggedin, upload.single('userImage'), function (req, res, next) {
-
+router.post('/change-picture', isLoggedin, function (req, res, next) {
+  var userImg = req.body.userName
   User.findOne({_id:req.user._id}, function (err, user) {
-    User.findByIdAndUpdate({ _id: user._id }, { userImage: req.file.path }, { new: true }, function (err, user) {
+    User.findByIdAndUpdate({ _id: user._id }, { userImage: userImg}, { new: true }, function (err, user) {
       if (err) console.log('failed')
       user.save(function (err) {
         if (err) console.log(err)
         res.redirect('/user/profile')
+        console.log(req.body.userName)
       })
     })
   })
