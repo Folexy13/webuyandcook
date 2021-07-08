@@ -260,14 +260,35 @@ router.post('/reset/:token', function (req, res) {
 });
 
 // ADMIN SECTION
-router.get('/admin', function (req, res) {
-  res.render('Admin/signin', { title: 'Admin|Log-in', csrfToken:req.csrfToken()})
+router.get('/adminow', function (req, res) {
+    var messages = req.flash('error');
+    res.render('Admin/signup', {title:"Admin|Sigin", csrfToken: req.csrfToken(),messages:messages,hasErrors:messages.length>0})
 });
 
-router.post('/admin/signin', passport.authenticate('local.adminSigin', {
-  failureRedirect: '/',
-  successRedirect: '/user/admin'
+router.post('/admin/signup', passport.authenticate('local.adminSignup', {
+  successRedirect: '/user/admin/signin',
+  failureRedirect: '/user/adminow',
+  failureFlash: true,
 }))
+
+router.get('/admin/signin', function (req, res) {
+  var messages = req.flash('error');
+  res.render('Admin/signin', { title: 'Admin|Log-in', csrfToken:req.csrfToken(),messages:messages,hasErrors:messages.length>0})
+});
+
+router.post('/admin/signin', passport.authenticate('local.adminSignin', {
+  successRedirect: '/user/admin',
+  failureRedirect: '/user/admin/signin',
+  failureFlash: true
+
+}))
+
+router.get('/admin', function (req, res) {
+  res.render('Admin/index',{title: 'Admin | webuyandcook',layout:false})
+});
+
+
+
 
 function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {
@@ -282,5 +303,4 @@ function notLoggedin(req, res, next) {
     }
     res.redirect('/');
 }
-
 module.exports = router;

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='../../css/profile.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" '>
+    <link rel="shortcut icon" href="/images/menalogo.png" type="image/x-icon" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="navigation" style="background-color: #000;">
+            <ul>
+                <li>
+                    <a href="/">
+                        <span class="icon"><img src="https://webuyandcook.com/images/logo.png" alt=""></span>
+                        <span class="title">
+                            <h2>Webuyndcook</h2>
+                        </span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-tachometer" aria-hidden="true"></i></span>
+                        <span class="title">My Dashboard </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/cart">
+                        <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                        <span class="title">Cart </span>
+                    </a>
+                </li>
+    
+    
+                <li>
+                    <a href="/user/profile/settings">
+                        <span class="icon"><i class="fa fa-cogs" aria-hidden="true"></i></span>
+                        <span class="title">Settings </span>
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-bell" aria-hidden="true"></i></span>
+                        <span class="title">Notifications</span>
+                    </a>
+                </li>
+    
+                <li class="blue">
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        <span class="title">Help </span>
+                    </a>
+                </li>
+    
+                <li class="red">
+                    <a href="/user/logout">
+                        <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                        <span class="title">Log-out </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main">
+            <!-- Header -->
+            <div class="topbar">
+                <div class="toggle" onclick="toggleMenu();"></div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="search here">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </label>
+                </div>
+                <div class="user">
+                    <img src="https://www.pngarts.com/files/3/Avatar-PNG-Download-Image.png" alt="">
+                </div>
+            </div>
+    
+            <div class="details">
+    
+                <div class="recentOrders" style="margin-top: 3%;">
+                    {{# if menu}}
+                    <div class="cardHeader">
+                        <h2>Recent Orders</h2>
+                        <a href="#" class="btn">View all</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Price</td>
+                                <td>Payment</td>
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Egusi Soup</td>
+                                <td>&#8358;3500</td>
+                                <td>Paid</td>
+                                <td><span class="status delivered">Delivered</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ogbono Soup</td>
+                                <td>&#8358;3500</td>
+                                <td>Due</td>
+                                <td><span class="status return">Return</span></td>
+                            </tr>
+                            <tr>
+                                <td>Garri</td>
+                                <td>&#8358;3500</td>
+                                <td>Paid</td>
+                                <td><span class="status inprogress">In Progress</span></td>
+                            </tr>
+                            <tr>
+                                <td>Egusi Soup</td>
+                                <td>&#8358;3500</td>
+                                <td>Paid</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Egusi Soup</td>
+                                <td>&#8358;3500</td>
+                                <td>Paid</td>
+                                <td><span class="status delivered">Delivered</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ogbono Soup</td>
+                                <td>&#8358;3500</td>
+                                <td>Due</td>
+                                <td><span class="status return">Return</span></td>
+                            </tr>
+                            <tr>
+                                <td>Garri</td>
+                                <td>&#8358;3500</td>
+                                <td>Paid</td>
+                                <td><span class="status inprogress">In Progress</span></td>
+                            </tr>
+                            <tr>
+                                <td>Egusi Soup</td>
+                                <td>&#8358;3500</td>
+                                <td>Paid</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                        {{else}}
+                        <h1 style="text-align: center;">My Order</h1>
+                        <div id="empty">You Have made no Order: <a style="text-decoration:none;font-size: 3rem;color:red"
+                                href="/#order">Order Now</a></div>
+                    </table>
+                    {{/if}}
+                </div>
+    
+                {{!-- <div class="recentCustomers" style="margin-top: 5%;">
+                    <div class="cardHeader" style="margin-left:20%;margin-bottom: 10%;">
+                        <h2>My Details</h2>
+                    </div>
+                    <table>
+                        <tr style="margin-bottom: 10% !important;">
+                            <td width="60px" class="imgBx"><img src="https://www.pngarts.com/files/3/Avatar-PNG-Download-Image.png" alt=""></td>
+                            <td>
+                                <input type="text" value="Admin@Webuyandcook" readonly> <span class="pull-right">
+                                    <button><a href="#" style="text-decoration: none;">Change</a></button></span>
+                            </td>
+                        </tr style="margin-bottom: 10% !important;">
+                        <tr style="margin-bottom: 10% !important;">
+                            <td width="60px" class="imgBx"><i class="fa fa-envelope" aria-hidden="true"></i></td>
+                            <td>
+                                <input type="email" value="menaonlinefood@gmail.com" style="width: 80%;" style="word-wrap: break-word;"
+                                    readonly><span class="pull-right"><button><a style="text-decoration: none;"
+                                            href="#">Change</a></button></span>
+                            </td>
+                        </tr>
+                        <tr style="margin-bottom: 10% !important;">
+                            <td width="60px" class="imgBx"><i style="color: blue;" class="fa fa-star" aria-hidden="true"></td>
+                            <td>
+                                <h4>Administrator</h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div> --}}
+
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Recent Customers</h2>
+                        <a href="#" class="btn">View all</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <td>Avatar</td>
+                            <td style="text-align: center;">Name</td>
+                            <td class="pull-right">Day Joined</td>
+                        </thead>
+                        <tr>
+                            <td  class="imgBx col-lg-2"><img
+                                    src="../../images/weby.jpg"
+                                    alt=""></td>
+                            <td style="text-align: center;">
+                                <h4>Folajimi Aluko</span></h4>
+                            </td>
+                            <td>
+                                <h4 class="pull-right" id="day"></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="imgBx col-lg-2"><img src="../../images/weby.jpg" alt=""></td>
+                            <td style="text-align: center;">
+                                <h4>Folajimi Aluko</span></h4>
+                            </td>
+                            <td>
+                                <h4 class="pull-right" id="day"></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="imgBx col-lg-2"><img src="../../images/weby.jpg" alt=""></td>
+                            <td style="text-align: center;">
+                                <h4>Folajimi Aluko</span></h4>
+                            </td>
+                            <td>
+                                <h4 class="pull-right" id="day"></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="imgBx col-lg-2"><img src="../../images/weby.jpg" alt=""></td>
+                            <td style="text-align: center;">
+                                <h4>Folajimi Aluko</span></h4>
+                            </td>
+                            <td>
+                                <h4 class="pull-right" id="day"></h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #000;">
+                <div style="color: white;">&copy;2021 WebuyNCook.All Rights reserved</div>
+            </div>
+    
+    
+        </div>
+    
+    
+        <script>
+            function toggleMenu() {
+                let toggle = document.querySelector('.toggle');
+                toggle.classList.toggle('active');
+                let navigation = document.querySelector('.navigation');
+                navigation.classList.toggle('active');
+                let main = document.querySelector('.main');
+                main.classList.toggle('active');
+
+            }
+        </script>
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    </div>
+</body>
+
+<script>
+    var today = new Date();
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    mm = months[today.getMonth()]
+    var date = mm+' '+today.getDate()+'th'+ ","+ today.getFullYear()+'.';
+    var day = document.getElementById('day');
+    day.innerHTML = date
+</script>
+<style>
+    table tr{
+        margin: 10px !important;
+        margin-bottom: 100px !important;
+    }
+</style>

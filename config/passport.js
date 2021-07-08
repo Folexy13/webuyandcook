@@ -1,5 +1,6 @@
 var passport = require('passport');
 var User = require('../models/user');
+var Admin = require('../models/admin')
 var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -11,6 +12,18 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     User.findById(id, function (err, user) {
         done(err, user)
+    });
+});
+
+
+passport.serializeUser(function (admin, done) {
+    done(null, admin.id);
+});
+
+
+passport.deserializeUser(function (id, done) {
+    Admin.findById(id, function (err, admin) {
+        done(err, admin)
     });
 });
 
@@ -97,6 +110,76 @@ passport.use('local.signin', new LocalStrategy({
         }
         if (!user) {
             return done(null, false, { message: `${email} is not a registered account` })
+        }
+        if (!user.validPassword(password)) {
+            return done(null, false, { message: 'Incorrect login details' })
+        }
+        return done(null, user)
+    });
+    
+
+}));
+
+passport.use('local.adminSignup', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, function (req, email,password,done) {
+   req.checkBody('email', 'Invalid Email').notEmpty().isEmail();
+    req.checkBody('password', 'Your Passwords must be more than 4 digits').notEmpty().isLength({ min: 4 });
+
+    var errors = req.validationErrors();
+
+    if (errors) {
+        var messages = []
+        errors.forEach(function (error) {
+            messages.push(error.msg)
+        });
+        return done(null, false, req.flash('error', messages))
+    }
+   Admin.findOne({ 'email': email }, function (err, user) {
+        if (err) {
+            return done(user)
+        }
+        if (user) {
+            return done(null, false, {message: 'The email you entered is associated with another account'})
+        }
+        var newAdmin = new Admin();
+        newAdmin.email = email;
+        newAdmin.password = newAdmin.encryptPassword(password);
+
+        newAdmin.save(function (err, result) {
+            if (err) {
+                return done(err);
+            }
+            return done(null, newAdmin);
+        });
+    })
+}));
+
+passport.use('local.adminSignin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback:true
+}, function (req, email, password, done) {
+    req.checkBody('email', 'This is not a valid Email').notEmpty().isEmail();
+    req.checkBody('password', 'Incorrect Login Details').notEmpty().isLength({ min: 4 });
+    
+    var errors = req.validationErrors();
+
+    if (errors) {
+        var messages = []
+        errors.forEach(function (error) {
+            messages.push(error.msg)
+        });
+        return done(null, false, req.flash('error', messages))
+    }
+    Admin.findOne({ 'email': email }, function (err, user) {
+        if (err) {
+            return done(user)
+        }
+        if (!user) {
+            return done(null, false, { message: `You are not authorized to access this session` })
         }
         if (!user.validPassword(password)) {
             return done(null, false, { message: 'Incorrect login details' })

@@ -2,24 +2,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="../../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../../fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../../vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
 
-    <link rel="stylesheet" type="text/css" href="../../vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../../vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../../vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../../vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
 
-    <link rel="stylesheet" type="text/css" href="../../css/util.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/util.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
     <meta name="robots" content="noindex, follow">
     <style>
@@ -32,16 +32,15 @@
     </style>
 </head>
 <a href="/" class="logo ">
-    <img src="../../images/menalogo.png" alt="" height="60px" width="60px">
-
+    <img src="../images/menalogo.png" alt="" height="60px" width="60px">
     <h2 style="color: #fff;">WeBuyNCook</h2>
 </a>
 
 
 <div class="limiter">
-    <div class="container-login100" style="background-image: url('../../images/weby.jpg');">
+    <div class="container-login100" style="background-image: url('../images/weby.jpg');">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" method="POST" action="/user/admin/signin">
+            <form class="login100-form validate-form" method="POST" action="/user/admin/signup">
                 {{#if hasErrors}}
                 <div class="alert" style="background-color: red;color:white ">
                     {{#each messages}}
@@ -53,7 +52,7 @@
                     <i class="zmdi zmdi-account-add"></i>
                 </span>
                 <span class="login100-form-title p-b-34 p-t-27">
-                    Admin Login
+                    Admin Register
                 </span>
                 <div class="wrap-input100 validate-input">
                     <input class="input100" type="email" name="email" placeholder="Email" autocomplete="new-password">
@@ -67,7 +66,7 @@
                 <div class="container-login100-form-btn">
                     <input type="hidden" name="_csrf" value={{csrfToken}}>
                     <button class="login100-form-btn">
-                        Login
+                        Register
                     </button>
                 </div>
             </form>
