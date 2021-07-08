@@ -174,14 +174,13 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
 });
 
 router.post('/change-picture', isLoggedin, function (req, res, next) {
-  var userImg = req.body.userName
+  var userImg = req.body.userImage
   User.findOne({_id:req.user._id}, function (err, user) {
     User.findByIdAndUpdate({ _id: user._id }, { userImage: userImg}, { new: true }, function (err, user) {
       if (err) console.log('failed')
       user.save(function (err) {
         if (err) console.log(err)
         res.redirect('/user/profile')
-        console.log(req.body.userName)
       })
     })
   })

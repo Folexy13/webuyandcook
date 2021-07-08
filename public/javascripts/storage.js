@@ -9,9 +9,9 @@ function upload() {
     task.on('state_changed', function (snapshot) {
         var progress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
         var text = document.getElementById('text')
-        if (img.size > 2 * 1024 * 1024) {
+        if (img.size > 1 * 1024 * 1024) {
             text.style.color = "red"
-            text.innerHTML = "File too large for upload(size limits:2mb)"
+            text.innerHTML = "File too large for upload(size limits:1mb)"
             return false
         } else {
             var t = img.type.split('/').pop().toLowerCase();

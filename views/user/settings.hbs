@@ -87,66 +87,7 @@
                             <h2>My Orders</h2>
                             <a href="#" class="btn">View all</a>
                         </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Price</td>
-                                    <td>Payment</td>
-                                    <td>Status</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status delivered">Delivered</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Ogbono Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Due</td>
-                                    <td><span class="status return">Return</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Garri</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status inprogress">In Progress</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status delivered">Delivered</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Ogbono Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Due</td>
-                                    <td><span class="status return">Return</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Garri</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status inprogress">In Progress</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        
                     </div>
                     <div class="recentCustomers" style="margin-top: 5%;">
                             <div class="myProfile">
@@ -155,16 +96,16 @@
                                 </div>
                                 <div class="me">
                                     <h2 style="margin-left: -75px;">{{firstName}} {{lastName}}</h2>
-                                    <h5 style="text-align: center;margin-left: -125px;">starter</h5>
+                                    <h5>starter</h5>
                                 </div>
                                 <div class="meDetailed" style="margin-top: 20%; margin-left:-40%">
-                                <form method="POST" action="/change-picture" enctype="multipart/form-data">
+                                <h4>Change your profile pix</h4>
+                                <form method="POST" action="/change-picture">
                                     <input type="file" id="img" accept="image/*" style="width: 100%;margin-bottom:10px;">
                                     <input type="hidden" name="userImage" id="userImage">
-                                    <p id="text"></p>
                                     <button style="cursor: pointer;" type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
-                                    <button style="cursor: pointer;" type="submit" class="btn btn-primary btn-sm">save</button>
-                                    
+                                    <button style="cursor: pointer;"  class="btn btn-primary btn-sm" type="submit">save</button>
+                                    <p id="text"></p>
                                 </form>
                                 </div>
                             </div>

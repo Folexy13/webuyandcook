@@ -259,6 +259,16 @@ router.post('/reset/:token', function (req, res) {
   );
 });
 
+// ADMIN SECTION
+router.get('/admin', function (req, res) {
+  res.render('Admin/signin', { title: 'Admin|Log-in', csrfToken:req.csrfToken()})
+});
+
+router.post('/admin/signin', passport.authenticate('local.adminSigin', {
+  failureRedirect: '/',
+  successRedirect: '/user/admin'
+}))
+
 function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
