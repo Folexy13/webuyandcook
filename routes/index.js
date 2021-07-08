@@ -180,11 +180,12 @@ router.post('/change-picture', isLoggedin, function (req, res, next) {
       if (err) console.log('failed')
       user.save(function (err) {
         if (err) console.log(err)
-        res.redirect('/user/profile')
+        res.redirect('/user/profile/settings')
       })
     })
   })
 });
+
 router.post('/enquiry', isLoggedin, function (req, res, next) {
   var email = req.body.email
   var enquiry = req.body.enquiry
