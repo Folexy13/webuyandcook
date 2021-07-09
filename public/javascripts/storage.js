@@ -1,14 +1,19 @@
 function upload() {
     var img = document.getElementById("img").files[0];
-    var imgName = img.name;
-
+    var text = document.getElementById('text')
+    var p = document.getElementById('userImage')
+    if (typeof img ==="undefined") {
+        p.value = " ";
+        text.style.color = 'red';
+        text.innerHTML = "You can't upload an empty file"
+        return false
+    } 
+    var imgName = img.name
     var storageRef = firebase.storage().ref('Uploads/' + imgName);
-
     var task = storageRef.put(img);
 
     task.on('state_changed', function (snapshot) {
         var progress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-        var text = document.getElementById('text')
         if (img.size > 1 * 1024 * 1024) {
             text.style.color = "red"
             text.innerHTML = "File too large for upload(size limits:1mb)"
@@ -40,9 +45,10 @@ function upload() {
     }, function () {
     task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
         console.log(downloadURL)
-        var p = document.getElementById('userImage')
         p.value= downloadURL
     })
-});    
+    });
+    return true
+       
                                       
  }

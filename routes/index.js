@@ -8,7 +8,8 @@ var async = require('async');
 var User = require('../models/user');
 var Qmenu = require('../models/qMenu'); 
 var Smenu = require('../models/sMenu');
-/* GET home page. */
+
+
 router.get('/', function (req, res, next) {
  var successMsg = req.flash('success');
  var sMenuChunks = [];
@@ -175,6 +176,9 @@ router.post('/subscribe', isLoggedin, function (req, res, next) {
 
 router.post('/change-picture', isLoggedin, function (req, res, next) {
   var userImg = req.body.userImage
+  if (userImg === 'null') {
+    req.flash('error', 'You did not upload any file')
+  }
   User.findOne({_id:req.user._id}, function (err, user) {
     User.findByIdAndUpdate({ _id: user._id }, { userImage: userImg}, { new: true }, function (err, user) {
       if (err) console.log('failed')

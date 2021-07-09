@@ -78,12 +78,12 @@
                         </label>
                     </div>
                     <div class="user">
-                        <img src="{{userImage}}" alt="">
+                        <a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a>
                     </div>
                 </div>
                 <div class="details">
                     <div class="recentOrders" style="margin-top: 3%;">
-                    <form method="" action="/user/profile/settings" >
+                    <form method="" action="/update-user" >
                     
                         <h1>Change Profile Settings</h1>
                     
@@ -98,6 +98,12 @@
                     
                             <label for="mail">Email:</label>
                             <input type="email" id="mail" name="email" value="{{email}}">
+
+                            <label for="phone">Phone:</label>
+                            <input type="number" id="phone" name="phone" value="{{phone}}">
+
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" name="address" value="{{address}}">
                     
                             <label for="password">New Password:</label>
                             <input type="password" id="password" name="user_password" autocomplete="new-password">
@@ -105,30 +111,33 @@
                             <label for="password">Confirm New Password:</label>
                             <input type="password" id="password" name="user_password" autocomplete="new-password">
                         </fieldset>
-                    
-                        <fieldset>
-                            <legend><span class="number">2</span>Your profile</legend>
-                            <label for="bio">Biography:</label>
-                            <textarea id="bio" name="user_bio"></textarea>
-                        </fieldset>
                         <button type="submit">Save Changes</button>
                     </form>
                     </div>
                     <div class="recentCustomers" style="margin-top: 5%;">
+                            {{#if hasErrors}}
+                            <div class="alert" style="background-color: red;color:white;padding: 10px;border-radius: 15px;text-align:center ">
+                                {{#each errMsg}}
+                                {{this}}<br>
+                                {{/each}}
+                                
+                            </div>
+                            {{/if}}
                             <div class="myProfile">
                                 <div>
-                                    <img  class="imgBx" src={{userImage}} width="100" alt=""> 
+                                   <a target="_blank" href="{{userImage}}"><img  class="imgBx" src={{userImage}} width="100" alt="no-image"></a>
                                 </div>
                                 <div class="me">
                                     <h2 style="margin-left: -75px;">{{firstName}} {{lastName}}</h2>
                                     <h5>starter</h5>
                                 </div>
+                                
                                 <div class="meDetailed" style="margin-top: 20%; margin-left:-40%">
                                 <h4>Change your profile pix</h4>
                                 <form method="POST" action="/change-picture">
-                                    <input type="file" id="img" accept="image/*" style="width: 100%;margin-bottom:10px;">
-                                    <input type="hidden" name="userImage" id="userImage">
-                                    <button style="cursor: pointer;" type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
+                                    <input type="file" name="img" id="img" accept="image/*" style="width: 100%;margin-bottom:10px;">
+                                    <input type="hidden" name="userImage" id="userImage" value="null">
+                                    <button style="cursor: pointer;"  type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
                                     <button style="cursor: pointer;"  class="btn btn-primary btn-sm" type="submit">save</button>
                                     <p id="text"></p>
                                 </form>

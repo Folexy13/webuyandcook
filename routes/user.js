@@ -35,12 +35,28 @@ router.get('/profile/settings', isLoggedin, async function (req, res, next) {
 await User.find(function (err, image) {
       if (err) {
         throw err
-      }
-    var userImage = req.user.userImage;
-    var firstName = req.user.fname;
-    var lastName = req.user.lname;
-    var email = req.user.email
-      res.render('user/settings', {title:'My Account settings',csrfToken: req.csrfToken(),userImage:userImage,firstName:firstName,lastName:lastName,email:email, layout:false});
+  }
+  var errMsg = req.flash('error')
+  var userImage = req.user.userImage,
+    firstName = req.user.fname,
+    lastName = req.user.lname,
+    email = req.user.email,
+    phone = req.user.phone,
+    address = req.user.address;
+    
+  res.render('user/settings', {
+    title: 'My Account settings',
+    csrfToken: req.csrfToken(),
+    userImage: userImage,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phone: phone,
+    address: address,
+    errMsg: errMsg,
+    hasErrors: errMsg.length > 0,
+    layout: false
+  });
     })
   
 });
