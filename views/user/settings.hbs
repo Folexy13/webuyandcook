@@ -124,23 +124,27 @@
                             </div>
                             {{/if}}
                             <div class="myProfile">
-                                <div>
-                                   <a target="_blank" href="{{userImage}}"><img  class="imgBx" src={{userImage}} width="100" alt="no-image"></a>
-                                </div>
-                                <div class="me">
-                                    <h2 style="margin-left: -75px;">{{firstName}} {{lastName}}</h2>
-                                    <h5>starter</h5>
-                                </div>
                                 
+                                    <div>
+                                        <a target="_blank" href="{{userImage}}"><img class="imgBx" src={{userImage}} width="100" alt="no-image"></a>
+                                    </div>
+                                    <div class="myDetails">
+                                    <div class="me">
+                                        <h1 style="font-size: 1em;margin-bottom:0px">{{firstName}} {{lastName}}</h1>
+                                        <h5>starter</h5>
+                                    </div>
+                                </div>
                                 <div class="meDetailed" style="margin-top: 20%; margin-left:-40%">
-                                <h4>Change your profile pix</h4>
-                                <form method="POST" action="/change-picture">
-                                    <input type="file" name="img" id="img" accept="image/*" style="width: 100%;margin-bottom:10px;">
-                                    <input type="hidden" name="userImage" id="userImage" value="null">
-                                    <button style="cursor: pointer;"  type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
-                                    <button style="cursor: pointer;"  class="btn btn-primary btn-sm" type="submit">save</button>
-                                    <p id="text"></p>
-                                </form>
+                                <fieldset>
+                                <h1 style="font-size: 1.2em;">Change your profile pix</h1>
+                                    <form method="POST" action="/change-picture" id="form">
+                                        <input type="file" name="img" id="img" accept="image/*" style="width: 100%;margin-bottom:10px;">
+                                        <input type="hidden" name="userImage" id="userImage" value="null">
+                                        <button style="cursor: pointer;"  type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
+                                        <button style="cursor: pointer;"  class="btn btn-primary btn-sm" type="submit">save</button>
+                                        <p id="text"></p>
+                                    </form>
+                                </fieldset>
                                 </div>
                             </div>
                             
@@ -224,7 +228,17 @@ h1 {
   margin: 0 0 30px 0;
   text-align: center;
 }
+.myDetails{
+    margin: 0 !important;
+    text-align: center;
+    width: 100%;
+    left: 0 !important;
+    margin-left: -25% !important;
+}
 
+.imgBx{
+margin-left: 22% !important;
+}
 input[type="text"],
 input[type="password"],
 input[type="date"],
@@ -319,7 +333,7 @@ label.light {
         justify-content: space-between;
         align-items: flex-end;
     }
-
+    
 @media screen and (min-width: 480px) {
 
   form {
