@@ -97,7 +97,6 @@ router.get('/addsmenu-to-cart/:id', function (req, res, next) {
   
 router.get('/addfmenu-to-cart/:id', function (req, res, next) {
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-  var user = req.session.user;
   var MenuId = req.params.id;
     Smenu.findById(MenuId, function (err, Menu) {
     if (err) {
@@ -190,6 +189,27 @@ router.post('/change-picture', isLoggedin, function (req, res, next) {
   })
 });
 
+router.post('/update-user', isLoggedin, function (req, res, next) {
+  var user = req.user, mname = req.body.mname, fname = req.body.fname, lname = req.body.lname, phone = req.body.phone, address = req.body.address, password = req.body.password
+  var checkMname = mname === '', checkFname = fname === '', checkLname = lname === '', checkPhone = phone === '', checkAddress = address === '', checkPassword = password === ''
+  User.findByIdAndUpdate({ _id: user._id },
+    {
+    mname: checkMname ? user.mname : mname,
+    fname: checkFname ? user.fname : fname,
+    lname: checkLname ? user.lname : lname,
+    phone: checkPhone ? user.phone : phone,
+    address: checkAddress ? user.address : address,
+    password: checkPassword ? user.password : user.encryptPassword(password)},
+    { upsert: true }, function (err, user) {
+    user.save(function (err) {
+      console.log(user)
+      console.log(password)
+    })
+   
+ })
+  
+});
+
 router.post('/enquiry', isLoggedin, function (req, res, next) {
   var email = req.body.email
   var enquiry = req.body.enquiry
@@ -244,3 +264,8 @@ function isLoggedin(req, res, next) {
     }
     res.redirect('/user/signin');
 }
+
+  function check(input) {
+    var notInput = input === 'null';
+    return (notInput ? ' ' : input)
+  }

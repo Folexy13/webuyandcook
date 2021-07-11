@@ -8,6 +8,7 @@ var User = require('../models/user');
 var async = require('async');
 var nodemailer = require('nodemailer');
 var crypto = require('crypto');
+var Point = require('../public/javascripts/point');
 
 
 // CSRF protection for our routing
@@ -40,10 +41,10 @@ await User.find(function (err, image) {
   var userImage = req.user.userImage,
     firstName = req.user.fname,
     lastName = req.user.lname,
+    middleName = req.user.mname,
     email = req.user.email,
     phone = req.user.phone,
     address = req.user.address;
-    
   res.render('user/settings', {
     title: 'My Account settings',
     csrfToken: req.csrfToken(),
@@ -51,6 +52,7 @@ await User.find(function (err, image) {
     firstName: firstName,
     lastName: lastName,
     email: email,
+    middleName:middleName,
     phone: phone,
     address: address,
     errMsg: errMsg,

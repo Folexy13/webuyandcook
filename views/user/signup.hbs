@@ -21,7 +21,7 @@ body{
 
     <h2 style="color: #fff;">WeBuyNCook</h2>
 </a>
-<form method="POST"   action="/user/signup" id="msform" name="registration" >
+<form method="POST" action="/user/signup" id="msform" name="registration" >
     <!-- progressbar -->
     <ul id="progressbar">
         <li class="active">Account Setup</li>
@@ -39,7 +39,7 @@ body{
         {{/if}}
         <h2 class="fs-title" >Create your account</h2>
         <h3 class="fs-subtitle">This is step 1</h3>
-        <input type="text" name="email" placeholder="Email"/>
+        <input type="email" name="email" placeholder="Email"/>
         <input type="password" id="input" value="" name="password"  placeholder="Password" autocomplete="new-password" />
         <input type="password" id="input2" value="" name="cpassword" placeholder="Confirm Password" autocomplete="new-password"/>
         <span style="margin-left: -70 !important;color: white;cursor: pointer;" type="button" onclick="showPassword1();showPassword2();">Show password

@@ -11,7 +11,7 @@
 
     </head>
 
-    <body>
+    <body onload="FSPCalculation(0);statusChecker(2320)">
         <div class="container">
             <div class="navigation">
                 <ul>
@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/profile/cart">
                             <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
                             <span class="title">Cart<span class="badge">{{session.cart.totalQty}}</span> </span>
                         </a>
@@ -83,10 +83,8 @@
                 </div>
                 <div class="details">
                     <div class="recentOrders" style="margin-top: 3%;">
-                    <form method="" action="/update-user" >
-                    
+                    <form method="POST" action="/update-user" >
                         <h1>Change Profile Settings</h1>
-                    
                         <fieldset>
                             <legend><span class="number">1</span>Your basic info</legend>
                             <label for="name">First-Name:</label>
@@ -106,12 +104,13 @@
                             <input type="text" id="address" name="address" value="{{address}}">
                     
                             <label for="password">New Password:</label>
-                            <input type="password" id="password" name="user_password" autocomplete="new-password">
+                            <input type="password" id="password" name="password" autocomplete="new-password">
                             
                             <label for="password">Confirm New Password:</label>
-                            <input type="password" id="password" name="user_password" autocomplete="new-password">
+                            <input type="password" id="cpassword"  autocomplete="new-password">
+                            <p id="text2"></p>
                         </fieldset>
-                        <button type="submit">Save Changes</button>
+                        <button type="submit" onclick="return check()">Save Changes</button>
                     </form>
                     </div>
                     <div class="recentCustomers" style="margin-top: 5%;">
@@ -130,8 +129,11 @@
                                     </div>
                                     <div class="myDetails">
                                     <div class="me">
-                                        <h1 style="font-size: 1em;margin-bottom:0px">{{firstName}} {{lastName}}</h1>
-                                        <h5>starter</h5>
+                                        <h1 style="font-size: 1.5em;margin-bottom:0px">{{firstName}} {{lastName}}</h1>
+                                        <h3 style="margin-bottom: 10px;">Status: <span id="status"></span></h3>
+                                        <strong style="cursor: pointer;">
+                                            <abbr style="text-decoration: none;" title="Food Score Points">My F.S.P: <span id="fsp"></span></abbr>
+                                        </strong>
                                     </div>
                                 </div>
                                 <div class="meDetailed" style="margin-top: 20%; margin-left:-40%">
@@ -143,8 +145,11 @@
                                         <button style="cursor: pointer;"  type="button" class="btn btn-primary btn-sm" onclick="upload()">upload</button>
                                         <button style="cursor: pointer;"  class="btn btn-primary btn-sm" type="submit">save</button>
                                         <p id="text"></p>
+                                        
                                     </form>
                                 </fieldset>
+
+                                
                                 </div>
                             </div>
                             
@@ -190,11 +195,26 @@
                     navigation.classList.toggle('active');
                     let main = document.querySelector('.main');
                     main.classList.toggle('active');
-
                 }
                 
+                function check(){
+                    var pwd = document.getElementById('password');
+                    var cpwd = document.getElementById('cpassword')
+                    var text = document.getElementById('text2')
+                    if(pwd.value != cpwd.value){
+                        text.style.color ="red"
+                        text.innerHTML = "Passwords are not the same"
+                        return false
+                }else{
+                     text.style.color ="green"
+                     text.innerHTML ="Password Match"
+                     return true
+                }
+                   
+                }
             </script>
-            <script src="../../javascripts/storage.js"></script>
+            <script src="../../javascripts/settings.js"></script>
+            <script src="../../javascripts/point.js"></script>
             <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
             <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
             
@@ -211,6 +231,9 @@
   box-sizing: border-box;
 }
 
+form:invalid>#submit {
+  pointer-events: none;
+}
 body {
   font-family: 'Nunito', sans-serif;
   color: #384047;
@@ -326,12 +349,12 @@ label.light {
  .badge{
         font-weight: 800;
         color: red;
-        font-size: 0.8em;
-        margin-left: 5px;
+        font-size: 1em;
+        margin-left: 150px;
         border-radius: 50%;
-        display: inline-flex;
-        justify-content: space-between;
-        align-items: flex-end;
+        width: 30px;
+        text-align: center;
+        height: 30px;
     }
     
 @media screen and (min-width: 480px) {
