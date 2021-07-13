@@ -83,7 +83,7 @@
                 </div>
                 <div class="details">
                     <div class="recentOrders" style="margin-top: 3%;">
-                    <form method="POST" action="/update-user" >
+                    <form method="POST" action="/update-user" onsubmit="return check()">
                         <h1>Change Profile Settings</h1>
                         <fieldset>
                             <legend><span class="number">1</span>Your basic info</legend>
@@ -95,7 +95,7 @@
                             <input type="text" id="lname" name="lname" value="{{lastName}}">
                     
                             <label for="mail">Email:</label>
-                            <input type="email" id="mail" name="email" value="{{email}}">
+                            <input type="email" id="mail" name="email" value="{{email}}(not editable)" readonly>
 
                             <label for="phone">Phone:</label>
                             <input type="number" id="phone" name="phone" value="{{phone}}">
@@ -110,7 +110,7 @@
                             <input type="password" id="cpassword"  autocomplete="new-password">
                             <p id="text2"></p>
                         </fieldset>
-                        <button type="submit" onclick="return check()">Save Changes</button>
+                        <button id="submit" type="submit">Save Changes</button>
                     </form>
                     </div>
                     <div class="recentCustomers" style="margin-top: 5%;">
@@ -202,6 +202,8 @@
                     var cpwd = document.getElementById('cpassword')
                     var text = document.getElementById('text2')
                     if(pwd.value != cpwd.value){
+                        var button = document.getElementById('submit')
+                        button.style.backgroundColor = "red"
                         text.style.color ="red"
                         text.innerHTML = "Passwords are not the same"
                         return false
@@ -212,6 +214,8 @@
                 }
                    
                 }
+
+                
             </script>
             <script src="../../javascripts/settings.js"></script>
             <script src="../../javascripts/point.js"></script>

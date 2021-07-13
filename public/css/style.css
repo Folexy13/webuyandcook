@@ -717,7 +717,6 @@ margin-bottom: 5px;
     margin-bottom: 20px;
     min-height: 53px;
 }
-
 .form-box input {
     width: 100%;
     border: 2px dotted #ccc;
@@ -1128,7 +1127,7 @@ select:focus,
 	display: none;
 }
 /*inputs*/
-#msform input, #msform textarea {
+#msform input, #msform textarea, #msform select {
 	padding: 15px;
 	border: 1px solid #ccc;
 	border-radius: 3px;

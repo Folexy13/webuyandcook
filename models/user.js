@@ -5,6 +5,7 @@ var passportLocalMongoose=require("passport-local-mongoose");
 
 
 var userSchema = new Schema({
+    username: {type: String},
     email: { type: String, unique:true, required: true },
     password: { type: String, required: true },
     fname: {type: String, required: true},
@@ -14,6 +15,9 @@ var userSchema = new Schema({
     lname: { type: String, required: true },
     address: { type: String, required: true },
     userImage: { type: String, data: Buffer },
+    school: {type: String, required: true},
+    department: { type: String, required: true },
+    level:{ type: String, required: true },
     resetPasswordToken: {type: String},
     resetPasswordExpires: {type: Date},
 })

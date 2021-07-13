@@ -201,13 +201,12 @@ router.post('/update-user', isLoggedin, function (req, res, next) {
     address: checkAddress ? user.address : address,
     password: checkPassword ? user.password : user.encryptPassword(password)},
     { upsert: true }, function (err, user) {
-    user.save(function (err) {
-      console.log(user)
-      console.log(password)
+      user.save(function (err) {
+      if(err) console.log(err)
     })
-   
+    
  })
-  
+  res.redirect('/user/profile/settings')
 });
 
 router.post('/enquiry', isLoggedin, function (req, res, next) {

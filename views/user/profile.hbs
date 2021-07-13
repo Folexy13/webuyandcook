@@ -145,10 +145,30 @@
                                     <td>Paid</td>
                                     <td><span class="status pending">Pending</span></td>
                                 </tr>
+                            </table>
                             </tbody>
                             {{else}}
-                            <h1 style="text-align: center;">My Order</h1>
-                           <div id="empty">You Have made no Order: <a style="text-decoration:none;font-size: 3rem;color:red" href="/#order">Order Now</a></div> 
+                            <h2 style="text-align: center;">My Orders</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Price</td>
+                                        <td>Payment</td>
+                                        <td>Status</td>
+                                    </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>No Order made</td>
+                                        <td>&#8358; 0.0</td>
+                                        <td>none</td>
+                                        <td>none</td>
+                                    </tr>
+                                    <button class="btn"><a style="text-decoration: none;color:white" href="/#order">Order Now</a></button>
+                                </tbody>
+                            
+                            
+                            </thead>
                         </table>
                       {{/if}}
                     </div>

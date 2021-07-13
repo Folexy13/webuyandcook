@@ -33,9 +33,13 @@ passport.use('local.signup', new LocalStrategy({
     cpasswordField: 'cpassword',
     firstnameField: 'fname',
     lastnameField: 'lname',
+    middlenameField: 'mname',
     phoneField: 'phone',
     addressField: 'address',
     imageField: 'userImage',
+    schoolField: 'school',
+    departmentField: 'department',
+    levelField: 'level',
     passReqToCallback: true
 }, function (req, email,password,done) {
    req.checkBody('email', 'Invalid Email').notEmpty().isEmail();
@@ -44,7 +48,10 @@ passport.use('local.signup', new LocalStrategy({
     req.checkBody('fname', 'First name cannot be empty').notEmpty();
     req.checkBody('lname', 'Last Name cannot be empty').notEmpty();
     req.checkBody('phone', 'Your Phone number is required').notEmpty();
-    req.checkBody('address', 'Your address is required').notEmpty();
+    req.checkBody('address', 'Your Address is required').notEmpty();
+    req.checkBody('school', 'Your School is required').notEmpty();
+    req.checkBody('department', 'Your Department is required').notEmpty();
+    req.checkBody('level', 'Your level is required').notEmpty();
 
     
     var errors = req.validationErrors();
@@ -74,12 +81,20 @@ passport.use('local.signup', new LocalStrategy({
         newUser.password = newUser.encryptPassword(password);
         newUser.fname = req.body.fname;
         newUser.lname = req.body.lname;
+        newUser.mname = req.body.mname;
         newUser.phone = req.body.phone;
         newUser.address = req.body.address;
         newUser.userImage = req.body.userImage;
+        newUser.school = req.body.school;
+        newUser.department = req.body.department;
+        newUser.level = req.body.level;
+        
+        
+        
         
         newUser.save(function (err, result) {
             if (err) {
+                console.log(err)
                 return done(err);
             }
             return done(null, newUser);
