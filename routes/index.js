@@ -263,8 +263,3 @@ function isLoggedin(req, res, next) {
     }
     res.redirect('/user/signin');
 }
-
-  function check(input) {
-    var notInput = input === 'null';
-    return (notInput ? ' ' : input)
-  }
