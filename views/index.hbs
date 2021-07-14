@@ -97,13 +97,6 @@
                                         style="margin-left: 70px; padding-top: 20px;"></p>
                             </div>
 
-                            <div class="tab-title-menu" id="10" onclick="menu(this.id)" style="width:190px">
-                                <h4>Snacks</h4>
-
-                                <p><img src="images/snack" width="50" height="70"
-                                        style="margin-left: 70px; padding-top: 20px;"></p>
-                            </div>
-
                             <div class="tab-title-menu" id="11" onclick="menu(this.id)" style="width:190px">
                                 <h4>Others</h4>
 
@@ -113,55 +106,87 @@
 
                         </div>
                         <div class="slider slider-single">
-                    <div id="result2">
-                        {{#each qmenus}}
-                                <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                            <div id="result2">
+                                {{#each qmenus}}
+                                        <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                            {{# each this}}
+                                            <div class="offer-item overlay-image">
+                                                <img src="{{this.imagePath}}" alt="" class="img-responsive"
+                                                    style="width:130px; height:150px ">
+                                                <div>
+                                                    <h3>{{this.title}}</h3>
+                                                    <p>
+                                                    {{this.description}}
+                                                    </p>
+                                                    <a href="/addqmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                                </div>
+                                                <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                {{/each}}
+                            </div>
+                            <div id="result3">
+                                {{#each smenus}}
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                        {{# each this}}
+                                        <div class="offer-item overlay-image">
+                                            <img src="{{this.imagePath}}" alt="" class="img-responsive" style="width:130px; height:150px ">
+                                            <div>
+                                                <h3>{{this.title}}</h3>
+                                                <p>
+                                                    {{this.description}}
+                                                </p>
+                                                <a href="/addsmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                            </div>
+                                            <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                {{/each}}
+                            </div>
+                            <div id="result4">
+                                        {{#each frmenus}}
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                            {{# each this}}
+                                            <div class="offer-item overlay-image">
+                                                <img src="{{this.imagePath}}" alt="" class="img-responsive" style="width:130px; height:150px ">
+                                                <div>
+                                                    <h3>{{this.title}}</h3>
+                                                    <p>
+                                                        {{this.description}}
+                                                    </p>
+                                                    <a href="/addsmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                                </div>
+                                                <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                        {{/each}}
+                            </div>       
+                            <div id="result5">
+                                {{#each fmenus}}
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                                     {{# each this}}
                                     <div class="offer-item overlay-image">
-                                        <img src="{{this.imagePath}}" alt="" class="img-responsive"
-                                            style="width:130px; height:150px ">
+                                        <img src="{{this.imagePath}}" alt="" class="img-responsive" style="width:130px; height:150px ">
                                         <div>
                                             <h3>{{this.title}}</h3>
                                             <p>
-                                               {{this.description}}
+                                                {{this.description}}
                                             </p>
-                                            <a href="/addqmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                            <a href="#" class="btn btn-success pull-right" role="button">Order</a>
                                         </div>
-                                        <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
+                                        <span style="font-size: 1.4em;" class="offer-price">{{this.price}}</span>
                                     </div>
                                     {{/each}}
                                 </div>
-                        {{/each}}
-                    </div>
-                    <div id="result3">
-                        {{#each smenus}}
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-                                {{# each this}}
-                                <div class="offer-item overlay-image">
-                                    <img src="{{this.imagePath}}" alt="" class="img-responsive" style="width:130px; height:150px ">
-                                    <div>
-                                        <h3>{{this.title}}</h3>
-                                        <p>
-                                            {{this.description}}
-                                        </p>
-                                        <a href="/addsmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
-                                    </div>
-                                    <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
-                                </div>
                                 {{/each}}
-                            </div>
-                        {{/each}}
-                    </div>
-                            <div id="result4">
-
-                            </div>
-                            <div id="result5">
-                            </div>
-                            <div id="result10">
                             </div>
                             <div id="result11">
 
-                            </div>
+                       </div>        
+                    
                         </div>
                     </div>
                     <!-- end tab-menu -->
@@ -180,7 +205,7 @@
     <div id="reservation" class="reservations-main pad-top-100 pad-bottom-100">
         <div class="container">
             <div class="row">
-                <div class="form-reservations-box">
+                <div class="form-reservations-box" style="width:100%; ">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
                             <h2 class="block-title text-center">
@@ -297,7 +322,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="reserve-book-btn text-center">
 
-                                        <div class="blog-btn-v">
+                                        <div class="blog-btn-v" style="margin-bottom:100px">
                                             <input style="width: 100%;" type="submit" class="btn-lg btn-success center"
                                                 value="Submit Order">
                                         </div>
@@ -312,6 +337,29 @@
                     <!-- end col -->
                 </div>
                 <!-- end reservations-box -->
+                <h3 class="block-title text-center">Info about Ordering Time</h3>
+                <ol style="padding: 10px;font-size:1.8em">
+                    <li style="list-style: upper-roman;">The minimum ordering/preparation time for a plate of rice, Indomie or beans with plantain is one hour or any pre-odered plate of menu is one hour.</li> <br>
+                    <li style="list-style: upper-roman;">A Basket of fruits or Pot of soup ordered and paid for before 11am each day will be ready for delivery or collection same day.</li><br>
+                    <li style="list-style: upper-roman;">But a Basket of fruits or Pot of soup ordered and paid for after 11am will be ready for collection or delivery the
+                    following day.</li><br>
+                    <li style="list-style: upper-roman;">You have the options of collecting your Order at Mena Online Food Ordering Centre, Golden Tosrich Evenz Place, near
+                    Matrix Petrol Station on Ondo Road, Akure Or of having your Order delivered to you in any part of Akure at N400
+                    only.</li><br>
+                    <li style="list-style: upper-roman;">No preparation, collection and delivery of items on SUNDAYS at Mena Online Food Ordering Centre.</li><br>
+                    <li style="list-style: upper-roman;">Our services are from Monday to Saturday each week. Thanks.</li><br>
+                </ol>
+                
+                <h3 class="block-title text-center">Events Ordering Info</h3>
+                <ol style="padding: 10px;font-size:1.8em">
+                    <li style="list-style:upper-roman">Please, in order to avoid stories, customers are encouraged to make their bookings and make full payment on time,
+                    at least 2 weeks before the date of event. Call 08023173804 or whatsapp 08113892146 for your order.</li><br>
+                    <li style="list-style:upper-roman">Please, note that anyone booking and making payment for an event or any occasion is encouraged to pay by transfer
+                    or by cash deposit into Mena Account. Please, request for our account details.</li><br>
+                    <li style="list-style:upper-roman">There is discount on the above prices when making bookings for large quantity of products for any event or
+                    occasion. Thanks.</li><br>
+                </ol>
+                
             </div>
             <!-- end row -->
         </div>

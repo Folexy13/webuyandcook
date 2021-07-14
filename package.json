@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^5.8.5",
+    "@handlebars/allow-prototype-access": "^1.0.5",
     "async": "^3.2.0",
     "async-waterfall": "^0.1.5",
     "bcrypt-nodejs": "0.0.3",
@@ -26,6 +27,7 @@
     "express-validator": "^4.0.0",
     "firebase": "^8.7.0",
     "gridfs-stream": "^1.1.1",
+    "handlebars": "^4.7.7",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "mongodb": "^3.6.9",

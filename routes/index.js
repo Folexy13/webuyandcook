@@ -8,60 +8,97 @@ var async = require('async');
 var User = require('../models/user');
 var Qmenu = require('../models/qMenu'); 
 var Smenu = require('../models/sMenu');
+var Fmenu = require('../models/fMenu');
+var FRmenu = require('../models/frMenu');
 
 
 router.get('/', function (req, res, next) {
- var successMsg = req.flash('success');
- var sMenuChunks = [];
- var qMenuChunks = [];
+    var successMsg = req.flash('success');
+    var sMenuChunks = [];
+    var qMenuChunks = [];
+    var fMenuChunks = [];
+    var frMenuChunks = [];
   
-  async.waterfall([
-    function (done) {
-      Qmenu.find(function (err, docs) {
-      if (err) {
-      return done (null,err,false);
-     }
-        var chunkSize = 3
-    for (var i = 0; i < docs.length; i += chunkSize) {
-      qMenuChunks.push(docs.slice(i, i + chunkSize))
-    }
-      done()
-      });
-      
-  },
-    function (done) {
-    Smenu.find(function (err, docs) {
-      if (err) {
-      return done (null,err,false);
-     }
-    var chunkSize = 3
-    for (var i = 0; i < docs.length; i += chunkSize) {
-      sMenuChunks.push(docs.slice(i, i + chunkSize))
+    async.waterfall([
+      function (done) {
+
+        Qmenu.find(function (err, docs) {
+        if (err) {
+        return done (null,err,false);
+        }
+          
+          var chunkSize = 2
+      for (var i = 0; i < docs.length; i += chunkSize) {
+        qMenuChunks.push(docs.slice(i, i + chunkSize))
       }
-      done()
+        done()
+        });
+        
+    },
+      function (done) {
+      Smenu.find(function (err, docs) {
+        if (err) {
+        return done (null,err,false);
+      }
+      var chunkSize = 3
+      for (var i = 0; i < docs.length; i += chunkSize) {
+        sMenuChunks.push(docs.slice(i, i + chunkSize))
+        }
+        done()
+      });
+      },
+      function (done) {
+
+        Fmenu.find(function (err, docs) {
+        if (err) {
+        return done (null,err,false);
+        }
+          
+          var chunkSize = 2
+      for (var i = 0; i < docs.length; i += chunkSize) {
+        fMenuChunks.push(docs.slice(i, i + chunkSize))
+      }
+        done()
+        });
+        
+      },
+      function (done) {
+
+        FRmenu.find(function (err, docs) {
+        if (err) {
+        return done (null,err,false);
+        }
+          
+          var chunkSize = 2
+      for (var i = 0; i < docs.length; i += chunkSize) {
+        frMenuChunks.push(docs.slice(i, i + chunkSize))
+      }
+        done()
+        });
+        
+    },
+    ], function (err) {
+      if (err) return next(err)
+      if (req.isAuthenticated()) {
+      var firstName = req.user.fname;
+      var lastName = req.user.lname;
+      var userImage = req.user.userImage
+      return res.render('index', {
+      title: 'WEBUYNDCOOK',
+      firstName: firstName,
+      lastName: lastName,
+      userImage: userImage,
+      smenus: sMenuChunks,
+      qmenus: qMenuChunks,
+      fmenus: fMenuChunks,
+      frmenus: frMenuChunks,
+      successMsg: successMsg,
+      success: successMsg.length > 0
+    })
+      }
+    return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks,fmenus: fMenuChunks,frmenus: frMenuChunks});
     });
-    }
-  ], function (err) {
-    if (err) return next(err)
-    if (req.isAuthenticated()) {
-    var firstName = req.user.fname;
-    var lastName = req.user.lname;
-    var userImage = req.user.userImage
-     return res.render('index', {
-     title: 'WEBUYNDCOOK',
-     firstName: firstName,
-     lastName: lastName,
-     userImage: userImage,
-     smenus: sMenuChunks,
-     qmenus: qMenuChunks,
-     successMsg: successMsg,
-     success: successMsg.length > 0
-   })
-    }
-  return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks});
-  });
-  
-  });
+});
 
 router.get('/addqmenu-to-cart/:id', function (req, res, next) {
   var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -263,3 +300,8 @@ function isLoggedin(req, res, next) {
     }
     res.redirect('/user/signin');
 }
+
+  function check(input) {
+    var notInput = input === 'null';
+    return (notInput ? ' ' : input)
+  }

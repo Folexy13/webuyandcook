@@ -1,8 +1,11 @@
+// Defining modules
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var Handlebars = require('handlebars')
+var {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var Cors = require('cors');
@@ -12,9 +15,11 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo');
 
+// configuring routes
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
+// configuring the app
 var app = express();
 var port = process.env.PORT|| 3000
 mongoose.connect(process.env.MONGO_URI, {
@@ -25,12 +30,12 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 require('./config/passport');
 
-// view engine setup
-app.engine('.hbs', expressHbs({defaultLayout:'layouts', extname: '.hbs'}));
+//configuring  view engine setup
+app.engine('.hbs', expressHbs({defaultLayout:'layouts', extname: '.hbs',handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', '.hbs');;
 
 
-
+// configuring app middlwares
 app.use(logger('dev'));
 app.use(Cors());
 app.use(express.json());
@@ -42,10 +47,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store:MongoStore.create({
-            mongoUrl: 'mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority'
+            mongoUrl: process.env.MONGO_URI
         }),
   cookie: {
-    maxAge: 180 * 60 * 1000
+    maxAge: 6* 60 * 60 * 1000 // cookies expires after 6hours
   }
 }));
 app.use(flash());
@@ -76,6 +81,6 @@ app.use(function(err, req, res, next) {
   res.render('error',{title:'Page Not Found'});
 });
 
-
+// Defining the listening port
 app.listen(port,()=>console.log(`Now listening on localhost: ${port}`))
 module.exports = app;
