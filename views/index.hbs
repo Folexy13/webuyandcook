@@ -1,4 +1,4 @@
-{{> header}}
+{{>header }}
 
 
   <body data-spy="scroll" data-target="#mainNav" data-offset="54">
@@ -148,7 +148,7 @@
                             <div id="result4">
                                         {{#each frmenus}}
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-                                            {{# each this}}
+                                            {{#each this}}
                                             <div class="offer-item overlay-image">
                                                 <img src="{{this.imagePath}}" alt="" class="img-responsive" style="width:130px; height:150px ">
                                                 <div>
@@ -156,7 +156,7 @@
                                                     <p>
                                                         {{this.description}}
                                                     </p>
-                                                    <a href="/addsmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                                    <a href="/addfrmenu-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
                                                 </div>
                                                 <span style="font-size: 1.4em;" class="offer-price">&#x20A6;{{this.price}}</span>
                                             </div>

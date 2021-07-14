@@ -6,7 +6,7 @@
         margin: 0;
         padding: 0%;
     }
-    .container{
+    .jumbotron{
         margin-top: 15%;
         padding: 60px ;
         font-size: 5rem;
@@ -17,6 +17,64 @@
         position: absolute;
         z-index: 999999;
     }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #fff;
+}
+
+table input{
+    max-width: 40px;
+    min-height: 40px;
+    text-align: right;
+    left: 0;
+    border: 2px solid black;
+}
+
+table thead td {
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.9);
+}
+table tbody td{
+    color: #000;
+    max-width: 70px;
+    font-size: 1.3em;
+    padding: 5px;
+
+}
+.details table tbody td .edit{
+    padding: 10px;
+    text-align: left;
+    color: white;
+    border-radius: 7px;
+    width: 100%;
+    background-color: #019;
+}
+.details table tbody td .delivered{
+    background: #8de02c;
+    padding: 10px;
+    color: white;
+}
+.details table tbody td .pending {
+  background: #f9ca3f;
+  padding: 10px;
+  color: white;
+}
+
+.details table tbody td .cancelled {
+  background: #f00;
+  padding: 10px;
+  color: white;
+}
+
+.details table tbody td .inprogress {
+  background: #1795ce;
+}
 </style>
 <a href="/" class="logo ">
     <img src="../images/menalogo.png" alt="" height="60px" width="60px">
@@ -34,4 +92,61 @@
     <p >
         <a class="btn btn-primary btn-sm" href="/" role="button">Continue to homepage</a>
     </p>
+    
 </div>
+    <h1 style="color: white;text-align:center"> Your Order(s)</h1>
+   
+    
+
+  <div class="container details">
+        <table>
+            <thead>
+                <tr>
+                    <td>S/n</td>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>Categories</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Action</td>
+                    <td>Status</td>
+                </tr>
+        
+            </thead>
+          {{#each menu}}
+              <tbody>
+                  <tr>
+                      <td>{{count}}</td>
+                      <td>{{this.item.title}}</td>
+                      <td>{{this.item.description}}</td>
+                      <td>{{this.item.Category}}</td>
+                      <td>&#x20A6;{{this.item.price}}</td>
+                      <td><input readonly type="number" value="{{this.qty}}"></td>
+                      <td>
+                      <div class="btn-group edit">
+                          <button class="dropdown-toggle" type="button" data-toggle="dropdown" style="width: 100%;">Edit
+                              <span style="text-align:left!important;" class="caret"></span></button>
+                              <ul class="dropdown-menu">
+                                  <li><a href="/increase/{{this.item._id}}">Increase by one</a></li>
+                                  <li><a href="/reduce/{{this.item._id}}">Reduce by one</a></li>
+                                  <li><a href="/remove/{{this.item._id}}">Cancel</a></li>
+                              </ul>
+                          </button>
+                      </div>
+                      </td>
+                      <td><span class="status cancelled">Cancelled</span></td>
+                  </tr>
+              </tbody>
+          {{/each}}
+        </table>
+      <div style="margin-bottom: 10%;">
+        <Strong style="background-color:black;color: white;font-size:3rem" class="pull-right">Total: &#8358;{{totalPrice}}</Strong>
+      </div>
+      
+      
+    </div>
+
+
+<script>
+
+</script>

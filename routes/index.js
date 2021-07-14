@@ -102,7 +102,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/addqmenu-to-cart/:id', function (req, res, next) {
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-  var user = req.session.user;
   var MenuId = req.params.id;
     Qmenu.findById(MenuId, function (err, Menu) {
     if (err) {
@@ -131,11 +130,11 @@ router.get('/addsmenu-to-cart/:id', function (req, res, next) {
 
   
 });
-  
-router.get('/addfmenu-to-cart/:id', function (req, res, next) {
+
+router.get('/addfrmenu-to-cart/:id', function (req, res, next) {
   var cart = new Cart(req.session.cart ? req.session.cart : {});
   var MenuId = req.params.id;
-    Smenu.findById(MenuId, function (err, Menu) {
+    FRmenu.findById(MenuId, function (err, Menu) {
     if (err) {
       return res.redirect('/')
     };
@@ -146,7 +145,15 @@ router.get('/addfmenu-to-cart/:id', function (req, res, next) {
 
   
 });
-  
+
+router.get('/increase/:id', function (req, res, next) {
+  var MenuId = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  cart.increaseByOne(MenuId);
+  req.session.cart = cart;
+  res.redirect('back')
+});
 
 router.get('/reduce/:id', function (req, res, next) {
   var MenuId = req.params.id;
@@ -154,7 +161,7 @@ router.get('/reduce/:id', function (req, res, next) {
 
   cart.reduceByOne(MenuId);
   req.session.cart = cart;
-  res.redirect('/profile/cart')
+  res.redirect('back')
 });
 
 
@@ -164,17 +171,34 @@ router.get('/remove/:id', function (req, res, next) {
 
   cart.removeItem(MenuId);
   req.session.cart = cart;
-  res.redirect('/profile/cart')
+  res.redirect('back')
 });
 
 
 router.get('/shop/checkout',isLoggedin, function (req, res, next) {
   if (!req.session.cart) {
-    return res.redirect('/profile/cart')
+    return res.redirect('/shop/checkout')
   };
   var cart = new Cart(req.session.cart);
+  var items = cart.items
+  var count = 0;
+  async()
+  for (item in items) {
+    for (var i = 1; i <= item.length; i += 1){
+      var count = i
+      console.log(item)
+      console.log(count)
+       }
+    return console.log(count)
+    break;
+  }
+  
   var errMsg = req.flash('error')[0];
-  res.render('shop/checkout', {title:'Procced to payment',total: cart.totalPrice, errMsg: errMsg, noErrors: !errMsg})
+  res.render('shop/checkout', {title:'Proceed to payment',total: cart.totalPrice, errMsg: errMsg, noErrors: !errMsg,menu:cart.generateArray(),totalPrice:cart.totalPrice,count:count})
+});
+
+router.post('/checkout', isLoggedin, function (req, res, next) {
+  res.redirect('/shop/checkout')
 });
 
 router.post('/subscribe', isLoggedin, function (req, res, next) {
@@ -280,13 +304,10 @@ router.post('/enquiry', isLoggedin, function (req, res, next) {
   });
 });
 
-router.post('/checkout', isLoggedin, function (req, res, next) {
-  res.redirect('/shop/checkout')
-});
 
 router.get('/profile/cart', function (req, res, next) {
   if (!req.session.cart) {
-    return res.render('shop/cart',{title:'My Cart', qMenus: null});
+    return res.render('shop/cart',{title:'My Cart', qmenus: null});
   }
   var cart = new Cart(req.session.cart);
   res.render('shop/cart', {title:'My Cart',qmenus:cart.generateArray(),smenus:cart.generateArray(), totalPrice: cart.totalPrice})
@@ -300,8 +321,3 @@ function isLoggedin(req, res, next) {
     }
     res.redirect('/user/signin');
 }
-
-  function check(input) {
-    var notInput = input === 'null';
-    return (notInput ? ' ' : input)
-  }
