@@ -87,13 +87,13 @@
                             <h2>Recent Orders</h2>
                             <a href="#" class="btn">View all</a>
                         </div>
-                        <table>
-                            <thead>
+                        <table border="1">
+                            <thead style="background-color: black;color:white;">
                                 <tr>
-                                    <td>Name</td>
-                                    <td>Price</td>
-                                    <td>Payment</td>
+                                    <td>Name(Quantity)</td>
+                                    <td>Total Price</td>
                                     <td>Status</td>
+                                    <td>Day</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,72 +103,29 @@
                                     <td>Paid</td>
                                     <td><span class="status delivered">Delivered</span></td>
                                 </tr>
-                                <tr>
-                                    <td>Ogbono Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Due</td>
-                                    <td><span class="status return">Return</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Garri</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status inprogress">In Progress</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status delivered">Delivered</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Ogbono Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Due</td>
-                                    <td><span class="status return">Return</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Garri</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status inprogress">In Progress</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                </tr>
-                            </table>
                             </tbody>
+                        </table>
+                            
                             {{else}}
                             <h2 style="text-align: center;">My Orders</h2>
-                            <table>
-                                <thead>
+                            <table border="1">
+                                <thead style="background-color: black;color:white;">
                                     <tr>
-                                        <td>Name</td>
-                                        <td>Price</td>
-                                        <td>Payment</td>
+                                        <td>Name(Quantity)</td>
+                                        <td>Total Price</td>
                                         <td>Status</td>
+                                        <td>Day</td>
                                     </tr>
+                                </thead>
                                 <tbody>
                                     <tr>
                                         <td>No Order made</td>
                                         <td>&#8358; 0.0</td>
-                                        <td>none</td>
-                                        <td>none</td>
+                                        <td>--</td>
+                                        <td>--</td>
                                     </tr>
                                     <button class="btn"><a style="text-decoration: none;color:white" href="/#order">Order Now</a></button>
                                 </tbody>
-                            
-                            
-                            </thead>
                         </table>
                       {{/if}}
                     </div>

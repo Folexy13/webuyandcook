@@ -54,7 +54,9 @@ module.exports =
         this.totalPrice -= this.items[id].price
         delete this.items[id] 
         
-    }
+        }
+        
+
 
     this.generateArray = function () {
         var arr = []

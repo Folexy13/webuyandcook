@@ -1,6 +1,7 @@
 <style>
      body{
         background-image: url(../images/weby.jpg);
+        counter-reset: Serial; 
     }
     *{
         margin: 0;
@@ -9,7 +10,8 @@
     .jumbotron{
         margin-top: 15%;
         padding: 60px ;
-        font-size: 5rem;
+        font-size: 4rem;
+        border-collapse: collapse;
     }
       .logo{
         top: 0;
@@ -18,8 +20,9 @@
         z-index: 999999;
     }
 
-table {
+.details table{
   width: 100%;
+  font-size: 0.8em;
   border-collapse: collapse;
   margin-top: 10px;
   background-color: #fff;
@@ -47,6 +50,29 @@ table tbody td{
     padding: 5px;
 
 }
+.btn{
+   border-radius:10px;
+   padding:10px;
+   background-color:Green;
+   color: white;
+   font-size:3rem
+}
+.btn:hover{
+  color: white;
+}
+.btnConfirmed{
+  border-radius:10px;
+   padding:10px;
+   background-color:gray;
+   color: white;
+   font-size:3rem
+}
+tbody tr td:first-child::after
+{
+  
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content:counter(Serial); /* Display the counter */
+}
 .details table tbody td .edit{
     padding: 10px;
     text-align: left;
@@ -71,38 +97,55 @@ table tbody td{
   padding: 10px;
   color: white;
 }
-
+.disabled{
+    padding: 10px;
+    text-align: left;
+    color: white;
+    border-radius: 7px;
+    width: 100%;
+    background-color: rgb(144, 144, 144);
+}
 .details table tbody td .inprogress {
   background: #1795ce;
+  padding: 10px;
+  color: white;
 }
 </style>
+<body onload="stop()">
+  
+</body>
 <a href="/" class="logo ">
     <img src="../images/menalogo.png" alt="" height="60px" width="60px">
 
     <h2 style="color: #fff;">WeBuyNCook</h2>
 </a>
-<div class="jumbotron text-center container" style="background:rgba(0,0,0,0.3)	 !important;margin-top :40px;">
-    <h1 class="display-3">Thank You!</h1>
-    <h2 class="display-2">Order Recieved!!!</h2>
-    <p  class="display-1" style="color: white;" ><strong>Proceed to Make Transfer to any of this account below and send the proof of payment to this number +2348023173804</strong></p>
+<div class="container jumbotron text-center" style="background:rgba(0,0,0,0.3)!important;margin-top :40px;">
+    <h1 id="display3" class="display-3">Thank You! your Order is in waiting mode!!!</h1>
+    <h2 id="display2" class="display-2">Order Pending!!!</h2>
+    <p id="display1" class="display-1" style="color: white;">
+      <strong>
+        You must confirm your Order below to be able to have a smooth transcation with us.If you have any issue paying, you can contact us below. 
+        if your Order is  confirmed in the next two hours and you did not pay, Your Order will be cancelled.
+    </strong></p>
     <hr> 
     <p style="color: white;">
         Having trouble? <a href="/#contact" style="color: white;">Contact us here</a>
     </p>
     <p >
-        <a class="btn btn-primary btn-sm" href="/" role="button">Continue to homepage</a>
+        <a class="btn btn-primary btn-sm" href="/" role="button">Homepage</a>
     </p>
     
 </div>
-    <h1 style="color: white;text-align:center"> Your Order(s)</h1>
+    <h1 style="color: white;text-align:center;margin-bottom: 10px;"> Order summary</h1>
    
     
 
   <div class="container details">
-        <table>
+  <form method="POST" action="/order-checkout">
+        <table border="1">
             <thead>
                 <tr>
-                    <td>S/n</td>
+                    <td>S/N</td>
                     <td>Name</td>
                     <td>Description</td>
                     <td>Categories</td>
@@ -116,30 +159,37 @@ table tbody td{
           {{#each menu}}
               <tbody>
                   <tr>
-                      <td>{{count}}</td>
-                      <td>{{this.item.title}}</td>
+                      <td style="text-align: center;"></td>
+                      <td><input type="hidden" name="title" value="{{this.item.title}}">{{this.item.title}}</td>
                       <td>{{this.item.description}}</td>
-                      <td>{{this.item.Category}}</td>
-                      <td>&#x20A6;{{this.item.price}}</td>
-                      <td><input readonly type="number" value="{{this.qty}}"></td>
+                      <td>{{this.item.category}}</td>
+                      <td style="text-align: center;"><input type="hidden" name="price" value="{{this.item.price}}">&#x20A6;{{this.item.price}}</td>
+                      <td style="text-align: center;"><input readonly type="number" name="qty" value="{{this.qty}}"></td>
                       <td>
-                      <div class="btn-group edit">
-                          <button class="dropdown-toggle" type="button" data-toggle="dropdown" style="width: 100%;">Edit
-                              <span style="text-align:left!important;" class="caret"></span></button>
+                      <div id="editButton" class="btn-group edit"  >
+                          <button id="button" class="dropdown-toggle" type="button" data-toggle="dropdown" style="width: 100%;">
+                            Edit
+                              <span class="caret"></span>
+                            </button>
                               <ul class="dropdown-menu">
                                   <li><a href="/increase/{{this.item._id}}">Increase by one</a></li>
                                   <li><a href="/reduce/{{this.item._id}}">Reduce by one</a></li>
-                                  <li><a href="/remove/{{this.item._id}}">Cancel</a></li>
+                                  <li><a href="/remove/{{this.item._id}}">Remove Item</a></li>
                               </ul>
-                          </button>
+                          
                       </div>
                       </td>
-                      <td><span class="status cancelled">Cancelled</span></td>
+                      <td><span id="status" class="status pending">Pending</span></td>
                   </tr>
               </tbody>
           {{/each}}
         </table>
-      <div style="margin-bottom: 10%;">
+      <div style="margin-bottom: 10%;margin-top: 10px;">
+        
+        <button id="btn" class="btn pull-left" onclick="return statusChanger()">
+          <span id="text">Confirm Order</span>
+          </button>
+        </form>
         <Strong style="background-color:black;color: white;font-size:3rem" class="pull-right">Total: &#8358;{{totalPrice}}</Strong>
       </div>
       
@@ -148,5 +198,36 @@ table tbody td{
 
 
 <script>
+  function statusChanger(){
+    var btn = document.querySelectorAll('#editButton')
+    var btn2 = document.querySelectorAll('#button')
+    var loader = document.getElementById('loader')
+    var text = document.getElementById('text')
+    var btn3 = document.querySelector('#btn')
+    var status = document.querySelectorAll('.status');
+    var display1 = document.getElementById('display1')
+    var display2 = document.getElementById('display2')
+    var display3 = document.getElementById('display3')
+    for (i = 0; i < status.length; i++) {
+      status[i].classList.remove("pending");
+      status[i].classList.add("inprogress");
+      status[i].innerHTML = "In Progress"
+    }
+    for( i= 0; i<btn.length; i++){
+        btn2[i].disabled = true;
+        btn[i].classList.remove('edit')
+        btn[i].classList.add('disabled')
+      }
+    text.innerHTML = "Confirmed"
+    btn3.classList.remove('btn')
+    btn3.classList.add('btnConfirmed')
+    display3.innerHTML ="<b>Thank you</>"
+    display2.innerHTML ="Order Recieved!!!"
+    display1.innerHTML ="Proceed to Make Transfer to any of this account below and send the proof of payment to this number +2348023173804"
+
+
+
+}
+  
 
 </script>

@@ -3,10 +3,11 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    cart: { type: Object, required: true },
-    address: { type: String, required: true },
-    name: { type: String, required: true },
-    paymentStatus: { type: String, required: true }
+    name: { type: String},
+    price: { type: String},
+    paymentStatus: { type: String, required: true },
+    status: { type: String },
+    day:{ type: String}
 })
 
 module.exports = mongoose.model('Order', schema)

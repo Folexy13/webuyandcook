@@ -8,7 +8,7 @@ var User = require('../models/user');
 var async = require('async');
 var nodemailer = require('nodemailer');
 var crypto = require('crypto');
-var Point = require('../public/javascripts/point');
+var Order = require('../models/order');
 
 
 // CSRF protection for our routing
@@ -22,14 +22,23 @@ router.get('/profile', isLoggedin,async function (req, res, next) {
     if (err) {
       throw err
     }
-    var userImage =req.user.userImage;
+ })
+  await Order.find({ user: req.user }, function (err, result) {
+    if (err) console.log('Error in Order')
+    var userImage = req.user.userImage;
+    var sortedKeys = Object.keys(result).sort()
+    var order = [];
+     for (var i = 0; i < sortedKeys.length; i += 1) {
+       order.push(result[sortedKeys[i]])
+       console.log(result)
+       console.log(order)
+      }
     var firstName =req.user.fname;
     var lastName =req.user.lname;
     var password = req.user.password.slice(0, 14);
     var email = req.user.email
-    res.render('user/profile', {title:'My Profile',userImage:userImage,email:email,firstName:firstName, lastName:lastName,password:password, layout:false});
-  })
-  
+    res.render('user/profile', { title: 'My Profile', userImage: userImage, email: email, firstName: firstName, lastName: lastName, password: password, layout: false });
+})
 });
 
 router.get('/profile/settings', isLoggedin, async function (req, res, next) {

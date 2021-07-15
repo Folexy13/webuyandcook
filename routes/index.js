@@ -1,15 +1,19 @@
 require('dotenv').config();
 var express = require('express');
 var router = express.Router();
-const nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
 var Cart = require('../models/cart');
-var Order = require('../models/order');
 var async = require('async');
 var User = require('../models/user');
+var Order = require('../models/order')
 var Qmenu = require('../models/qMenu'); 
 var Smenu = require('../models/sMenu');
 var Fmenu = require('../models/fMenu');
 var FRmenu = require('../models/frMenu');
+
+
+
+
 
 
 router.get('/', function (req, res, next) {
@@ -164,7 +168,6 @@ router.get('/reduce/:id', function (req, res, next) {
   res.redirect('back')
 });
 
-
 router.get('/remove/:id', function (req, res, next) {
   var MenuId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -174,32 +177,35 @@ router.get('/remove/:id', function (req, res, next) {
   res.redirect('back')
 });
 
-
 router.get('/shop/checkout',isLoggedin, function (req, res, next) {
   if (!req.session.cart) {
     return res.redirect('/shop/checkout')
   };
   var cart = new Cart(req.session.cart);
-  var items = cart.items
-  var count = 0;
-  async()
-  for (item in items) {
-    for (var i = 1; i <= item.length; i += 1){
-      var count = i
-      console.log(item)
-      console.log(count)
-       }
-    return console.log(count)
-    break;
-  }
-  
   var errMsg = req.flash('error')[0];
-  res.render('shop/checkout', {title:'Proceed to payment',total: cart.totalPrice, errMsg: errMsg, noErrors: !errMsg,menu:cart.generateArray(),totalPrice:cart.totalPrice,count:count})
+  res.render('shop/checkout', {title:'Proceed to payment',total: cart.totalPrice, errMsg: errMsg, noErrors: !errMsg,menu:cart.generateArray(),totalPrice:cart.totalPrice})
 });
 
 router.post('/checkout', isLoggedin, function (req, res, next) {
   res.redirect('/shop/checkout')
 });
+
+router.post('/order-checkout', function (req, res, next) {
+  var order = new Order({
+    user: req.user,
+    paymentStatus: "Bank Transfer",
+    status: "pending",
+    day: day,
+    name: req.body.title,
+    price:req.body.price
+  })
+  order.save(function (err, result) {
+    if (err) console.log(err)
+  })
+  req.session.cart = null;
+  res.redirect('/user/profile');
+});
+
 
 router.post('/subscribe', isLoggedin, function (req, res, next) {
   var email = req.body.email
@@ -313,7 +319,30 @@ router.get('/profile/cart', function (req, res, next) {
   res.render('shop/cart', {title:'My Cart',qmenus:cart.generateArray(),smenus:cart.generateArray(), totalPrice: cart.totalPrice})
 })
 module.exports = router;
+// Getting today date and time
+let date_ob = new Date();
 
+// current date
+// adjust 0 before single digit date
+let date = ("0" + date_ob.getDate()).slice(-2);
+
+// current month
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+// current year
+let year = date_ob.getFullYear();
+
+// current hours
+let hours = date_ob.getHours();
+
+// current minutes
+let minutes = date_ob.getMinutes();
+
+// current seconds
+let seconds = date_ob.getSeconds();
+
+
+var day = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
 
 function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {
