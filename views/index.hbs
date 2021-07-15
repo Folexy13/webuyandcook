@@ -208,6 +208,7 @@
                 <div class="form-reservations-box" style="width:100%; ">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+                            <h2 class="pull-left"><a href=""><button class="btn btn-lg btn-success">Can't Find your Menu</button></a></h2>
                             <h2 class="block-title text-center">
                                 Order Now
                             </h2>
@@ -215,29 +216,28 @@
 
                         <h4 class="form-title">BOOKING FORM</h4>
                         <p>PLEASE FILL OUT ALL FIELDS, All FIELDS ARE REQUIRED. THANKS!</p>
-                        <form method="POST" action="/checkout" id="myformfirst">
+                        <form method="POST" action="/order" id="myformfirst">
                             <input type="hidden" name="_token" value="5mAHmKvnk5qrtsMnCQDqfoVEUx7lhpjVfqLbpeZG">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-box">
                                     <select name="food_id" id="food_id">
                                         <option selected disabled>preferred Menu</option>
-                                        <option name="food" value="5">Semo</option>
-                                        <option name="food" value="6">Beans</option>
-                                        <option name="food" value="7">Egusi Soup</option>
-                                        <option name="food" value="8">Nigerian Stew</option>
-                                        <option name="food" value="9">Okro Soup</option>
-                                        <option name="food" value="10">Basket of Fruit</option>
-                                        <option name="food" value="19">Pounded Yam</option>
-                                        <option name="food" value="20">Fried Rice and Salad</option>
-                                        <option name="food" value="21">Moserl and soup</option>
-                                        <option name="food" value="22">Crate of egg</option>
-                                        <option name="food" value="23">Carton of Indomie</option>
-                                        <option name="food" value="24">Jollof rice</option>
-                                        <option name="food" value="25">Garnished Jollof rice</option>
-                                        <option name="food" value="26">Fried Rice</option>
-                                        <option name="food" value="28">Garnished Fried Rice</option>
-                                        <option name="food" value="29">Ofada Rice</option>
-                                        <option name="food" value="30">Others</option>
+                                    {{#each qmenus}}
+                                            {{# this}}
+                                                <option name="food" value="{{this.title}}">{{this.title}}</option>
+                                            {{/this}}
+                                    {{/each}}
+                                    {{#each frmenus}}
+                                        {{# this}}
+                                        <option name="food" value="{{this.title}}">{{this.title}}</option>
+                                    {{/this}}
+                                    {{/each}}
+
+                                    {{#each smenus}}
+                                    {{# this}}
+                                    <option name="food" value="{{this.title}}">{{this.title}}</option>
+                                    {{/this}}
+                                    {{/each}}
                                     </select>
                                 </div>
                             </div>

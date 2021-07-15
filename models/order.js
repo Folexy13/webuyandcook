@@ -7,7 +7,8 @@ var schema = new Schema({
     price: { type: String},
     paymentStatus: { type: String, required: true },
     status: { type: String },
-    day:{ type: String}
+    day:{ type: String},
+    quantity:{ type: String}
 })
 
 module.exports = mongoose.model('Order', schema)

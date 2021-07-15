@@ -28,7 +28,7 @@ router.get('/', function (req, res, next) {
 
         Qmenu.find(function (err, docs) {
         if (err) {
-        return done (null,err,false);
+        return done(null, err, false);
         }
           
           var chunkSize = 2
@@ -42,7 +42,7 @@ router.get('/', function (req, res, next) {
       function (done) {
       Smenu.find(function (err, docs) {
         if (err) {
-        return done (null,err,false);
+        return done(null, err, false)
       }
       var chunkSize = 3
       for (var i = 0; i < docs.length; i += chunkSize) {
@@ -55,7 +55,7 @@ router.get('/', function (req, res, next) {
 
         Fmenu.find(function (err, docs) {
         if (err) {
-        return done (null,err,false);
+        return done(null, err, false)
         }
           
           var chunkSize = 2
@@ -190,7 +190,7 @@ router.post('/checkout', isLoggedin, function (req, res, next) {
   res.redirect('/shop/checkout')
 });
 
-router.post('/order-checkout', function (req, res, next) {
+router.post('/order-checkout',isLoggedin, function (req, res, next) {
   var order = new Order({
     user: req.user,
     paymentStatus: "Bank Transfer",
@@ -206,6 +206,9 @@ router.post('/order-checkout', function (req, res, next) {
   res.redirect('/user/profile');
 });
 
+router.post('/order', function (req, res, next) {
+  
+})
 
 router.post('/subscribe', isLoggedin, function (req, res, next) {
   var email = req.body.email
