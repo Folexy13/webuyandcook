@@ -163,7 +163,7 @@ tbody tr td:first-child::after
                       <td><input type="hidden" name="title" value="{{this.item.title}}">{{this.item.title}}</td>
                       <td>{{this.item.description}}</td>
                       <td>{{this.item.category}}</td>
-                      <td style="text-align: center;"><input type="hidden" name="price" value="{{this.item.price}}">&#x20A6;{{this.item.price}}</td>
+                      <td style="text-align: center;"><input type="hidden" name="price" value="&#x20A6;{{this.item.price}}">&#x20A6;{{this.item.price}}</td>
                       <td style="text-align: center;"><input readonly type="number" name="qty" value="{{this.qty}}"></td>
                       <td>
                       <div id="editButton" class="btn-group edit"  >
@@ -189,8 +189,12 @@ tbody tr td:first-child::after
         <button id="btn" class="btn pull-left" onclick="return statusChanger()">
           <span id="text">Confirm Order</span>
           </button>
+       
+        <Strong style="background-color:black;color:  white;font-size:3rem"  class="pull-right">
+          Total: &#8358;{{totalPrice}}
+          <input type="hidden" name="totalPrice" value="&#8358;{{totalPrice}}">
+        </Strong>
         </form>
-        <Strong style="background-color:black;color: white;font-size:3rem" class="pull-right">Total: &#8358;{{totalPrice}}</Strong>
       </div>
       
       

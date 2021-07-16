@@ -10,7 +10,6 @@ var nodemailer = require('nodemailer');
 var crypto = require('crypto');
 var Order = require('../models/order');
 
-
 // CSRF protection for our routing
 var csrfProtection = csrf();
 router.use(csrfProtection);
@@ -23,21 +22,28 @@ router.get('/profile', isLoggedin,async function (req, res, next) {
       throw err
     }
  })
-  await Order.find({ user: req.user }, function (err, result) {
+await Order.find({ user: req.user }, function (err, result) {
     if (err) console.log('Error in Order')
     var userImage = req.user.userImage;
-    var sortedKeys = Object.keys(result).sort()
-    var order = [];
-     for (var i = 0; i < sortedKeys.length; i += 1) {
-       order.push(result[sortedKeys[i]])
-       console.log(result)
-       console.log(order)
-      }
+    if (err) return next(err)
+    var menu = result
     var firstName =req.user.fname;
     var lastName =req.user.lname;
     var password = req.user.password.slice(0, 14);
     var email = req.user.email
-    res.render('user/profile', { title: 'My Profile', userImage: userImage, email: email, firstName: firstName, lastName: lastName, password: password, layout: false });
+  res.render('user/profile', {
+    title: 'My Profile',
+    userImage: userImage,
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    password: password,
+    layout: false,
+    menu: menu,
+    });
+    
+  
+    
 })
 });
 
@@ -120,10 +126,9 @@ router.post('/signup', passport.authenticate('local.signup', {
   failureRedirect: '/user/signup',
   failureFlash: true
 }), function (req, res, next) {
-  if (url) {
-    var url = req.session.oldUrl;
+  if (req.session.oldUrl) {
+    res.redirect(req.session.oldUrl);
     req.session.oldUrl = null;
-    res.redirect(url);
   } else {
     var email = req.body.email
     var firstname = req.body.fname;
@@ -168,10 +173,9 @@ router.post('/signin', passport.authenticate('local.signin', {
   failureRedirect: '/user/signin',
   failureFlash: true,
 }), function (req, res, next) {
-  if (url) {
-    var url = req.session.oldUrl;
+  if (req.session.oldUrl) {
+    res.redirect(req.session.oldUrl);
     req.session.oldUrl = null;
-    res.redirect(url);
   } else {
     res.redirect('/')
   }
@@ -324,7 +328,8 @@ router.post('/reset/:token', function (req, res) {
 function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
-    }
+  }
+    req.session.oldUrl = req.url
     res.redirect('/');
 }
 

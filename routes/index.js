@@ -2,6 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
+var htmlToText = require('nodemailer-html-to-text').htmlToText;
 var Cart = require('../models/cart');
 var async = require('async');
 var User = require('../models/user');
@@ -144,7 +145,7 @@ router.get('/addfrmenu-to-cart/:id', function (req, res, next) {
     };
     cart.add(Menu, Menu.id);
          req.session.cart = cart;
-         return res.redirect('/');
+         return res.redirect('/#menu');
     });
 
   
@@ -179,7 +180,7 @@ router.get('/remove/:id', function (req, res, next) {
 
 router.get('/shop/checkout',isLoggedin, function (req, res, next) {
   if (!req.session.cart) {
-    return res.redirect('/shop/checkout')
+    return res.redirect('/profile/cart')
   };
   var cart = new Cart(req.session.cart);
   var errMsg = req.flash('error')[0];
@@ -197,7 +198,9 @@ router.post('/order-checkout',isLoggedin, function (req, res, next) {
     status: "pending",
     day: day,
     name: req.body.title,
-    price:req.body.price
+    price: req.body.price,
+    totalPrice: req.body.totalPrice,
+    quantity: req.body.qty
   })
   order.save(function (err, result) {
     if (err) console.log(err)
@@ -207,7 +210,55 @@ router.post('/order-checkout',isLoggedin, function (req, res, next) {
 });
 
 router.post('/order', function (req, res, next) {
+  var name = req.body.fName,
+    phone = req.body.phone,
+    address = req.body.address,
+    event = req.body.event,
+    date = req.body.date,
+    time = req.body.time,
+    menu = req.body.menu,
+    email = req.body.email
   
+  var transporter = nodemailer.createTransport({
+    service: "GMAIL",
+    port: 465,
+    secure:true,
+    auth: {
+        user:  process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }, tls: {
+        rejectUnauthorized: false
+    }
+  });
+  let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
+  transporter.use('compile', htmlToText());
+  var emailOptions = {
+    from: from,
+    to: email,
+    cc: 'chrisentechnology@yahoo.com',
+    subject: 'Order Recieved',
+    html: `<h1 style="font-size:1em">Good-day ${name}</h1>
+    Your Order has been recieved.Below is your Order Details<br>
+    Menu: The Menu you required is ${menu}<br><br>
+    Address:Your delivery address is ${address}<br><br>
+    Phone: Your contact line is ${phone}<br><br>
+    Name: Your name is Mr/Mrs ${name}<br><br>
+    Date:The day you need your order is on ${date}<br><br>
+    Time:And the time for your request is ${time}<br><br>
+    Event:You chose ${event} for the event surrounding your order<br><br>
+    <br><br>
+  
+    <h3>One of our Agent will get back to you. But if you got no response in the next 20 minutes it could have been network. Just call this number (08113892144) or send a whatsapp message to the number</h3>`,
+     
+  };
+  transporter.sendMail(emailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+      res.redirect('/');
+    } else {
+      res.redirect('back')
+    }
+  });
 })
 
 router.post('/subscribe', isLoggedin, function (req, res, next) {
@@ -351,5 +402,7 @@ function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/user/signin');
+  req.session.oldUrl = req.url
+  res.redirect('/user/signin');
+  
 }

@@ -64,5 +64,10 @@ module.exports =
             arr.push(this.items[id])
         }
         return arr
+        };
+
+        
+    
+    
     };
-};
+    

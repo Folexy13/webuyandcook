@@ -8,6 +8,64 @@
     <link rel="shortcut icon" href="/images/menalogo.png" type="image/x-icon" />
 
 </head>
+<style>
+    td button {
+        padding: 4px;
+        background-color: rgba(0, 0, 255, 0.753);
+        border-radius: 10px;
+    }
+
+    body {
+        counter-reset: Serial;
+        ;
+    }
+
+    td button a {
+        color: white;
+    }
+
+    #empty {
+        margin-top: 10%;
+        margin-left: 20%;
+        margin-right: 10%;
+        font-size: 3rem;
+        font-weight: 20px;
+    }
+
+    input {
+        border: none;
+    }
+
+    .recentCustomers table {
+        justify-content: space-between;
+    }
+
+    .recentCustomers table td input,
+    .recentCustomers table td h4 {
+        text-align: center;
+        outline: none;
+        font-size: 20px;
+    }
+
+    .badge {
+        font-weight: 800;
+        color: red;
+        font-size: 1em;
+        margin-left: 150px;
+        border-radius: 50%;
+        width: 30px;
+        text-align: center;
+        height: 30px;
+    }
+
+    #table tbody tr td:first-child::after {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>
+
 
 <body>
         <div class="container">
@@ -83,27 +141,35 @@
                     
                     <div class="recentOrders" style="margin-top: 3%;">
                       {{# if menu}}
+                          
                         <div class="cardHeader">
                             <h2>Recent Orders</h2>
                             <a href="#" class="btn">View all</a>
                         </div>
-                        <table border="1">
+                        <table border="1" id="table">
                             <thead style="background-color: black;color:white;">
                                 <tr>
-                                    <td>Name(Quantity)</td>
-                                    <td>Total Price</td>
-                                    <td>Status</td>
-                                    <td>Day</td>
+                                    <td style="text-align: center;">S/N</td>
+                                    <td style="text-align: center;">Name</td>
+                                    <td style="text-align: center;">Total Price</td>
+                                    <td style="text-align: center;">Status</td>
+                                    <td style="text-align: center;">Date</td>
                                 </tr>
                             </thead>
+                            
+                            {{#each menu}}
+                            {{#this}}
                             <tbody>
                                 <tr>
-                                    <td>Egusi Soup</td>
-                                    <td>&#8358;3500</td>
-                                    <td>Paid</td>
-                                    <td><span class="status delivered">Delivered</span></td>
+                                    <td>{{counter}}</td>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.totalPrice}}</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>{{this.day}}</td>
                                 </tr>
                             </tbody>
+                            {{/this}}
+                            {{/each}}
                         </table>
                             
                             {{else}}
@@ -111,10 +177,11 @@
                             <table border="1">
                                 <thead style="background-color: black;color:white;">
                                     <tr>
-                                        <td>Name(Quantity)</td>
-                                        <td>Total Price</td>
-                                        <td>Status</td>
-                                        <td>Day</td>
+                                        <td style="text-align: center;">S/N</td>
+                                        <td style="text-align: center;">Name</td>
+                                        <td style="text-align: center;">Total Price</td>
+                                        <td style="text-align: center;">Status</td>
+                                        <td style="text-align: center;">Date</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -196,50 +263,11 @@
         </div>
 </body>
 
-
-<style>
-    td button{
-        padding: 4px;
-        background-color: rgba(0, 0, 255, 0.753);
-        border-radius: 10px;
+<script>
+    function upRank(table){
+        if(Date.now())
     }
-
-     td button a{
-         color: white;
-     }
-
-      #empty{
-        margin-top: 10%;
-        margin-left: 20%;
-        margin-right: 10%;
-        font-size: 3rem;
-        font-weight: 20px;
-    }
-
-    input{
-        border: none;
-    }
-    .recentCustomers table{
-        justify-content: space-between;
-    }
-    .recentCustomers table td input,
-    .recentCustomers table td h4{
-        text-align: center;
-        outline: none;
-        font-size: 20px;
-    }
-    .badge{
-        font-weight: 800;
-        color: red;
-        font-size: 1em;
-        margin-left: 150px;
-        border-radius: 50%;
-        width: 30px;
-        text-align: center;
-        height: 30px;
-    }
-</style>
-
+</script>
 </html>
 
 

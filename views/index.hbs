@@ -184,8 +184,20 @@
                                 {{/each}}
                             </div>
                             <div id="result11">
-
-                       </div>        
+                                <div class="offer-item overlay-image">
+                                    <img src="https://image.shutterstock.com/image-illustration/question-mark-point-red-glossy-260nw-583693069.jpg" alt="" class="img-responsive" style="width:130px; height:150px ">
+                                    <div>
+                                        <h3>Not Satisfied?</h3>
+                                        <p>Can't Find your Menu?
+                                            <button id="btn"  type="button" class="btn btn-success btn-lg " data-toggle="modal" data-target="#formModal">Click here</button>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="offer-item">
+                                
+                                </div>
+                                
+                            </div>        
                     
                         </div>
                     </div>
@@ -208,7 +220,7 @@
                 <div class="form-reservations-box" style="width:100%; ">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                            <h2 class="pull-left"><a href=""><button class="btn btn-lg btn-success">Can't Find your Menu</button></a></h2>
+                            <h2 class="pull-left"><button id="btn"  type="button" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#formModal">Can't Find your Menu</button></h2>
                             <h2 class="block-title text-center">
                                 Order Now
                             </h2>
@@ -463,13 +475,13 @@
                                 on. <br>
                                 Book us now and you will see the smiles we will generate.
                             </p>
-                            <a href="" class="button1">Book Us Now</a>
+                            <a href="/#oder" class="button1">Book Us Now</a>
                         </div>
                         <div class="result15 div4">
                             <p>We train you how to cook the best meals and serve the best delicacies. <br> Get trained
                                 and be a pro chef!
                             </p>
-                            <a href="" class="button1">Get Trained</a>
+                            <a href="#services" class="button1">Get Trained</a>
                         </div>
                         <div class="result16 div5">
                             <p> We have devised a system to help you buy food even without no money.<br> Earn points by
@@ -477,13 +489,13 @@
                                 and family,
                                 by the accumulation of points <br> from your concurrent orders and get deicious meals
                             </p>
-                            <a href="" class="button1">Get started</a>
+                            <a href="#" class="button1">Get started</a>
                         </div>
                         <div class="result17 div6">
                             <p>Select the suitable food plans for you <br> and see your delicious food served right on
                                 time without any
                                 delay.</p>
-                            <a href="" class="button1">Pick A plan</a>
+                            <a href="#services" class="button1">Pick A plan</a>
                         </div>
 
                     </div>
@@ -497,6 +509,78 @@
 {{> footer}}
 
 </body>
+
+{{!-- Modal --}}
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalTitle"
+    aria-hidden="true" style="margin-top: 7%;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle" style="text-align: center;"><strong>Special Order</strong></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/order">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Name</label>
+                            <input name="fName" type="text" class="form-control" placeholder="Your Full Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label >Phone</label>
+                            <input type="number" name="phone" class="form-control" placeholder="Phone number(Whatsap prefarably)" required>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="inputEMail">Email</label>
+                        <input type="email" name="email" class="form-control" id="inputEMail"
+                            placeholder="Your email" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" name="address" class="form-control" id="inputAddress" placeholder="Delivery Address(where you  need it to be delivered)">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group  col-md-6">
+                            <label for="inputAddress2">Menu</label>
+                            <input type="text" class="form-control" name="menu" id="menu" placeholder="What would you like to have?" required>
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label for="inputAddress2">Event</label>
+                            <select name="event" id="" class="form-control" required>
+                                <option selected disabled> What event are you planning for? </option>
+                                <option value="Personal">Personal</option>
+                                <option value="Wedding">Wedding</option>
+                                <option value="Other">Other event</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">Date</label>
+                            <input class="form-control" name="date" id="date" placeholder="Date for your order"
+                            onfocus="(this.type ='date')" onblur="(this.type='text')" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="time">Time</label>
+                            <input class="form-control" name="time" id="time" placeholder="Time for your order"
+                            onfocus="(this.type='time')" onblur="(this.type='text')" required>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                    <button type="submit" class="form-control btn btn-primary">Order Now</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal" style="color: red;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     .tab-menu{
         background-color: #453 !important;
@@ -602,5 +686,13 @@
             background-size: cover;
             border-radius: 15px;
         }
+
+    @media( max-width: 480px){
+        #btn{
+            font-size: 1em
+        }
+    };
+        
+   
     
 </style>
