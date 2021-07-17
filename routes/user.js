@@ -78,6 +78,9 @@ await User.find(function (err, image) {
   
 });
 
+router.get('/notifications',isLoggedin, (req, res, next) => {
+  res.render("user/notification", {title:"Notifications",userImage:req.user.userImage, layout:false})
+})
 
 router.get('/logout', isLoggedin, function (req, res, next) {
     req.logout();
@@ -183,13 +186,14 @@ router.post('/signin', passport.authenticate('local.signin', {
 
 router.get('/forgot', function (req, res, next) {
   var errorMsg = req.flash('error');
-  res.render('user/forgot-password', {title:'Forgot password',csrfToken: req.csrfToken(),errorMsg:errorMsg,hasErrors:errorMsg.length>0 });
+  var sucessMsg = req.flash('success');
+  res.render('user/forgot-password', {title:'Forgot password',csrfToken: req.csrfToken(),errorMsg:errorMsg,hasErrors:errorMsg.length>0, sucessMsg:sucessMsg,message:sucessMsg.length>0 });
 });
 
 router.post('/forgot', function (req, res, next) {
   async.waterfall([
     function (done) {
-      crypto.randomBytes(20, function (err, buf) {
+      crypto.randomBytes(30, function (err, buf) {
         var token = buf.toString('hex');
         done(err, token);
       });
@@ -202,7 +206,7 @@ router.post('/forgot', function (req, res, next) {
         user.resetPasswordExpires = Date.now() + 3600000; // 1hour
 
         user.save(function (err) {
-          done(err, token, user);
+          done(err, token, user,req.flash('success', 'Your email reset token has been sent to your email and it expires in 1hour'));
         });
       })
     },
@@ -330,7 +334,7 @@ function isLoggedin(req, res, next) {
         return next();
   }
     req.session.oldUrl = req.url
-    res.redirect('/');
+    res.redirect('/user/signin');
 }
 
 function isAdminLoggedin(req, res, next) {

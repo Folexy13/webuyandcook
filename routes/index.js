@@ -196,7 +196,7 @@ router.post('/order-checkout',isLoggedin, function (req, res, next) {
     user: req.user,
     paymentStatus: "Bank Transfer",
     status: "pending",
-    day: day,
+    day: convertedDate,
     name: req.body.title,
     price: req.body.price,
     totalPrice: req.body.totalPrice,
@@ -248,7 +248,7 @@ router.post('/order', function (req, res, next) {
     Event:You chose ${event} for the event surrounding your order<br><br>
     <br><br>
   
-    <h3>One of our Agent will get back to you. But if you got no response in the next 20 minutes it could have been network. Just call this number (08113892144) or send a whatsapp message to the number</h3>`,
+    <h3>One of our Agent will get back to you. But if you got no response in the next 20 minutes it could have been network. Just call this number (08113892144) or send a whatsapp message to the num</strong></h3>`,
      
   };
   transporter.sendMail(emailOptions, (err, info) => {
@@ -397,6 +397,11 @@ let seconds = date_ob.getSeconds();
 
 
 var day = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
+
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+var convertedDate = convertTZ(day, "Africa/Lagos")
 
 function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {

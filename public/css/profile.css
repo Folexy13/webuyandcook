@@ -97,7 +97,24 @@ body {
   line-height: 60px;
   white-space: nowrap;
 }
-
+.notification {
+  color: white;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+.notification .badg {
+  position:relative;
+  top: -12px;
+  margin-left:-20px;
+  right: -10px;
+  padding: 5px 10px;
+  font-size: 0.5em;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
 .main {
   position: absolute;
   width: calc(100% - 300px);
@@ -306,17 +323,21 @@ li img {
 
 .delivered {
   background: #8de02c;
+  width: 100px;
 }
 .pending {
   background: #f9ca3f;
+  width: 100px;
 }
 
 .return {
   background: #f00;
+  width: 100px;
 }
 
 .inprogress {
   background: #1795ce;
+  width: 100px;
 }
 
 .details .recentCustomers {
@@ -399,12 +420,23 @@ margin: -35px 0 0 -35px;
   }
 }
 
+@media (max-width: 495px) {
+table{
+  font-size: 0.8em;
+}
+}
+
 @media (max-width: 480px) {
   .cardBox {
     grid-template-columns: repeat(1, 1fr);
   }
   .details .recentOrders {
     overflow-x: auto;
+  }
+  .details .recentOrders {
+    width: 100%;
+    margin:0;
+    padding: 0;
   }
   .details .recentOrders table {
     width: 600px;

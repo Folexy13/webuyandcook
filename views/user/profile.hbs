@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{title}}</title>
     <link rel='stylesheet' href='/css/profile.css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -9,6 +10,57 @@
 
 </head>
 <style>
+   table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin:0;
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    
+  }
+
+  table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+	background: #fff;
+
+  }
+
+  table th, table td {
+    padding: 10px;
+    text-align: center;
+
+  }
+
+  table th {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: #000;
+    height: auto;
+  }
+  @media only screen and (max-width: 800px) {
+	
+	#flip-scroll .cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+	#flip-scroll * html .cf { zoom: 1; }
+	#flip-scroll *:first-child+html .cf { zoom: 1; }
+	
+	#flip-scroll table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+ 
+	#flip-scroll th,
+	#flip-scroll td { margin: 0; vertical-align: top; }
+	#flip-scroll th { text-align: left; }
+	
+	#flip-scroll table { display: block; position: relative; width: 100%; }
+	#flip-scroll thead { display: block; float: left;}
+	#flip-scroll tbody { display: block; width: auto; position: relative; overflow-x: auto; white-space: nowrap; }
+	#flip-scroll thead tr { display: block; }
+	#flip-scroll th { display: block; text-align: right; }
+	#flip-scroll tbody tr { display: inline-block; vertical-align: top; }
+	#flip-scroll td { display: block;  text-align: left; }
+ 
+}
+ 
     td button {
         padding: 4px;
         background-color: rgba(0, 0, 255, 0.753);
@@ -86,9 +138,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/profile/cart">
-                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-                            <span class="title">Cart<span class="badge">{{session.cart.totalQty}}</span> </span>
+                        <a href="/profile/cart" class="notification">
+                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="badg">{{session.cart.totalQty}}</span></i></span>
+                            <span class="title">Cart</span>
                         </a>
                     </li>
         
@@ -101,8 +153,8 @@
                     </li>
         
                     <li>
-                        <a href="#">
-                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"></i></span>
+                        <a href="/user/notifications" class="notification">
+                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span class="badg">3</span></i></span>
                             <span class="title">Notifications</span>
                         </a>
                     </li>
@@ -138,7 +190,6 @@
                 </div>
                
                 <div class="details">
-                    
                     <div class="recentOrders" style="margin-top: 3%;">
                       {{# if menu}}
                           
@@ -146,55 +197,60 @@
                             <h2>Recent Orders</h2>
                             <a href="#" class="btn">View all</a>
                         </div>
+                        <div id="flip-scroll">
                         <table border="1" id="table">
                             <thead style="background-color: black;color:white;">
                                 <tr>
-                                    <td style="text-align: center;">S/N</td>
-                                    <td style="text-align: center;">Name</td>
-                                    <td style="text-align: center;">Total Price</td>
-                                    <td style="text-align: center;">Status</td>
-                                    <td style="text-align: center;">Date</td>
+                                    <th style="text-align: center;">S/N</th>
+                                    <th style="text-align: center;">Name</th>
+                                    <th style="text-align: center;">Total Price</th>
+                                    <th style="text-align: center;">Status</th>
+                                    <th style="text-align: center;">Date</th>
                                 </tr>
                             </thead>
-                            
                             {{#each menu}}
                             {{#this}}
                             <tbody>
                                 <tr>
-                                    <td>{{counter}}</td>
-                                    <td>{{this.name}}</td>
-                                    <td>{{this.totalPrice}}</td>
-                                    <td><span class="status pending">Pending</span></td>
-                                    <td>{{this.day}}</td>
+                                    <td style="text-align:center">{{counter}}</td>
+                                    <td style="text-align:center">{{this.name}}</td>
+                                    <td style="text-align:center">{{this.totalPrice}}</td>
+                                    <td style="text-align:center;"><span class="status inprogress">Inprogress</span></td>
+                                    <td style="text-align:center">{{this.day}}</td>
                                 </tr>
                             </tbody>
                             {{/this}}
                             {{/each}}
                         </table>
-                            
+                        </div>
                             {{else}}
                             <h2 style="text-align: center;">My Orders</h2>
+                            <div id="flip-scroll">
                             <table border="1">
                                 <thead style="background-color: black;color:white;">
                                     <tr>
-                                        <td style="text-align: center;">S/N</td>
-                                        <td style="text-align: center;">Name</td>
-                                        <td style="text-align: center;">Total Price</td>
-                                        <td style="text-align: center;">Status</td>
-                                        <td style="text-align: center;">Date</td>
+                                        <th style="text-align: center;">S/N</th>
+                                        <th style="text-align: center;">Name</th>
+                                        <th style="text-align: center;">Total Price</th>
+                                        <th style="text-align: center;">Status</th>
+                                        <th style="text-align: center;">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>No Order made</td>
-                                        <td>&#8358; 0.0</td>
-                                        <td>--</td>
-                                        <td>--</td>
+                                        <td  style="text-align:center";>0</td>
+                                        <td style="text-align: center;">No Order made</td>
+                                        <td style="text-align: center;">--</td>
+                                        <td style="text-align: center;">--</td>
+                                        <td style="text-align: center;">--</td>
                                     </tr>
                                     <button class="btn"><a style="text-decoration: none;color:white" href="/#order">Order Now</a></button>
                                 </tbody>
                         </table>
+                            </div>
+                        
                       {{/if}}
+                    
                     </div>
                     
                     <div class="recentCustomers" style="margin-top: 5%;">
@@ -203,22 +259,22 @@
                         </div>
                         <table >
                             <tr style="margin-bottom: 10% !important;">
-                                <td width="60px" class="imgBx"><a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a></td>
+                                <td width="60px" class="user"><a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a></td>
                                 <td>
-                                    <input type="text" value="{{firstName}} {{lastName}}" readonly> <span class="pull-right">
+                                    <input type="text" value="{{firstName}} {{lastName}}" readonly> <span >
                                     <button><a href="/user/profile/settings" style="text-decoration: none;">Change</a></button></span>
                                 </td>
                             </tr style="margin-bottom: 10% !important;">
                             <tr>
                                 <td width="60px" class="imgBx"><i class="fa fa-unlock-alt" aria-hidden="true"></i></td>
                                 <td>
-                                    <input type="password" value="{{password}}" style="width: 50%;"  readonly><span class="pull-right"><button><a style="text-decoration: none;" href="/user/profile/settings">Change</a></button></span>
+                                    <input type="password" value="{{password}}" style="width: 50%;"  readonly><span ><button><a style="text-decoration: none;" href="/user/profile/settings">Change</a></button></span>
                                 </td>
                             </tr>
                             <tr style="margin-bottom: 10% !important;">
                                 <td width="60px" class="imgBx"><i class="fa fa-envelope" aria-hidden="true"></i></td>
-                                <td>
-                                   <input type="email" value="{{email}}" style="width: 80%;" style="word-wrap: break-word;" readonly><span class="pull-right"><button><a
+                                <td style="word-break: break-all;">
+                                   <input type="email" value="{{email}}" style="width: 80%;" style="word-wrap: break-word;" readonly><span ><button><a
                                             style="text-decoration: none;"href="/user/profile/settings">Change</a></button></span>
                                 </td>
                             </tr>
@@ -237,7 +293,6 @@
 
                 
             </div>
-            
         
             <script>
                 function toggleMenu() {
@@ -262,12 +317,6 @@
                 crossorigin="anonymous"></script>
         </div>
 </body>
-
-<script>
-    function upRank(table){
-        if(Date.now())
-    }
-</script>
 </html>
 
 

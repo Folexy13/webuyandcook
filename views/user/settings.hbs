@@ -2,6 +2,7 @@
 <html>
 
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{title}}</title>
         <link rel='stylesheet' href='/css/profile.css' />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,10 +32,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/profile/cart">
-                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-                            <span class="title">Cart<span class="badge">{{session.cart.totalQty}}</span> </span>
-                        </a>
+                    <a href="/profile/cart" class="notification">
+                        <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"><span
+                                    class="badg">{{session.cart.totalQty}}</span></i></span>
+                        <span class="title">Cart</span>
+                    </a>
                     </li>
 
                     <li class="active">
@@ -45,8 +47,8 @@
                     </li>
 
                     <li>
-                        <a href="#">
-                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"></i></span>
+                        <a href="/user/notifications" class="notification">
+                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span class="badg">3</span></i></span>
                             <span class="title">Notifications</span>
                         </a>
                     </li>
