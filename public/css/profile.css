@@ -293,28 +293,11 @@ li img {
 .details .recentOrders table tr td {
   padding: 9px 5px;
 }
-
-.details .recentOrders table tbody tr td:last-child,
-.details .recentOrders table thead tr td:last-child {
-  text-align: right;
-}
-
-.details .recentOrders table tbody tr td:nth-child(2),
-.details .recentOrders table thead tr td:nth-child(2) {
-  text-align: right;
-  padding-right: 20px;
-}
-
-.details .recentOrders table tbody tr td:nth-child(3),
-.details .recentOrders table thead tr td:nth-child(3) {
-  text-align: center;
-}
-
 .status {
   position: relative;
   padding: 2px 4px;
-  background: #f00;
   color: white;
+  background: #03a9f4;
   border-radius: 4px;
   font-size: 14px;
   font-weight: 300;
@@ -324,20 +307,24 @@ li img {
 .delivered {
   background: #8de02c;
   width: 100px;
+  padding:10px
 }
 .pending {
   background: #f9ca3f;
   width: 100px;
+  padding:10px;
 }
 
-.return {
+.cancelled{
   background: #f00;
   width: 100px;
+  padding:10px
 }
 
 .inprogress {
-  background: #1795ce;
+  background: #002;
   width: 100px;
+  padding:10px
 }
 
 .details .recentCustomers {
@@ -356,8 +343,8 @@ margin: -35px 0 0 -35px;
 
 .details .recentCustomers .imgBx {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
 }

@@ -17,7 +17,8 @@ var userSchema = new Schema({
     userImage: { type: String, data: Buffer },
     school: {type: String, required: true},
     department: { type: String, required: true },
-    level:{ type: String, required: true },
+    level: { type: String, required: true },
+    timestamp: {type: String},
     resetPasswordToken: {type: String},
     resetPasswordExpires: {type: Date},
 })

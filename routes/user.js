@@ -16,18 +16,15 @@ router.use(csrfProtection);
 
 //Users Routing
 
-router.get('/profile', isLoggedin,async function (req, res, next) {
- await User.find(function(err, image) {
-    if (err) {
-      throw err
-    }
- })
+router.get('/profile', isLoggedin, async function (req, res, next) {
+  req.session.oldUrl = ('back')
 await Order.find({ user: req.user }, function (err, result) {
     if (err) console.log('Error in Order')
     var userImage = req.user.userImage;
     if (err) return next(err)
     var menu = result
     var firstName =req.user.fname;
+    var cart = req.session.cart;
     var lastName =req.user.lname;
     var password = req.user.password.slice(0, 14);
     var email = req.user.email
@@ -38,16 +35,47 @@ await Order.find({ user: req.user }, function (err, result) {
     firstName: firstName,
     lastName: lastName,
     password: password,
+    cart:cart ? cart.totalQty : 0,
     layout: false,
     menu: menu,
     });
     
   
     
-})
+}).sort({_id:-1}).limit(3)
 });
 
+router.get('/profile/view-all', isLoggedin, async function (req, res, next) {
+  req.session.oldUrl = ('/user/profile/')
+  await Order.find({ user: req.user }, function (err, result) {
+    if (err) console.log('Error in Order')
+    var userImage = req.user.userImage;
+    if (err) return next(err)
+    var menu = result
+    var firstName =req.user.fname;
+    var cart = req.session.cart;
+    var lastName =req.user.lname;
+    var password = req.user.password.slice(0, 14);
+    var email = req.user.email
+  res.render('user/profile', {
+    title: 'My Profile',
+    userImage: userImage,
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    password: password,
+    cart:cart ? cart.totalQty : 0,
+    layout: false,
+    menu: menu,
+    });
+    
+  
+    
+}).sort({_id:-1})
+})
+
 router.get('/profile/settings', isLoggedin, async function (req, res, next) {
+req.session.oldUrl = ('/user/profile/settings')
 await User.find(function (err, image) {
       if (err) {
         throw err
@@ -59,6 +87,7 @@ await User.find(function (err, image) {
     middleName = req.user.mname,
     email = req.user.email,
     phone = req.user.phone,
+    cart = req.session.cart,
     address = req.user.address;
   res.render('user/settings', {
     title: 'My Account settings',
@@ -66,6 +95,7 @@ await User.find(function (err, image) {
     userImage: userImage,
     firstName: firstName,
     lastName: lastName,
+    cart:cart ? cart.totalQty : 0,
     email: email,
     middleName:middleName,
     phone: phone,
@@ -78,19 +108,38 @@ await User.find(function (err, image) {
   
 });
 
-router.get('/notifications',isLoggedin, (req, res, next) => {
-  res.render("user/notification", {title:"Notifications",userImage:req.user.userImage, layout:false})
+router.get('/notifications', isLoggedin, (req, res, next) => {
+  req.session.oldUrl = ('/user/notifications')
+  Order.find({user:req.user },(err, result) => {
+    if (err) console.log(err)
+    var Ordernotifications = result,
+      cart = req.session.cart
+  res.render("user/notification", {title:"Notifications",userImage:req.user.userImage,cart:cart ? cart.totalQty : 0,Ordernotifications:Ordernotifications, layout:false})
+  }).sort({_id:-1})
+  
 })
 
 router.get('/logout', isLoggedin, function (req, res, next) {
     req.logout();
+    req.session.oldUrl = null
     res.redirect('/');
 });
 
+
 // ADMIN SECTION
 router.get('/adminow', function (req, res) {
-    var messages = req.flash('error');
-    res.render('Admin/signup', {title:"Admin|Signin", csrfToken: req.csrfToken(),messages:messages,hasErrors:messages.length>0})
+    console.log(result)
+    if (err)console.log(err)
+    var messages = req.flash('error')
+  res.render('Admin/signup',
+    {
+      title: "Admin|Signin",
+      csrfToken: req.csrfToken(),
+      messages: messages,
+      hasErrors: messages.length > 0
+    })
+ 
+  
 });
 
 router.post('/admin/signup', passport.authenticate('local.adminSignup', {
@@ -112,9 +161,58 @@ router.post('/admin/signin', passport.authenticate('local.adminSignin', {
 }))
 
 router.get('/admin', function (req, res) {
-  res.render('Admin/index',{title: 'Admin | webuyandcook',layout:false})
+  User.find({}, function (err, customer) {
+    if(err)console.error(err)
+    Order.find({}).populate('user').exec(function (err, result) {
+    if (err) console.log(err)
+    for (var i = 0; i < result.length; i++){
+      var user = result[i].user
+      var fname = user.fname
+      var lname= user.lname
+      var phone = user.phone
+    }
+  res.render('Admin/index',
+      {
+        title: 'Admin | webuyandcook',
+        fname: fname ? user.fname : null,
+        lname: lname? user.lname:null,
+        order: result,
+        user: user,
+        customer:customer,
+        csrfToken:req.csrfToken(),
+        status: result.status,
+        phone: phone? user.phone:null,
+        layout: false
+      })
+    
+   
+  }
+  )
+  });
+  
+})
+    
+router.get('/accept/:id', function (req, res) {
+  orderId = req.params.id;
+  Order.findByIdAndUpdate({ _id: orderId }, { status: 'In Progress',change:"inprogress" }, {upsert:true},function (err, updatedOrder) {
+    
+    updatedOrder.save(function (err) {
+      if(err)console.error(err)
+    })
+    res.redirect('/user/admin')
+  })
 });
 
+router.get('/reject/:id', function (req, res) {
+  orderId = req.params.id;
+  Order.findByIdAndUpdate({ _id: orderId }, { status: 'Cancelled' ,change:"cancelled" }, { upsert: true }, function (err, updatedOrder) {
+    
+    updatedOrder.save(function (err) {
+      if(err)console.error(err)
+    })
+    res.redirect('/user/admin')
+  })
+})
 
 router.use('/', notLoggedin, function (req, res, next) {
   next()
@@ -178,7 +276,6 @@ router.post('/signin', passport.authenticate('local.signin', {
 }), function (req, res, next) {
   if (req.session.oldUrl) {
     res.redirect(req.session.oldUrl);
-    req.session.oldUrl = null;
   } else {
     res.redirect('/')
   }
@@ -206,7 +303,8 @@ router.post('/forgot', function (req, res, next) {
         user.resetPasswordExpires = Date.now() + 3600000; // 1hour
 
         user.save(function (err) {
-          done(err, token, user,req.flash('success', 'Your email reset token has been sent to your email and it expires in 1hour'));
+          req.flash('success')
+          done(err, token, user);
         });
       })
     },

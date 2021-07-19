@@ -64,6 +64,45 @@
         content: counter(Serial);
         /* Display the counter */
     }
+
+.note{
+    display: flex;
+    flex-direction: column;
+    max-height: 100px;
+    color: #002;
+}
+
+.note>small{
+    text-align: center;
+}
+
+.note>small .button{
+padding:10px;
+text-align: center;
+border-radius: 8px;
+margin-top: 8px;
+background-color: red;
+color: white;
+cursor: pointer;
+float: right;
+}
+.note>small .button a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.notifications{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-top: 0;
+  margin-top: -50px;
+  background-color: #f4f4f4;
+}
+.notifications>.recentOrders {
+  position: relative;
+  min-height: 530px;
+}
 </style>
 
 
@@ -88,7 +127,7 @@
                 <li>
                     <a href="/profile/cart" class="notification">
                         <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"><span
-                                    class="badg">{{session.cart.totalQty}}</span></i></span>
+                                    class="badg">{{cart}}</span></i></span>
                         <span class="title">Cart</span>
                     </a>
                 </li>
@@ -139,24 +178,24 @@
                 </div>
             </div>
 
-            <div class="details">
-
-                <div class="recentOrders" style="margin-top: 3%;">
+            <div class="notifications">
+                <div class="recentOrders" style="margin-top: 3%;margin-left:1rem auto;">
                     <h2 style="text-align: center;text-align: center;margin-top: 1%;margin-bottom:3%;font-weight:bolder;color:red!important"><u>Notifications</u></h2>
                     <div class="order">
-                    
-                        <div class="row">
-                            <h1 >My Orders
-                            </h1>
+                    {{#if  Ordernotifications}}
+                    {{#each Ordernotifications}}
+                        <div class="row note">
+                            <small style="padding-right: 20px;">Your Order {{this._id}} has been recieved and  is in progress and await approval.
+                            <span class="button"><a href="/user/delete/notifications">Delete</a></span></small>
+                            {{/each}}
                         </div>
+                        {{else}}
+                        No new notifications
+                    {{/if}}
                     </div>
- 
-                </div>
-
-                <div class="recentCustomers" style="margin-top: 5%;">
                 </div>
             </div>
-            <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #010;margin-left:1.9px;">
+            <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #010; margin:0">
                 <div style="color: white;">&copy;2021 WebuyNCook.All Rights reserved</div>
             </div>
 
@@ -187,11 +226,4 @@
             crossorigin="anonymous"></script>
     </div>
 </body>
-
-<script>
-    function upRank(table) {
-        if (Date.now())
-    }
-</script>
-
 </html>

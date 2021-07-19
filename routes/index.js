@@ -31,8 +31,7 @@ router.get('/', function (req, res, next) {
         if (err) {
         return done(null, err, false);
         }
-          
-          var chunkSize = 2
+        var chunkSize = 2
       for (var i = 0; i < docs.length; i += chunkSize) {
         qMenuChunks.push(docs.slice(i, i + chunkSize))
       }
@@ -87,6 +86,7 @@ router.get('/', function (req, res, next) {
       if (req.isAuthenticated()) {
       var firstName = req.user.fname;
       var lastName = req.user.lname;
+      var cart = req.session.cart;
       var userImage = req.user.userImage
       return res.render('index', {
       title: 'WEBUYNDCOOK',
@@ -96,12 +96,13 @@ router.get('/', function (req, res, next) {
       smenus: sMenuChunks,
       qmenus: qMenuChunks,
       fmenus: fMenuChunks,
+      cart:cart ? cart.totalQty : 0,
       frmenus: frMenuChunks,
       successMsg: successMsg,
       success: successMsg.length > 0
     })
       }
-    return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,qmenus: qMenuChunks,fmenus: fMenuChunks,frmenus: frMenuChunks});
+    return res.render('index', {title: 'WEBUYNDCOOK',smenus: sMenuChunks,cart:cart ? cart.totalQty : 0,qmenus: qMenuChunks,fmenus: fMenuChunks,frmenus: frMenuChunks});
     });
 });
 
@@ -122,7 +123,6 @@ router.get('/addqmenu-to-cart/:id', function (req, res, next) {
   
 router.get('/addsmenu-to-cart/:id', function (req, res, next) {
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-  var user = req.session.user;
   var MenuId = req.params.id;
     Smenu.findById(MenuId, function (err, Menu) {
     if (err) {

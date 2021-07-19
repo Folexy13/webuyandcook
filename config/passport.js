@@ -76,6 +76,7 @@ passport.use('local.signup', new LocalStrategy({
         if (user) {
             return done(null, false, {message: 'The email you entered is associated with another account'})
         }
+        var timestamp = new Date()
         var newUser = new User();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
@@ -85,6 +86,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.phone = req.body.phone;
         newUser.address = req.body.address;
         newUser.userImage = req.body.userImage;
+        newUser.timestamp = timestamp;
         newUser.school = req.body.school;
         newUser.department = req.body.department;
         newUser.level = req.body.level;

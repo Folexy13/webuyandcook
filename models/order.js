@@ -6,6 +6,7 @@ var schema = new Schema([{
     name: [{ type: String }],
     price: [{type:String}],
     totalPrice: { type: String},
+    change: { type: String},
     paymentStatus: { type: String, required: true },
     status: { type: String },
     day:{ type: String},

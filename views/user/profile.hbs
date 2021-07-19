@@ -139,7 +139,7 @@
                     </li>
                     <li>
                         <a href="/profile/cart" class="notification">
-                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="badg">{{session.cart.totalQty}}</span></i></span>
+                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="badg">{{cart}}</span></i></span>
                             <span class="title">Cart</span>
                         </a>
                     </li>
@@ -195,7 +195,7 @@
                           
                         <div class="cardHeader">
                             <h2>Recent Orders</h2>
-                            <a href="#" class="btn">View all</a>
+                            <a href="/user/profile/view-all" class="btn">View all</a>
                         </div>
                         <div id="flip-scroll">
                         <table border="1" id="table">
@@ -215,7 +215,7 @@
                                     <td style="text-align:center">{{counter}}</td>
                                     <td style="text-align:center">{{this.name}}</td>
                                     <td style="text-align:center">{{this.totalPrice}}</td>
-                                    <td style="text-align:center;"><span class="status inprogress">Inprogress</span></td>
+                                    <td style="text-align:center;"><span class="status {{change}}">{{status}}</span></td>
                                     <td style="text-align:center">{{this.day}}</td>
                                 </tr>
                             </tbody>
@@ -287,7 +287,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #010;margin-left:1.9px;">
+                <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #010;">
                     <div style="color: white;">&copy;2021 WebuyNCook.All Rights reserved</div>
                 </div>
 
