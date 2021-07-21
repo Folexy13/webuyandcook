@@ -7,6 +7,7 @@ var passport = require('passport');
 var User = require('../models/user');
 var async = require('async');
 var nodemailer = require('nodemailer');
+var htmlToText = require('nodemailer-html-to-text').htmlToText;
 var crypto = require('crypto');
 var Order = require('../models/order');
 
@@ -17,7 +18,6 @@ router.use(csrfProtection);
 //Users Routing
 
 router.get('/profile', isLoggedin, async function (req, res, next) {
-  req.session.oldUrl = ('back')
 await Order.find({ user: req.user }, function (err, result) {
     if (err) console.log('Error in Order')
     var userImage = req.user.userImage;
@@ -27,7 +27,7 @@ await Order.find({ user: req.user }, function (err, result) {
     var cart = req.session.cart;
     var lastName =req.user.lname;
     var password = req.user.password.slice(0, 14);
-    var email = req.user.email
+  var email = req.user.email
   res.render('user/profile', {
     title: 'My Profile',
     userImage: userImage,
@@ -39,9 +39,7 @@ await Order.find({ user: req.user }, function (err, result) {
     layout: false,
     menu: menu,
     });
-    
   
-    
 }).sort({_id:-1}).limit(3)
 });
 
@@ -75,12 +73,14 @@ router.get('/profile/view-all', isLoggedin, async function (req, res, next) {
 })
 
 router.get('/profile/settings', isLoggedin, async function (req, res, next) {
-req.session.oldUrl = ('/user/profile/settings')
 await User.find(function (err, image) {
       if (err) {
         throw err
   }
   var errMsg = req.flash('error')
+    var school =req.user.school;
+    var department =req.user.department;
+    var level =req.user.level;
   var userImage = req.user.userImage,
     firstName = req.user.fname,
     lastName = req.user.lname,
@@ -95,6 +95,9 @@ await User.find(function (err, image) {
     userImage: userImage,
     firstName: firstName,
     lastName: lastName,
+    school: school,
+    department: department,
+    level: level,
     cart:cart ? cart.totalQty : 0,
     email: email,
     middleName:middleName,
@@ -109,12 +112,35 @@ await User.find(function (err, image) {
 });
 
 router.get('/notifications', isLoggedin, (req, res, next) => {
-  req.session.oldUrl = ('/user/notifications')
   Order.find({user:req.user },(err, result) => {
     if (err) console.log(err)
-    var Ordernotifications = result,
-      cart = req.session.cart
-  res.render("user/notification", {title:"Notifications",userImage:req.user.userImage,cart:cart ? cart.totalQty : 0,Ordernotifications:Ordernotifications, layout:false})
+    var notifications = result
+    var count = notifications.count;
+    
+    for (var i = 0; i < result.length; i++){
+      var change = result[i].change;
+    }
+    if (change == 'inprogress') {
+      var orderApproved = change
+    } else if (change == 'cancelled') {
+      var orderCancelled = change 
+    } else {
+      var orderDelivered = change
+    }
+    var cart = req.session.cart
+    res.render("user/notification",
+      {
+        title: "Notifications",
+        userImage: req.user.userImage,
+        cart: cart ? cart.totalQty : 0,
+        orderApproved: orderApproved,
+        orderCancelled: orderCancelled,
+        orderDelivered: orderDelivered,
+        count: count? count: 0,
+        notifications: notifications,
+        layout: false
+      })
+    
   }).sort({_id:-1})
   
 })
@@ -163,7 +189,7 @@ router.post('/admin/signin', passport.authenticate('local.adminSignin', {
 router.get('/admin', function (req, res) {
   User.find({}, function (err, customer) {
     if(err)console.error(err)
-    Order.find({}).populate('user').exec(function (err, result) {
+  Order.find({}).sort({_id:-1}).limit(3).populate('user').exec(function (err, result) {
     if (err) console.log(err)
     for (var i = 0; i < result.length; i++){
       var user = result[i].user
@@ -177,6 +203,10 @@ router.get('/admin', function (req, res) {
         fname: fname ? user.fname : null,
         lname: lname? user.lname:null,
         order: result,
+        displayOrder: "View all",
+        displayCustomer: "View all",
+        linkOrder: '/user/view-all-order',
+        linkCustomer: '/user/view-all-customer',
         user: user,
         customer:customer,
         csrfToken:req.csrfToken(),
@@ -184,24 +214,133 @@ router.get('/admin', function (req, res) {
         phone: phone? user.phone:null,
         layout: false
       })
-    
-   
-  }
-  )
-  });
+  })
+  }).sort({_id:-1}).limit(3)
   
 })
+
+router.get('/view-all-order', function (req, res) {
+   User.find({}, function (err, customer) {
+    if(err)console.error(err)
+  Order.find({}).sort({_id:-1}).populate('user').exec(function (err, result) {
+    if (err) console.log(err)
+    for (var i = 0; i < result.length; i++){
+      var user = result[i].user
+      var fname = user.fname
+      var lname= user.lname
+      var phone = user.phone
+    }
+  res.render('Admin/index',
+    {
+        displayOrder: "Show Less",
+        linkOrder: '/user/admin',
+        displayCustomer: "View all",
+        linkCustomer: 'user/view-all-customer',
+        title: 'Admin | webuyandcook',
+        fname: fname ? user.fname : null,
+        lname: lname? user.lname:null,
+        order: result,
+        user: user,
+        customer:customer,
+        csrfToken:req.csrfToken(),
+        status: result.status,
+        phone: phone? user.phone:null,
+        layout: false
+      })
+  })
+  }).sort({_id:-1}).limit(3)
+  
+});
+
+router.get('/view-all-customer', function (req, res) {
+   User.find({}, function (err, customer) {
+    if(err)console.error(err)
+  Order.find({}).sort({_id:-1}).limit(3).populate('user').exec(function (err, result) {
+    if (err) console.log(err)
+    for (var i = 0; i < result.length; i++){
+      var user = result[i].user
+      var fname = user.fname
+      var lname= user.lname
+      var phone = user.phone
+    }
+  res.render('Admin/index',
+    {
+        displayCustomer: "Show Less",
+        linkCustomer: '/user/admin',
+        displayOrder: "View all",
+        linkOrder: 'user/view-all-order',
+        title: 'Admin | webuyandcook',
+        fname: fname ? user.fname : null,
+        lname: lname? user.lname:null,
+        order: result,
+        user: user,
+        customer:customer,
+        csrfToken:req.csrfToken(),
+        status: result.status,
+        phone: phone? user.phone:null,
+        layout: false
+      })
+  })
+  }).sort({_id:-1})
+  
+});
     
-router.get('/accept/:id', function (req, res) {
+router.get('/accept/:id', function (req, res,next) {
   orderId = req.params.id;
-  Order.findByIdAndUpdate({ _id: orderId }, { status: 'In Progress',change:"inprogress" }, {upsert:true},function (err, updatedOrder) {
-    
+  Order.findByIdAndUpdate({ _id: orderId }, { status: 'Ongoing',change:"inprogress" }, {upsert:true},function (err, updatedOrder) {
     updatedOrder.save(function (err) {
-      if(err)console.error(err)
+      if (err) console.error(err)
     })
     res.redirect('/user/admin')
   })
 });
+
+router.get('/confirm/:id', function (req, res) {
+  orderId = req.params.id;
+  Order.findByIdAndUpdate({ _id: orderId }, { status: 'Delivered' ,change:"delivered" }, { upsert: true }, function (err, updatedOrder) {
+    updatedOrder.save(function (err) {
+      if(err)console.error(err)
+    
+  User.findById({_id:updatedOrder.user}, function (err, customer) {
+    if (err) console.log(err)
+     var transporter = nodemailer.createTransport({
+    service: "GMAIL",
+    port: 465,
+    secure:true,
+    auth: {
+        user:  process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }, tls: {
+        rejectUnauthorized: false
+    }
+  });
+  let from = `Admin@Webuyandcook<folajimiopeyemisax13@gmail.com>`
+  transporter.use('compile', htmlToText());
+  var emailOptions = {
+    from: from,
+    to: customer.email,
+    cc: 'chrisentechnology@yahoo.com',
+    subject: 'Order Delivered',
+    html: `Thanks ${customer.fname} ${customer.lname} for your patronage<br>
+    <br>Here are your Order details:<br>
+    Order:${updatedOrder.name}<br>
+    Total Price:${updatedOrder.totalPrice}<br>
+    OrderId: ${updatedOrder._id}<br>
+    Status: Delivered
+    <br><br> We appreciate and celebrate you. Please do come back again and also don.t forget to recommend us`,
+     
+  };
+  transporter.sendMail(emailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+      res.redirect('/');
+    } 
+  });
+  })
+  })
+    res.redirect('/user/admin')
+ })
+})
 
 router.get('/reject/:id', function (req, res) {
   orderId = req.params.id;
@@ -275,9 +414,9 @@ router.post('/signin', passport.authenticate('local.signin', {
   failureFlash: true,
 }), function (req, res, next) {
   if (req.session.oldUrl) {
-    res.redirect(req.session.oldUrl);
+    res.redirect('/user/profile');
   } else {
-    res.redirect('/')
+    res.redirect('/user/profile')
   }
 });
 
@@ -421,8 +560,6 @@ router.post('/reset/:token', function (req, res) {
   }
   );
 });
-
-
 
 
 

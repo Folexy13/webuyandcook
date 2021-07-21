@@ -153,8 +153,8 @@
                     </li>
         
                     <li>
-                        <a href="/user/notifications" class="notification">
-                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span class="badg">3</span></i></span>
+                        <a href="#" class="notification">
+                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span class="badg">0</span></i></span>
                             <span class="title">Notifications</span>
                         </a>
                     </li>
@@ -222,6 +222,9 @@
                             {{/this}}
                             {{/each}}
                         </table>
+                        <button style="background-color: blue;padding:8px;border-radius:8px;margin-top:10px">
+                            <a href="/" style="text-decoration: none;color:white">Go Home</a>
+                        </button>
                         </div>
                             {{else}}
                             <h2 style="text-align: center;">My Orders</h2>
@@ -247,6 +250,9 @@
                                     <button class="btn"><a style="text-decoration: none;color:white" href="/#order">Order Now</a></button>
                                 </tbody>
                         </table>
+                        <button style="background-color: blue;padding:8px;border-radius:8px;margin-top:10px">
+                            <a href="/" style="text-decoration: none;color:white">Go Home</a>
+                        </button>
                             </div>
                         
                       {{/if}}
@@ -257,9 +263,9 @@
                         <div class="cardHeader" style="margin-left:20%;margin-bottom: 10%;">
                             <h2 >My Details</h2>
                         </div>
-                        <table >
+                        <table style="border: none !important;">
                             <tr style="margin-bottom: 10% !important;">
-                                <td width="60px" class="user"><a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a></td>
+                                <td width="60px" class="imgBx "><a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a></td>
                                 <td>
                                     <input type="text" value="{{firstName}} {{lastName}}" readonly> <span >
                                     <button><a href="/user/profile/settings" style="text-decoration: none;">Change</a></button></span>

@@ -47,8 +47,8 @@
                     </li>
 
                     <li>
-                        <a href="/user/notifications" class="notification">
-                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span class="badg">3</span></i></span>
+                        <a href="#" class="notification">
+                            <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span class="badg">0</span></i></span>
                             <span class="title">Notifications</span>
                         </a>
                     </li>
@@ -112,7 +112,17 @@
                             <input type="password" id="cpassword"  autocomplete="new-password">
                             <p id="text2"></p>
                         </fieldset>
-                        <button id="submit" type="submit">Save Changes</button>
+                        <button id="submit" type="submit" style="cursor: pointer;">Save Changes</button>
+                        <fieldset>
+                            <legend><span class="number">2</span>Educational Info</legend>
+                            <label for="name">School:</label>
+                            <input type="text"  name="school" value="{{school}}">
+                            <label for="name">Department:</label>
+                            <input type="text"  name="department" value="{{department}} ">
+                            <label for="name">Level:</label>
+                            <input type="text"  name="level" value="{{level}}">
+                        </fieldset>
+                        <button id="submit" type="submit" style="cursor: pointer;">Save Changes</button>
                     </form>
                     </div>
                     <div class="recentCustomers" style="margin-top: 5%;">

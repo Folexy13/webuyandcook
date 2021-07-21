@@ -10,7 +10,7 @@ var schema = new Schema([{
     paymentStatus: { type: String, required: true },
     status: { type: String },
     day:{ type: String},
-    quantity:[{ type: String}]
+    quantity:[{ type: String}],
 }])
 
 

@@ -143,7 +143,7 @@ float: right;
                 <li class="active">
                     <a href="#" class="notification">
                         <span class="icon"><i class="fa fa-bell" aria-hidden="true"><span
-                                    class="badg">3</span></i></span>
+                                    class="badg">{{count}}</span></i></span>
                         <span class="title">Notifications</span>
                     </a>
                 </li>
@@ -182,17 +182,61 @@ float: right;
                 <div class="recentOrders" style="margin-top: 3%;margin-left:1rem auto;">
                     <h2 style="text-align: center;text-align: center;margin-top: 1%;margin-bottom:3%;font-weight:bolder;color:red!important"><u>Notifications</u></h2>
                     <div class="order">
-                    {{#if  Ordernotifications}}
-                    {{#each Ordernotifications}}
+                {{#if notifications}}
+                    {{#if  notifications}}
+                    {{#each notifications}}
                         <div class="row note">
-                            <small style="padding-right: 20px;">Your Order {{this._id}} has been recieved and  is in progress and await approval.
+                            <small style="padding-right: 20px;">Your Order {{this._id}} has been recieved and  is in waiting for admin approval.
                             <span class="button"><a href="/user/delete/notifications">Delete</a></span></small>
-                            {{/each}}
                         </div>
+                        {{/each}}
                         {{else}}
-                        No new notifications
+                       
                     {{/if}}
+
+                    {{#if orderApproved}}
+                    {{#each notifications}}
+                    <div class="row note">
+                        <small style="padding-right: 20px;">Your Order {{this._id}} has been approved and your order is being prepared.
+                            <span class="button"><a href="/user/delete/notifications">Delete</a></span></small>
                     </div>
+                    {{/each}}
+                    {{else}}
+                    {{/if}}
+                    
+                    {{#if orderCancelled}}
+                    {{#each notifications}}
+                    <div class="row note">
+                        <small style="padding-right: 20px;">Sorry Your Order {{this._id}}has been cancelled. If any Problem call/messsage Admin @+2348023173804
+                            <span class="button"><a href="/user/delete/notifications">Delete</a></span></small>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    {{/if}}
+                    
+                    {{#if orderDelivered}}
+                    {{#each notifications}}
+                    <div class="row note">
+                        <small style="padding-right: 20px;">Your Order {{this._id}} has been delivered. Thank you for your Patronage
+                            <span class="button"><a href="/user/delete/notifications">Delete</a></span></small>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    {{/if}}
+                    
+                    {{#if adminMessage}}
+                    <div class="row note">
+                        <small style="padding-right: 20px;">{{message}}</small>
+                        <span class="button"><a href="/user/delete/notifications">Delete</a></span></small>
+                    </div>
+                    {{else}}
+                    {{/if}}
+                    {{else}}
+                    <div class="row note">
+                        <small style="padding-right: 20px;">No new notifications</small>
+                    </div>
+                    </div>
+                {{/if}}
                 </div>
             </div>
             <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #010; margin:0">

@@ -209,7 +209,10 @@ router.post('/order-checkout',isLoggedin, function (req, res, next) {
   res.redirect('/user/profile');
 });
 
-router.post('/order', function (req, res, next) {
+router.get('/order', isLoggedin, function (req, res, next) {
+  res.redirect('/')
+})
+router.post('/order',isLoggedin, function (req, res, next) {
   var name = req.body.fName,
     phone = req.body.phone,
     address = req.body.address,
@@ -217,8 +220,21 @@ router.post('/order', function (req, res, next) {
     date = req.body.date,
     time = req.body.time,
     menu = req.body.menu,
-    email = req.body.email
-  
+    email = req.body.email,
+    day = convertTZ(date, "Africa/Lagos");
+  var order = new Order({
+    user : req.user,
+    paymentStatus: "Bank Transfer",
+    status: "pending",
+    day: day,
+    name: menu + '(special order)',
+    price: 'not set',
+    totalPrice: 'not set',
+    quantity: 'NaN',
+  })
+  order.save(function (err, result) {
+    if (err) console.log(err)
+  })
   var transporter = nodemailer.createTransport({
     service: "GMAIL",
     port: 465,
@@ -311,14 +327,17 @@ router.post('/change-picture', isLoggedin, function (req, res, next) {
 });
 
 router.post('/update-user', isLoggedin, function (req, res, next) {
-  var user = req.user, mname = req.body.mname, fname = req.body.fname, lname = req.body.lname, phone = req.body.phone, address = req.body.address, password = req.body.password
-  var checkMname = mname === '', checkFname = fname === '', checkLname = lname === '', checkPhone = phone === '', checkAddress = address === '', checkPassword = password === ''
+  var user = req.user, mname = req.body.mname, fname = req.body.fname, lname = req.body.lname, phone = req.body.phone, address = req.body.address, password = req.body.password, school = req.body.school, level= req.body.level, department = req.body.department
+  var checkMname = mname === '', checkFname = fname === '', checkLname = lname === '', checkPhone = phone === '', checkAddress = address === '', checkPassword = password === '', checkSchool= school === ' ', checkDepartment =department === " ", checkLevel =level === " "
   User.findByIdAndUpdate({ _id: user._id },
     {
     mname: checkMname ? user.mname : mname,
     fname: checkFname ? user.fname : fname,
     lname: checkLname ? user.lname : lname,
     phone: checkPhone ? user.phone : phone,
+    school: checkSchool ? user.school : school,
+    department: checkDepartment? user.department : department,
+    level: checkLevel ? user.level : level,
     address: checkAddress ? user.address : address,
     password: checkPassword ? user.password : user.encryptPassword(password)},
     { upsert: true }, function (err, user) {

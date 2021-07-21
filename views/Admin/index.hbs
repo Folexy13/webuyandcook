@@ -10,8 +10,8 @@
     <link rel="shortcut icon" href="/images/menalogo.png" type="image/x-icon" />
 
 </head>
-<body>
-    <div class="container">
+<body onload="return checkStatus()">
+    <div class="container" >
         <div class="navigation" style="background-color: #002;">
             <ul>
                 <li>
@@ -37,7 +37,7 @@
     
     
                 <li>
-                    <a href="/user/profile/settings">
+                    <a href="#">
                         <span class="icon"><i class="fa fa-cogs" aria-hidden="true"></i></span>
                         <span class="title">Settings </span>
                     </a>
@@ -72,7 +72,7 @@
                     {{#if order}}
                     <div class="cardHeader">
                         <h2>Recent Orders</h2>
-                        <a href="/user/profile/view-all" class="btn">View all</a>
+                        <a href="{{linkOrder}}" class="btn">{{displayOrder}}</a>
                     </div>
                     
                     <table border="2">
@@ -101,10 +101,18 @@
                                 <td><span id="status" class="status {{change}}">{{status}}</span></td>
                                 <td>
                                     <span id="confirm" class="hide">
-                                        <button id="accept" type="submit" class="accept"><a style="color: white;text-decoration:none"  href="#">Confirm Delivery</a></button>
+                                        <button id="accept" type="submit" class="accept"><a style="color: white;text-decoration:none"  href="/user/confirm/{{_id}}">Confirm Delivery</a></button>
+                                    </span>
+                                    <span id="done" class="hide">
+                                        <button  type="submit" class="accept" style="background-color: gray;cursor:pointer" disabled="true"><a style="color: white;text-decoration:none"
+                                     >Order Delivered</a></button>
+                                    </span>
+                                    <span id="rejected" class="hide">
+                                        <button  type="submit" class="accept" style="background-color: #200;cursor:pointer" disabled="true"><a style="color: white;text-decoration:none"
+                                     >Order Cancelled</a></button>
                                     </span>
                                     <span id="decide" class="decide">
-                                        <button id="accept" type="submit" class="accept"><a href="/user/accept/{{_id}}">Accept</a></button>
+                                        <button id="accept" onclick="return checkStatus()"  type="submit" class="accept"><a href="/user/accept/{{_id}}">Accept</a></button>
                                         <button type="submit" class="reject"><a href="/user/reject/{{_id}}">Reject</a></button>
                                     </span>
                                 </td>
@@ -145,7 +153,7 @@
                 <div class="recentCustomers" style="margin-top: 10px;">
                     <div class="cardHeader">
                         <h2>Recent Customers</h2>
-                        <a href="#" class="btn">View all</a>
+                        <a href="{{linkCustomer}}" class="btn">{{displayCustomer}}</a>
                     </div>
                     <table>
                         <thead>
@@ -197,8 +205,8 @@
 
             {{/if}}
             </div>
-            <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #002;">
-                <div style="color: white;">&copy;2021 WebuyNCook.All Rights reserved</div>
+            <div class="topbar" style="bottom: 0 !important;position:fixed;background-color: #002;left:0;">
+                <div style="color: white;margin-left:20%">&copy;2021 WebuyNCook.All Rights reserved</div>
             </div>
     
     
@@ -214,20 +222,35 @@
                 let main = document.querySelector('.main');
                 main.classList.toggle('active');
             }
-            /**
-            function checkStatus(){
-                var stat = document.getElementById('status').innerHTML
-                var decide = document.getElementById('decide')
-                var confirm = document.getElementById('confirm')
-                if(stat = "In Progress"){
-                    decide.classList.remove('decide')
-                    decide.classList.add('hide')
-                    confirm.classList.remove('hide')
-                    confirm.classList.add(confirm)
-                }
             
+            function checkStatus(){
+                var stat = document.querySelectorAll('#status')
+                var decide = document.querySelectorAll('#decide')
+                var confirm = document.querySelectorAll('#confirm')
+                var done = document.querySelectorAll('#done')
+                var rejected= document.querySelectorAll('#rejected')
+                var accept = document.querySelectorAll('#accept')
+                var reject = document.querySelectorAll('#reject')
+                
+                for (var i =0; i< stat.length;i++){
+                    if(stat[i].innerText == "Ongoing"){
+                    decide[i].classList.remove('decide')
+                    decide[i].classList.add('hide')
+                    confirm[i].classList.remove('hide')
+                    confirm[i].classList.add('confirm')
+                    }else if(stat[i].innerText == "Delivered"){
+                        decide[i].classList.remove('decide')
+                        decide[i].classList.add('hide')
+                        done[i].classList.remove('hide')
+                    }else if(stat[i].innerText == "Cancelled"){
+                        decide[i].classList.remove('decide')
+                        decide[i].classList.add('hide')
+                        rejected[i].classList.remove('hide')
+                    }
+                    }
+                    
             }
-            **/
+            
         </script>
 
     
