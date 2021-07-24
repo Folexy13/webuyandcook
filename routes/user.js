@@ -29,7 +29,9 @@ await Order.find({ user: req.user }, function (err, result) {
     var password = req.user.password.slice(0, 14);
   var email = req.user.email
   res.render('user/profile', {
+    displayOrder: "View All",
     title: 'My Profile',
+    Link: '/user/profile/view-all',
     userImage: userImage,
     email: email,
     firstName: firstName,
@@ -55,7 +57,9 @@ router.get('/profile/view-all', isLoggedin, async function (req, res, next) {
     var lastName =req.user.lname;
     var password = req.user.password.slice(0, 14);
     var email = req.user.email
-  res.render('user/profile', {
+    res.render('user/profile', {
+    displayOrder: "Show Less",
+    Link: '/user/profile',
     title: 'My Profile',
     userImage: userImage,
     email: email,

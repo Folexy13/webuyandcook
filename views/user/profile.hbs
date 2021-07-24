@@ -195,7 +195,7 @@
                           
                         <div class="cardHeader">
                             <h2>Recent Orders</h2>
-                            <a href="/user/profile/view-all" class="btn">View all</a>
+                            <a href="{{Link}}" class="btn">{{displayOrder}}</a>
                         </div>
                         <div id="flip-scroll">
                         <table border="1" id="table">
@@ -265,14 +265,14 @@
                         </div>
                         <table style="border: none !important;">
                             <tr style="margin-bottom: 10% !important;">
-                                <td width="60px" class="imgBx "><a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a></td>
+                                <td  class="imgBx "><a target="_blank" href="{{userImage}}"><img src={{userImage}} alt="no-image"></a></td>
                                 <td>
                                     <input type="text" value="{{firstName}} {{lastName}}" readonly> <span >
                                     <button><a href="/user/profile/settings" style="text-decoration: none;">Change</a></button></span>
                                 </td>
                             </tr style="margin-bottom: 10% !important;">
                             <tr>
-                                <td width="60px" class="imgBx"><i class="fa fa-unlock-alt" aria-hidden="true"></i></td>
+                                <td  class="imgBx"><i class="fa fa-unlock-alt" aria-hidden="true"></i></td>
                                 <td>
                                     <input type="password" value="{{password}}" style="width: 50%;"  readonly><span ><button><a style="text-decoration: none;" href="/user/profile/settings">Change</a></button></span>
                                 </td>

@@ -172,6 +172,10 @@
     .panel-body p strong {
         font-size: 28px;
     }
+    ol {
+     text-overflow: ellipsis;
+     margin-left: 30px;
+}
 }
 
 @media (max-width: 1000px) {
@@ -206,6 +210,9 @@
 @media (max-width: 768px) {
     .gal-container .modal-content {
         height: 250px;
+    }
+    .forma{
+        width: 100%;
     }
 }
 
@@ -371,5 +378,16 @@
     }
     .offer-item div h3 {
         font-size: 16px;
+    }
+    
+}
+@media(max-width:600px){
+    .about-main{
+        width: 400px;
+        height: 400px;
+    }
+    .about-inset{
+        width: 200px;
+        height: 200px;
     }
 }
