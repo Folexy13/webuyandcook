@@ -418,7 +418,7 @@ let seconds = date_ob.getSeconds();
 var day = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
 
 function convertTZ(date, tzString) {
-    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-NG", {timeZone: tzString}));   
 }
 var convertedDate = convertTZ(day, "Africa/Lagos")
 
