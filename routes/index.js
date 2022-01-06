@@ -15,8 +15,6 @@ var FRmenu = require('../models/frMenu');
 
 
 
-
-
 router.get('/', function (req, res, next) {
     var successMsg = req.flash('success');
     var sMenuChunks = [];

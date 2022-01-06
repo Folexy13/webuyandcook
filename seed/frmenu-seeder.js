@@ -1,8 +1,9 @@
-var Fmenu = require('../models/frmenu');
+require('dotenv').config()
+var Fmenu = require('../models/frMenu');
 
 var mongoose = require('mongoose');
 
-var connection__url = "mongodb+srv://folajimi:wecookandbuy@dashboard.nnwnr.mongodb.net/webuyncook?retryWrites=true&w=majority";
+var connection__url = process.env.MONGO_URI
 
 mongoose.connect(connection__url, {
     useNewUrlParser: true,
